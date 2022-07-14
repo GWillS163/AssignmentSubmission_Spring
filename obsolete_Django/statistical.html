@@ -1,0 +1,159 @@
+
+{% extends 'base.html' %}
+{% block title %}查看提交情况汇总{% endblock %}
+
+{% block body %}
+    <table border="0" align="1">
+{#    表格标题#}
+
+        <tr>
+            <td>学生</td>
+            {% for ass in assign %}
+                <td>{{ ass }}</td>
+            {% endfor %}
+        </tr>
+{#    表格内容#}
+        {% for datum in stu %}
+        <tr>
+            <td>{{ datum.name }}</td>
+            {% for file in datum.files %}
+                <td>{% if file %}
+{#                    {{ file }}#}
+                        已提交
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+    </table>
+    <br>
+<h2>匿名文件</h2>
+<h2>已归类文件</h2>
+<h2>个人文件管理</h2>
+{% if loginStatus %}
+    已登录
+    {% else %}
+    未登录
+{% endif %}
+
+<table border="0">
+    <tr>
+        <td> </td>
+        {% for ass in assign %}
+            <td>{{ ass }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>测试用户名</td>
+        {% for ass in assign %}
+            <td>-</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>提交时间</td>
+        {% for ass in assign %}
+            <td>-</td>
+        {% endfor %}
+    </tr>
+    <tr>
+    <td>提交</td>
+    {% for ass in assign %}
+        <td>
+        <button type="button" name="submit">提交新文件</button>
+        </td>
+    {% endfor %}
+</tr>
+</table>
+{% endblock %}
+{#<div id="app">#}
+{#    <template>#}
+{#      <el-table :data="tableData"#}
+{#        border style="width: 100%"#}
+{#      >#}
+{#        <el-table-column label="学生">#}
+{#            <template slot-scope="data">#}
+{#                {{data.row.stuName}}#}
+{##}
+{#            </template>#}
+{#        </el-table-column>#}
+{#        <el-table-column#}
+{#          width="100px"#}
+{#          prop="submitDate"#}
+{#          label="最近提交日期"#}
+{#          width="180">#}
+{#        </el-table-column>#}
+{#         <template  v-for="(course,i) in courseList">#}
+{#            <el-table-column#}
+{#                    sortable#}
+{#                    :show-overflow-tooltip="true"#}
+{#                    :prop="course.courseID"#}
+{#                    :label="course.courseName"#}
+{#                    :key="course.courseID"#}
+{#                      width="180">#}
+{#<!--                    <div v-if=" key== true">真的提交-->#}
+{#<!--                        <el-button-group>-->#}
+{#<!--                          <el-button icon="el-icon-download" size="mini" type="warning"></el-button>-->#}
+{#<!--                          <el-button icon="el-icon-delete" size="mini"  type="danger mini"></el-button>-->#}
+{#<!--                        </el-button-group>-->#}
+{#<!--                    </div>-->#}
+{#            </el-table-column>#}
+{#         </template>#}
+{##}
+{#        <el-table-column#}
+{#          prop=""#}
+{#          label="操作">#}
+{#        </el-table-column>#}
+{#      </el-table>#}
+{#    </template>#}
+{##}
+{##}
+{##}
+{#</div>#}
+
+
+{# <script src="../../static/vue.js"></script>#}
+{#  <!-- 引入组件库 -->#}
+{#<script src="../../static/index.js"></script>#}
+{#<script>#}
+{#    const app = new Vue({#}
+{#        el:"#app",#}
+{#        data:function(){#}
+{#            return {#}
+{#                courseList:[{#}
+{#                        courseID:"softwareIntrodution1",#}
+{#                        courseName:"软件工程导论1"},#}
+{#                    {#}
+{#                        courseID:"softwareIntrodution2",#}
+{#                        courseName:"软件工程导论2"},#}
+{#                    {#}
+{#                        courseID:"Java8",#}
+{#                        courseName:"Java8"#}
+{#                    }#}
+{#                ],#}
+{#                tableData:[{#}
+{#                            "stuName": "杜桑",#}
+{#                            // "courseList":{#}
+{#                                "softwareIntrodution1":true,#}
+{#                                "softwareIntrodution2":"已提交",#}
+{#                                 // }#}
+{#                        },{#}
+{#                            "stuName": "丽桑",#}
+{#                            // "courseList": {#}
+{#                                "softwareIntrodution1": "已提交",#}
+{#                                "softwareIntrodution2": false,#}
+{#                                "Java8": "已提交",#}
+{#                            // }#}
+{#                }#}
+{#                ],#}
+{#            }#}
+{#        },#}
+{#        methods:{#}
+{##}
+{#        }#}
+{#    })#}
+{#</script>#}
+</body>
+</html>
