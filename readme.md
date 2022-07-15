@@ -24,9 +24,26 @@
 - Git Tools
 
   Tower & Gitkraken
-    ![img.png](readme_md_files/gitgranken.png)
+- ![img.png](readme_md_files/gitgranken.png)
 - Code review & Test
     GitGuardian
     MurphySec
 
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="//music.163.com/outchain/player?type=1&id=121002821&auto=1&height=430"></iframe>
+## UI测试 (UI testing)
+- CodeLint
+- ![img.png](readme_md_files/ploypane.png)
+
+## TODO:
+- [ ] 管理- [ ] 员发布文件规则，用户提交文件.不合规则名禁止提交。
+- [ ] 按文件名归类
+- [ ] 提前上交作业
+- [ ] 一个登录用户指定规则名上传，其他用户可看到此规则‘由<张三>在2022年1月7日 12点59分 创建’）
+### 前端功能
+- [ ] js自动校验上传文件名，改名。
+- [ ] 可查看已提交名单
+- 根据规则，自动更名并提供下载
+### 通知服务
+  前置条件： 学校邮箱设置好
+  >【通知】<xxx>老师下载了<xxx>所有作业文件，
+  正在被查看。
+  【警告】
