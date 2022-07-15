@@ -1,3 +1,10 @@
+# 作业提交系统 介绍
+### UML图设计与工具
+### 技术栈涉及
+### 代码管理与工具
+### 代码测试与工具
+### 迭代的历史版本（其他仓库的其他语言与平台的版本）
+
 # The designed file structure for the project is as follows:
 > Note: The following is not the latest version of the file structure.
 
@@ -24,7 +31,7 @@
 - Git Tools
 
   Tower & Gitkraken
-- ![img.png](readme_md_files/gitgranken.png)
+    ![img.png](readme_md_files/gitgranken.png)
 - Code review & Test
     GitGuardian
     MurphySec
