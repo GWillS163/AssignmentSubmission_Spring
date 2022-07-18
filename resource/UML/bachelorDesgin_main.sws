@@ -12,21 +12,18 @@
 			<Model Expanded="Yes" ID="{26BB23FD-70A0-4E89-B831-37F87E64C2EC}" Loaded="No" Name="处理流程图" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="/Project/AssignmentSubmission_Java_Edition/resource/UML_Design/处理流程图.oom"/>
 		</Folder>
 		<Folder Expanded="Yes" Name="Web Edition">
-			<Document Name="Workspace:  bachelorDesgin_main.sws" URL="bachelorDesgin_main.sws"/>
-			<Model ID="{E0E8F0B0-C263-44AC-9927-92F97652FA2E}" Loaded="No" Name="db_Conceptual Data" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="db_Conceptual Data.cdm"/>
-			<Model Expanded="Yes" ID="{6AAEDFB1-666B-428F-9AAE-94A3A75D684A}" Loaded="No" Name="ObjectOrientedModel_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="ObjectOrientedModel_1.oob"/>
-			<Model Expanded="Yes" ID="{4FE33CC7-597E-400C-ADFA-087257D4544D}" Loaded="No" Name="Physical Data _1" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Physical Data _6.8.pdb"/>
-			<Model Expanded="Yes" ID="{69CBC058-6041-4D08-A773-73611F0ADD5A}" Loaded="No" Name="Use Cases Defintiion_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Use Cases Defintiion_6.8.oom"/>
+			<Model ID="{69CBC058-6041-4D08-A773-73611F0ADD5A}" Name="Use Cases" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Use Cases Defintiion_6.8.oom"/>
+			<Model Expanded="Yes" ID="{E0E8F0B0-C263-44AC-9927-92F97652FA2E}" Name="ER" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="db_Conceptual Data.cdm"/>
+			<Model Expanded="Yes" ID="{4FE33CC7-597E-400C-ADFA-087257D4544D}" Name="DB" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Physical Data _6.8.pdb"/>
+			<Model Expanded="Yes" ID="{6AAEDFB1-666B-428F-9AAE-94A3A75D684A}" Name="ObjectOrientedModel_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="ObjectOrientedModel_1.oob"/>
 		</Folder>
-		<Folder Expanded="Yes" Name="Reference_Week16">
+		<Folder Name="Reference_Week16">
 			<Folder Name="config"/>
 			<Folder Name="controller"/>
 			<Model Expanded="Yes" ID="{546F5639-D2AD-4B71-B0BB-65A42C91B6D9}" Loaded="No" Name="pojo" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="reference/pojo.pdm"/>
 			<Model Expanded="Yes" ID="{06ABF985-FAFA-483A-A3E3-73FFD8BA25EB}" Loaded="No" Name="service" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="reference/service.oom"/>
 			<Model Expanded="Yes" ID="{2E9AAE5B-C44A-47E2-BFFB-56A8A2ED8C86}" Loaded="No" Name="Mapper" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="reference/Mapper.oom"/>
 		</Folder>
-		<Model Expanded="Yes" ID="{D1E80F89-0CCE-436E-9624-4C8096E4C56F}" Loaded="No" Name="MongoDB_Altas" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="/Project/AssignmentSubmission_Java_Edition/resource/UML_Design/MongoDB_Altas.pdm"/>
-		<Model Expanded="Yes" ID="{D1E80F89-0CCE-436E-9624-4C8096E4C56F}" Name="MongoDB_Altas" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="/Project/AssignmentSubmission_Java_Edition/resource/UML_Design/MongoDB_Altas.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
