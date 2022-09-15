@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mengjq.assignmentsubmission_spring.mapper.AssignmentMapper">
+  <resultMap id="BaseResultMap" type="com.mengjq.assignmentsubmission_spring.model.Assignment">
+    <id column="assiId" jdbcType="INTEGER" property="assiid" />
+    <result column="curriId" jdbcType="INTEGER" property="curriid" />
+    <result column="ddl" jdbcType="TIMESTAMP" property="ddl" />
+    <result column="permitAnymous" jdbcType="TINYINT" property="permitanymous" />
+    <result column="fileNameVerify" jdbcType="TINYINT" property="filenameverify" />
+    <result column="updatedTime" jdbcType="TIMESTAMP" property="updatedtime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mengjq.assignmentsubmission_spring.model.AssignmentWithBLOBs">
+    <result column="userId" jdbcType="LONGVARCHAR" property="userid" />
+    <result column="brifeName" jdbcType="LONGVARCHAR" property="brifename" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="fileNameRule" jdbcType="LONGVARCHAR" property="filenamerule" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    assiId, curriId, ddl, permitAnymous, fileNameVerify, updatedTime
+  </sql>
+  <sql id="Blob_Column_List">
+    userId, brifeName, description, fileNameRule
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mengjq.assignmentsubmission_spring.model.AssignmentExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from assignment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.mengjq.assignmentsubmission_spring.model.AssignmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from assignment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from assignment
+    where assiId = #{assiid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from assignment
+    where assiId = #{assiid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mengjq.assignmentsubmission_spring.model.AssignmentExample">
+    delete from assignment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mengjq.assignmentsubmission_spring.model.AssignmentWithBLOBs">
+    insert into assignment (assiId, curriId, ddl, 
+      permitAnymous, fileNameVerify, updatedTime, 
+      userId, brifeName, description, 
+      fileNameRule)
+    values (#{assiid,jdbcType=INTEGER}, #{curriid,jdbcType=INTEGER}, #{ddl,jdbcType=TIMESTAMP}, 
+      #{permitanymous,jdbcType=TINYINT}, #{filenameverify,jdbcType=TINYINT}, #{updatedtime,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=LONGVARCHAR}, #{brifename,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}, 
+      #{filenamerule,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mengjq.assignmentsubmission_spring.model.AssignmentWithBLOBs">
+    insert into assignment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="assiid != null">
+        assiId,
+      </if>
+      <if test="curriid != null">
+        curriId,
+      </if>
+      <if test="ddl != null">
+        ddl,
+      </if>
+      <if test="permitanymous != null">
+        permitAnymous,
+      </if>
+      <if test="filenameverify != null">
+        fileNameVerify,
+      </if>
+      <if test="updatedtime != null">
+        updatedTime,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="brifename != null">
+        brifeName,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="filenamerule != null">
+        fileNameRule,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="assiid != null">
+        #{assiid,jdbcType=INTEGER},
+      </if>
+      <if test="curriid != null">
+        #{curriid,jdbcType=INTEGER},
+      </if>
+      <if test="ddl != null">
+        #{ddl,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permitanymous != null">
+        #{permitanymous,jdbcType=TINYINT},
+      </if>
+      <if test="filenameverify != null">
+        #{filenameverify,jdbcType=TINYINT},
+      </if>
+      <if test="updatedtime != null">
+        #{updatedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="brifename != null">
+        #{brifename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="filenamerule != null">
+        #{filenamerule,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mengjq.assignmentsubmission_spring.model.AssignmentExample" resultType="java.lang.Long">
+    select count(*) from assignment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update assignment
+    <set>
+      <if test="record.assiid != null">
+        assiId = #{record.assiid,jdbcType=INTEGER},
+      </if>
+      <if test="record.curriid != null">
+        curriId = #{record.curriid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ddl != null">
+        ddl = #{record.ddl,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.permitanymous != null">
+        permitAnymous = #{record.permitanymous,jdbcType=TINYINT},
+      </if>
+      <if test="record.filenameverify != null">
+        fileNameVerify = #{record.filenameverify,jdbcType=TINYINT},
+      </if>
+      <if test="record.updatedtime != null">
+        updatedTime = #{record.updatedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.brifename != null">
+        brifeName = #{record.brifename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.filenamerule != null">
+        fileNameRule = #{record.filenamerule,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update assignment
+    set assiId = #{record.assiid,jdbcType=INTEGER},
+      curriId = #{record.curriid,jdbcType=INTEGER},
+      ddl = #{record.ddl,jdbcType=TIMESTAMP},
+      permitAnymous = #{record.permitanymous,jdbcType=TINYINT},
+      fileNameVerify = #{record.filenameverify,jdbcType=TINYINT},
+      updatedTime = #{record.updatedtime,jdbcType=TIMESTAMP},
+      userId = #{record.userid,jdbcType=LONGVARCHAR},
+      brifeName = #{record.brifename,jdbcType=LONGVARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      fileNameRule = #{record.filenamerule,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update assignment
+    set assiId = #{record.assiid,jdbcType=INTEGER},
+      curriId = #{record.curriid,jdbcType=INTEGER},
+      ddl = #{record.ddl,jdbcType=TIMESTAMP},
+      permitAnymous = #{record.permitanymous,jdbcType=TINYINT},
+      fileNameVerify = #{record.filenameverify,jdbcType=TINYINT},
+      updatedTime = #{record.updatedtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mengjq.assignmentsubmission_spring.model.AssignmentWithBLOBs">
+    update assignment
+    <set>
+      <if test="curriid != null">
+        curriId = #{curriid,jdbcType=INTEGER},
+      </if>
+      <if test="ddl != null">
+        ddl = #{ddl,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permitanymous != null">
+        permitAnymous = #{permitanymous,jdbcType=TINYINT},
+      </if>
+      <if test="filenameverify != null">
+        fileNameVerify = #{filenameverify,jdbcType=TINYINT},
+      </if>
+      <if test="updatedtime != null">
+        updatedTime = #{updatedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="brifename != null">
+        brifeName = #{brifename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="filenamerule != null">
+        fileNameRule = #{filenamerule,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where assiId = #{assiid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mengjq.assignmentsubmission_spring.model.AssignmentWithBLOBs">
+    update assignment
+    set curriId = #{curriid,jdbcType=INTEGER},
+      ddl = #{ddl,jdbcType=TIMESTAMP},
+      permitAnymous = #{permitanymous,jdbcType=TINYINT},
+      fileNameVerify = #{filenameverify,jdbcType=TINYINT},
+      updatedTime = #{updatedtime,jdbcType=TIMESTAMP},
+      userId = #{userid,jdbcType=LONGVARCHAR},
+      brifeName = #{brifename,jdbcType=LONGVARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR},
+      fileNameRule = #{filenamerule,jdbcType=LONGVARCHAR}
+    where assiId = #{assiid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mengjq.assignmentsubmission_spring.model.Assignment">
+    update assignment
+    set curriId = #{curriid,jdbcType=INTEGER},
+      ddl = #{ddl,jdbcType=TIMESTAMP},
+      permitAnymous = #{permitanymous,jdbcType=TINYINT},
+      fileNameVerify = #{filenameverify,jdbcType=TINYINT},
+      updatedTime = #{updatedtime,jdbcType=TIMESTAMP}
+    where assiId = #{assiid,jdbcType=INTEGER}
+  </update>
+</mapper>
