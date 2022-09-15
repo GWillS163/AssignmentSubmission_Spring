@@ -77,7 +77,7 @@
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
                 <hr class="sidebar-divider my-0">
-                <ul class="navbar-nav text-light" id="accordionSidebar">
+                <ul class="navbar-nav text-light" id="accordionSidebar2">
                     <li class="nav-item"></li>
                 </ul>
             </div>
@@ -249,6 +249,7 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    <script src="https://unpkg.com/vue@next"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.js"></script>
@@ -258,6 +259,20 @@
     <script src="assets/js/Ludens---1-Index-Table-with-Search--Sort-Filters-v20-1.js"></script>
     <script src="assets/js/Ludens---1-Index-Table-with-Search--Sort-Filters-v20.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script>
+        var app = Vue.createApp({
+            data() {
+                return {
+                    name: 'table'
+                }
+
+            },
+            methods(){},
+            computed:{}
+
+        })
+        app.mount('#app')
+    </script>
 </body>
 
 </html>
