@@ -1,5 +1,5 @@
 {
-  "student": [
+  "students": [
     { "id": 1,
       "userId": "19852331",
       "clazzId": 1909,
@@ -13,7 +13,7 @@
     { "id": 2,
       "userId": "19852333",
       "clazzId": 1909,
-      "userName": "赵云龙",
+      "userName": "赵云龙2",
       "registeTime": "2022-6-15 10:14:53",
       "lastLoginTime": "2022-6-25 10:13:43",
       "mail": "19852333@czjtu.edu.com",

@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/theme.bootstrap_4.min.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
     <link rel="stylesheet" href="assets/css/Ludens---1-Index-Table-with-Search--Sort-Filters-v20.css">
 </head>
 
@@ -211,29 +211,17 @@
                                                 <th class="text-center filter-false sorter-false">操作</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="text-center">
-                                            <tr>
-                                                <td style="width: 168.7344px;">孟骏清</td>
-                                                <td>19852331</td>
-                                                <td style="width: 119.6953px;">1909班</td>
-                                                <td>1274667113</td>
-                                                <td style="width: 118.484px;">gwills@qq.com</td>
-                                                <td>18801002716</td>
-                                                <td>2022-7-15 10:13:43</td>
-                                                <td style="width: 333.7656px;">2022-7-15 10:14:53</td>
-                                                <td class="text-center align-middle" style="max-height: 60px;height: 60px;width: 748.25px;"><a class="btn btnMaterial btn-flat primary semicircle" role="button" href="#"><i class="far fa-eye"></i></a><a class="btn btnMaterial btn-flat success semicircle" role="button" href="#"><i class="fas fa-pen"></i></a><a class="btn btnMaterial btn-flat accent btnNoBorders checkboxHover" role="button" style="margin-left: 5px;" data-bs-toggle="modal" data-bs-target="#delete-modal" href="#"><i class="fas fa-trash btnNoBorders" style="color: #DC3545;"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>赵云龙</td>
-                                                <td>19852333</td>
-                                                <td>1909班</td>
-                                                <td>280324329</td>
-                                                <td>19852331@czjtu.edu.cn</td>
-                                                <td>19901002839</td>
-                                                <td>2022-7-15 10:15:58</td>
-                                                <td>2022-7-15 10:16:00</td>
+                                        <tbody class="text-center" v-for="stu in students">
+                                                <td>{{stu.userName}}</td>
+                                                <td>{{stu.userId}}</td>
+                                                <td>{{stu.clazzId}}</td>
+                                                <td>{{stu.qq}}</td>
+                                                <td>{{stu.mail}}</td>
+                                                <td>{{stu.phone}}</td>
+                                                <td>{{stu.registeTime}}</td>
+                                                <td>{{stu.lastLoginTime}}</td>
                                                 <td class="text-center align-middle" style="max-height: 60px;height: 60px;"><a class="btn btnMaterial btn-flat primary semicircle" role="button" href="#"><i class="far fa-eye"></i></a><a class="btn btnMaterial btn-flat success semicircle" role="button" href="#"><i class="fas fa-pen"></i></a><a class="btn btnMaterial btn-flat accent btnNoBorders checkboxHover" role="button" style="margin-left: 5px;" data-bs-toggle="modal" data-bs-target="#delete-modal" href="#"><i class="fas fa-trash btnNoBorders" style="color: #DC3545;"></i></a></td>
-                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -249,29 +237,66 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <script src="https://unpkg.com/vue@next"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!--    <script src="./assets/js/vue.esm-browser.js"></script>-->
+    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./assets/js/bs-init.js"></script>
+<!--    <script src="./assets/js/Ludens-&#45;&#45;1-Index-Table-with-Search&#45;&#45;Sort-Filters-v20-1.js"></script>-->
+<!--    <script src="./assets/js/Ludens-&#45;&#45;1-Index-Table-with-Search&#45;&#45;Sort-Filters-v20.js"></script>-->
+    <script src="./assets/js/theme.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./assets/js/jquery-1.11.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-filter.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-storage.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="assets/js/Ludens---1-Index-Table-with-Search--Sort-Filters-v20-1.js"></script>
-    <script src="assets/js/Ludens---1-Index-Table-with-Search--Sort-Filters-v20.js"></script>
-    <script src="assets/js/theme.js"></script>
-    <script>
-        var app = Vue.createApp({
+
+    <script  type="module">
+        const { createApp } = Vue
+        // use vue get the data from the server that is  http://localhost:3000/students
+        const app = createApp({
             data() {
                 return {
-                    name: 'table'
+                    students: []
+                    // students:[
+                    //     {userName:"孟骏清",
+                    //         userId: "19852331",
+                    //         clazzId:1909,
+                    //         mail:"19852331@czjtu.edu.cn",
+                    //         phone:"19901002839",
+                    //         qq:"1274667113",
+                    //         registeTime:"2022-7-15 10:15:58",
+                    //         lastLoginTime:"2022-7-15 10:16:00",
+                    //     },
+                    //     {userName:"赵云龙",
+                    //         userId: "19852333",
+                    //         clazzId:1909,
+                    //         mail:"19852333@czjtu.edu.cn",
+                    //         phone:"19901002839",
+                    //         qq:"18301194460",
+                    //         registeTime:"2022-7-15 10:15:58",
+                    //         lastLoginTime:"2022-7-15 10:16:00",
+                    //     },
+                    // ]
                 }
-
             },
-            methods(){},
-            computed:{}
-
+            methods: {
+                // get the data from the server
+                getStudents() {
+                    fetch('http://localhost:3000/students')
+                        .then(res => res.json())
+                        .then(data => {
+                            this.students = data
+                        })
+                    console.log(this.students)
+                }
+            },
+            mounted() {
+                this.getStudents()
+            }
         })
-        app.mount('#app')
+        app.mount('#wrapper')
     </script>
 </body>
 
