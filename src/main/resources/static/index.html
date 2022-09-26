@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<!-- show a welcome login page-->
+<h1>Welcome to the login page</h1>
+<!-- show a login form -->
+<form action="/login" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <input type="submit" value="Login">
+</form>
+<!-- show a table which used to test each interface separately, the table with border 1-->
+<table border="1">
+    <tr>
+        <td>Test interface</td>
+        <td>Test result</td>
+    </tr>
+    <tr>
+        <td>Get all fakeData</td>
+        <td><a href="/fakeData">fakeData</a></td>
+    </tr>
+    <tr>
+        <td>student page</td>
+        <td><a href="student.html">student page</a></td>
+    </tr>
+    <tr>
+        <td>Get all assign</td>
+        <td><a href="/assign">Get all assign</a></td>
+    </tr>
+    <tr>
+        <td>Get student by id</td>
+        <td><a href="/getStudentById">Get student by id</a></td>
+    </tr>
+    <tr>
+        <td>Get student by name</td>
+        <td><a href="/getStudentByName">Get student by name</a></td>
+    </tr>
+    <tr>
+        <td>Get student by age</td>
+        <td><a href="/getStudentByAge">Get student by age</a></td>
+    </tr>
+</table>
+
+<!-- additional decoration-->
+<div>
+    <p>Don't have an account? <a href="/register">Register</a></p>
+</div>
+
+<!--additional image decoration that wrap with a table which is in center-->
+<table align="center">
+    <tr>
+        <td>
+            <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com" width="104" height="142">
+        </td>
+        <td>
+            <div>
+                <img src="https://www.w3schools.com/html/pic_trulli.jpg" alt="Trulli" width="500" height="333">
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+</body>
+</html>
