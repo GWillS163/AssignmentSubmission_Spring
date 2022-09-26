@@ -1,1 +1,52 @@
+server:
+  port: 9001
+spring:
+  #Resolve SpringBoot2.6.0 &swagger Conflict problem [ Cause change the Default Path Match Rule from AntPathMatch to PathPatternParser in springboot2.6.0, the resolution is change AntPathMatcher back.
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # configure DataSource
+  datasource:
+    # Configure DataSource Type
+    type: com.zaxxer.hikari.HikariDataSource
+    # Configure DataSource Connection Attributions
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/assignmentsubmission?characterEncoding=utf-8&serverTimezone=GMT%2B8&userSSL=false
+    username: root
+    password: 123456
+
+    #mybatis-plus Built-in
+
+    hikari:
+      connection-test-query: SELECT 1
+      connection-timeout: 60000
+      idle-timeout: 500000
+      max-lifetime: 540000
+      maximum-pool-size: 12
+      minimum-idle: 10
+      pool-name: GuliHikariPool
+  thymeleaf:
+    # the mode of Template, those are supported: HTML, XML TEXT JAVASCRIPT
+    mode: HTML5
+    # Encoding, Default is None
+    encoding: UTF-8
+    # While developing set it is false, avoid restart server after edit template
+    cache: false
+    # Configure template path. Default is /templates, it is NOT essential.
+    prefix: classpath:/static/
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    # Set the maximum file upload
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+mybatis-plus:
+  configuration:
+    # Add log support
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+
 

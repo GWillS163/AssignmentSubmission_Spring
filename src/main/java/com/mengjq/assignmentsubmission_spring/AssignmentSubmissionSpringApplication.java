@@ -1,17 +1,15 @@
 package com.mengjq.assignmentsubmission_spring;
 
-import com.mengjq.assignmentsubmission_spring.demo.DemoApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.mengjq.assignmentsubmission_spring.*")
 public class AssignmentSubmissionSpringApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AssignmentSubmissionSpringApplication.class, args);
-
     }
 
     @GetMapping("/hello")
