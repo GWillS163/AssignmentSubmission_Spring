@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>student Submitted</title>
+<!--&lt;!&ndash; import vue3&ndash;&gt;-->
+    <script src="https://unpkg.com/vue@next"></script>
+<!--&lt;!&ndash;    import vue&ndash;&gt;-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!--    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>-->
+</head>
+<body>
+<!--generate a table that shown all assignments-->
+<div id="app">
+<table border="1">
+    <tr>
+        <td>Assignment ID</td>
+        <td>Assignment Name</td>
+        <td>Assignment Description</td>
+        <td>Assignment Due Date</td>
+        <td>Assignment Status</td>
+    </tr>
+    <tr v-for="assign in assigns">
+        <td>{{assign.assiid}}</td>
+        <td>{{assign.brifename}}</td>
+        <td>{{assign.description}}</td>
+        <td>{{assign.ddl}}</td>
+        <td>{{assign.status}}</td>
+    </tr>
+</table>
+    {{person}}
+</div>
+<script>
+    var app = new Vue({
+        data(){
+            assigns=[{"assiid":1,"curriid":1,"ddl":"2022-07-25 17:14:47","permitanymous":1,"filenameverify":1,"updatedtime":"2022-07-25 17:15:18","userid":"21","brifename":"数据结构第六章","description":"请认真做作业，课后习题也做","filenamerule":"数据结构-学号-班级-学号"},{"assiid":2,"curriid":3,"ddl":"2022-07-25 17:47:08","permitanymous":0,"filenameverify":null,"updatedtime":"2022-07-25 17:47:17","userid":"22","brifename":"操作系统第一次","description":"认真做作业","filenamerule":"操作系统-学号"}]
+        //    return the data to the front end
+            person={name:"mengjq",age:22}
+            return {
+                person,
+                assigns,
+
+            }
+        },
+        mounted(){
+            fetch('/assign')
+                .then(response => response.json())
+                .then(data => this.assigns = data)
+        }
+}).$mount('#app')
+</script>
+</body>
+</html>
