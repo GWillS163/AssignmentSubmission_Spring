@@ -33,18 +33,19 @@
 </div>
 <script>
     var tab1 = new Vue({
+        // use Vue fetch 'http://localhost:3000/assigns' data return to assigns
         data(){
-            assigns=[{"assiid":1,"curriid":1,"ddl":"2022-07-25 17:14:47","permitanymous":1,"filenameverify":1,"updatedtime":"2022-07-25 17:15:18","userid":"21","brifename":"数据结构第六章","description":"请认真做作业，课后习题也做","filenamerule":"数据结构-学号-班级-学号"},{"assiid":2,"curriid":3,"ddl":"2022-07-25 17:47:08","permitanymous":0,"filenameverify":null,"updatedtime":"2022-07-25 17:47:17","userid":"22","brifename":"操作系统第一次","description":"认真做作业","filenamerule":"操作系统-学号"}]
-        //    return the data to the front end
-            person={name:"mengjq",age:22}
+            assigns=[
+                ]
+            //    return the data to the front end
             return {
-                person,
+                // person,
                 assigns,
 
             }
         },
         mounted(){
-            fetch('/assign')
+            fetch('http://localhost:3000/assigns')
                 .then(response => response.json())
                 .then(data => this.assigns = data)
         }

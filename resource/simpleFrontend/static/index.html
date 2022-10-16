@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!--&lt;!&ndash; import vue3&ndash;&gt;-->
+    <script src="https://unpkg.com/vue@next"></script>
+    <!--&lt;!&ndash;    import vue&ndash;&gt;-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<!-- show a welcome login page-->
+<h1>Welcome to the login page</h1>
+<!-- show a login form -->
+<form action="/login" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <input type="submit" value="Login">
+</form>
+<!-- show a table which used to test each interface separately, the table with border 1-->
+<table border="0" id="app">
+    <tr>
+        <td>status</td>
+        <td>title</td>
+        <td>ddl</td>
+        <td>desc</td>
+        <td>assiId</td>
+    </tr>
+    <tr v-for="assign in assigns">
+        <td>{{assign.status}}</td>
+        <td>{{assign.title}}</td>
+        <td>{{assign.ddl}}</td>
+        <td>{{assign.description}}</td>
+        <td>{{assign.assiId}}</td>
+    </tr>
+</table>
+<script>
+    var tab1 = new Vue({
+        data(){
+            assigns=[
+                ]
+            return {
+                assigns,
+            }
+        },
+        mounted(){
+            fetch('http://localhost:3000/assigns')
+                .then(response => response.json())
+                .then(data => this.assigns = data)
+        }
+    }).$mount('#app')
+</script>
+</body>
+</html>
