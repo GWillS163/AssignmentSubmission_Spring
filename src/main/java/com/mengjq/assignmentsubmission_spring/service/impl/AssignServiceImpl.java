@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> implements AssignService {
 
+    private final AssignMapper mapper;
+
     @Override
     public List<Assign> getAssigns() {
         return baseMapper.selectList(null);
@@ -26,10 +28,10 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //        return null;
 //    }
 //
-//    //通过构�?�器注入mapper
-//    public AssignServiceImpl(AssignMapper mapper) {
-//        this.mapper = mapper;
-//    }
+    //通过构�?�器注入mapper
+    public AssignServiceImpl(AssignMapper mapper) {
+        this.mapper = mapper;
+    }
 //
 //    @Override
 //    public long countByExample(AssignExample example) {
@@ -41,16 +43,16 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //        return mapper.deleteByExample(example);
 //    }
 //
-//    @Override
-//    public int deleteByPrimaryKey(String assignId) {
-//        return mapper.deleteByPrimaryKey(assignId);
-//    }
-//
-//    @Override
-//    public int insert(Assign record) {
-//        return mapper.insert(record);
-//    }
-//
+    @Override
+    public int deleteByPrimaryKey(Integer assignId) {
+        return mapper.deleteByPrimaryKey(assignId);
+    }
+
+    @Override
+    public int insert(Assign record) {
+        return mapper.insert(record);
+    }
+
 //    @Override
 //    public int insertSelective(Assign record) {
 //        return mapper.insertSelective(record);
@@ -76,10 +78,10 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //        return mapper.updateByExample(record,example);
 //    }
 //
-//    @Override
-//    public int updateByPrimaryKeySelective(Assign record) {
-//        return mapper.updateByPrimaryKeySelective(record);
-//    }
+    @Override
+    public int updateByPrimaryKeySelective(Assign record) {
+        return mapper.updateByPrimaryKeySelective(record);
+    }
 
 //    @Override
 //    public int updateByPrimaryKey(Assign record) {

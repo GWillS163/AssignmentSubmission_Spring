@@ -5,6 +5,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+#    static-path-pattern: /images/**
+#  web:
+#    resources:
+#      static-locations: classpath:/css/
   # configure DataSource
   datasource:
     # Configure DataSource Type
@@ -42,11 +46,16 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
-mybatis-plus:
-  configuration:
-    # Add log support
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath*:/mapper/**/*.xml
 
+  devtools:
+    # hot deploy
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: src/main/resources/static/**
+#  configuration:
+    # Add log support
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  mapper-locations: classpath*:/mapper/**/*.xml
 
 

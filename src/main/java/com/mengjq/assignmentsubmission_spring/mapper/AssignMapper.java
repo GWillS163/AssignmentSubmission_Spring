@@ -17,7 +17,7 @@ public interface AssignMapper extends BaseMapper<Assign> {
 
     List<Assign> selectByPrimaryKey(int assiid);
 
-    int updateByPrimaryKeySelective(AssignWithBLOBs record);
+    int updateByPrimaryKeySelective(Assign record);
 
     int updateByPrimaryKeyWithBLOBs(AssignWithBLOBs record);
 
