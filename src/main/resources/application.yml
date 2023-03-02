@@ -6,9 +6,9 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 #    static-path-pattern: /images/**
-#  web:
-#    resources:
-#      static-locations: classpath:/css/
+  web:
+    resources:
+      static-locations: classpath:/upload/
   # configure DataSource
   datasource:
     # Configure DataSource Type
