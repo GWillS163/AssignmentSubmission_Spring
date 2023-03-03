@@ -1,14 +1,18 @@
 server:
   port: 9001
 spring:
+
   #Resolve SpringBoot2.6.0 &swagger Conflict problem [ Cause change the Default Path Match Rule from AntPathMatch to PathPatternParser in springboot2.6.0, the resolution is change AntPathMatcher back.
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
 #    static-path-pattern: /images/**
   web:
     resources:
       static-locations: classpath:/upload/
+
+#      add-mappings: true
   # configure DataSource
   datasource:
     # Configure DataSource Type
@@ -18,8 +22,6 @@ spring:
     url: jdbc:mysql://localhost:3306/assignmentsubmission?characterEncoding=utf-8&serverTimezone=GMT%2B8&userSSL=false
     username: root
     password: 123456
-
-    #mybatis-plus Built-in
 
     hikari:
       connection-test-query: SELECT 1
@@ -53,9 +55,10 @@ spring:
       enabled: true
       additional-paths: src/main/java
       exclude: src/main/resources/static/**
+
 #  configuration:
     # Add log support
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-#  mapper-locations: classpath*:/mapper/**/*.xml
-
-
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  typeAliasesPackage: com.example.domain
