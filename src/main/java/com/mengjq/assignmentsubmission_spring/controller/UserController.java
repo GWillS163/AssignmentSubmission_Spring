@@ -29,8 +29,13 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public String createUser() {
-        return "create user";
+    public String createUser(User user) {
+        int i = userMapper.insert(user);
+        if(i> 0) {
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 
     @PutMapping("/user")

@@ -1,17 +1,18 @@
 package com.mengjq.assignmentsubmission_spring.model;
 
 public class User {
-    private int id;
+    // auto increment
+    private int userId;
     private String username;
-    private String password;
-    private String email;
+    private String phone;
+    private String mail;
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int id) {
+        this.userId = id;
     }
 
     public String getUsername() {
@@ -22,31 +23,33 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mail='" + mail + '\'' +
                 '}';
     }
+
+
 }
 
 
