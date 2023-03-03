@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 //添加注解
-@Controller
+@RestController
 public class AssignController {
 
     private AssignService assignService;
