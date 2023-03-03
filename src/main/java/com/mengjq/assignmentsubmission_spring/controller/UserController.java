@@ -15,15 +15,9 @@ public class UserController {
     private UserMapper userMapper;
 
     @ApiOperation(value = "根据id查询用户", notes = "根据id查询用户", httpMethod = "GET")
-//    @GetMapping("/user/{id}")
-//    public String getUserById(@PathVariable int id) {
-//        List<User> users = userMapper.find();
-//        System.out.println(users);
-//        return "user id is " + id;
-//    }
     @GetMapping("/user")
     public List<User> query(){
-        List<User> users = userMapper.find();
+        List<User> users = userMapper.selectList(null);
         System.out.println(users.toArray().length);
         return users;
     }
@@ -31,6 +25,7 @@ public class UserController {
     @PostMapping("/user")
     public String createUser(User user) {
         int i = userMapper.insert(user);
+        System.out.println(user);
         if(i> 0) {
             return "success";
         } else {

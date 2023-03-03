@@ -1,18 +1,24 @@
 package com.mengjq.assignmentsubmission_spring.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 public class User {
     // auto increment
-    private int userId;
+    @TableId(type = IdType.AUTO)
+    @TableField("user_id")
+    private int user_id;
     private String username;
     private String phone;
     private String mail;
 
-    public int getUserId() {
-        return userId;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(int id) {
-        this.userId = id;
+    public void setUser_id(int id) {
+        this.user_id = id;
     }
 
     public String getUsername() {
@@ -42,7 +48,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
+                "user_id=" + user_id +
                 ", username='" + username + '\'' +
                 ", phone='" + phone + '\'' +
                 ", mail='" + mail + '\'' +
