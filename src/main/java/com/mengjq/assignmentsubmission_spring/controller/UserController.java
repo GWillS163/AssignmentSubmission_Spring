@@ -14,6 +14,13 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @ApiOperation(value = "根据id查询用户及文件", notes = "根据id查询用户及文件", httpMethod = "GET")
+    @GetMapping("/user/allInfo")
+    public List<User> queryAllUserWithFiles(){
+        List<User> users = userMapper.selectAllUserWithFiles();
+        System.out.println(users.toArray().length);
+        return users;
+    }
     @ApiOperation(value = "根据id查询用户", notes = "根据id查询用户", httpMethod = "GET")
     @GetMapping("/user")
     public List<User> query(){

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 
+import java.util.List;
+
 public class User {
     // auto increment
     @TableId(type = IdType.AUTO)
@@ -12,6 +14,17 @@ public class User {
     private String username;
     private String phone;
     private String mail;
+
+    @TableField(exist = false)
+    private List<File> files;
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
 
     public int getUser_id() {
         return user_id;
