@@ -1,6 +1,12 @@
 package com.mengjq.assignmentsubmission_spring.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 public class File {
+    @TableId(type = IdType.AUTO )
+    @TableField("file_id")
     private int file_id;
     private String assign_id;
     private String raw_name;
