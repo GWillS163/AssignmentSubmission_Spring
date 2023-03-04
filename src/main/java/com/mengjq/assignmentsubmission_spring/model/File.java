@@ -4,62 +4,64 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 
+import java.util.Date;
+
 public class File {
     @TableId(type = IdType.AUTO )
     @TableField("file_id")
-    private int file_id;
-    private String assign_id;
-    private String raw_name;
-    private String upload_time;
-    private String user_id;
+    private int fileId;
+    private int assignId;
+    private String rawName;
+    private Date uploadTime;
+    private int userId;
 
-    public String getUser_id() {
-        return user_id;
+    public int getFileId() {
+        return fileId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setFileId(int fileId) {
+        this.fileId = fileId;
     }
 
-    public int getFile_id() {
-        return file_id;
+    public int getAssignId() {
+        return assignId;
     }
 
-    public void setFile_id(int file_id) {
-        this.file_id = file_id;
+    public void setAssignId(int assignId) {
+        this.assignId = assignId;
     }
 
-    public String getAssign_id() {
-        return assign_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setAssign_id(String assign_id) {
-        this.assign_id = assign_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getRaw_name() {
-        return raw_name;
+    public String getRawName() {
+        return rawName;
     }
 
-    public void setRaw_name(String raw_name) {
-        this.raw_name = raw_name;
+    public void setRawName(String rawName) {
+        this.rawName = rawName;
     }
 
-    public String getUpload_time() {
-        return upload_time;
+    public Date getUploadTime() {
+        return uploadTime;
     }
 
-    public void setUpload_time(String upload_time) {
-        this.upload_time = upload_time;
+    public void setUploadTime(Date uploadTime) {
+        this.uploadTime = uploadTime;
     }
 
     @Override
     public String toString() {
         return "File{" +
-                "file_id=" + file_id +
-                ", assign_id='" + assign_id + '\'' +
-                ", file_name='" + raw_name + '\'' +
-                ", submit_time='" + upload_time + '\'' +
+                "file_id=" + fileId +
+                ", assign_id='" + assignId + '\'' +
+                ", file_name='" + rawName + '\'' +
+                ", submit_time='" + uploadTime + '\'' +
                 '}';
     }
 }

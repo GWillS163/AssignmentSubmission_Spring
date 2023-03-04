@@ -11,24 +11,24 @@ public interface FileMapper extends BaseMapper<File> {
 
 
     @Select("select * from file where user_id = #{user_id}")
-    @Results({
-            @Result(column = "file_id", property = "file_id"),
-            @Result(column = "assign_id", property = "assign_id"),
-            @Result(column = "raw_name", property = "raw_name"),
-            @Result(column = "upload_time", property = "upload_time"),
-            @Result(column = "user_id", property = "user_id")
-    })
+//    @Results({
+//            @Result(column = "file_id", property = "file_id"),
+//            @Result(column = "assign_id", property = "assign_id"),
+//            @Result(column = "raw_name", property = "raw_name"),
+//            @Result(column = "upload_time", property = "upload_time"),
+//            @Result(column = "user_id", property = "user_id")
+//    })
     List<File> findByUserId(String user_id);
 
-    @Select("select * from file")
-    @Results({
-            @Result(column = "file_id", property = "file_id"),
-            @Result(column = "assign_id", property = "assign_id"),
-            @Result(column = "raw_name", property = "raw_name"),
-            @Result(column = "upload_time", property = "upload_time"),
-            @Result(column = "user_id", property = "user", javaType = User.class,
-                    one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.UserMapper.selectById"))
-        }
-    )
-    List<File> selectAllFileWithUser();
+//    @Select("select * from file")
+//    @Results({
+//            @Result(column = "file_id", property = "file_id"),
+//            @Result(column = "assign_id", property = "assign_id"),
+//            @Result(column = "raw_name", property = "raw_name"),
+//            @Result(column = "upload_time", property = "upload_time"),
+//            @Result(column = "user_id", property = "user", javaType = User.class,
+//                    one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.UserMapper.selectById"))
+//        }
+//    )
+//    List<File> selectAllFileWithUser();
 }
