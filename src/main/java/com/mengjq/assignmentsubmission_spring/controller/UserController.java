@@ -1,6 +1,10 @@
 package com.mengjq.assignmentsubmission_spring.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mengjq.assignmentsubmission_spring.mapper.UserMapper;
+import com.mengjq.assignmentsubmission_spring.model.File;
 import com.mengjq.assignmentsubmission_spring.model.User;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,24 @@ public class UserController {
         System.out.println(users.toArray().length);
         return users;
     }
+
+
+    @GetMapping("/user/find/{username}")
+    public List<User> getUserFiles(@PathVariable String username){
+        QueryWrapper<User> queryWrapper = new QueryWrapper();
+        System.out.println(username);
+        queryWrapper.eq("username", username);
+        List<User> files = userMapper.selectList(queryWrapper);
+        return files;
+    }
+    @GetMapping("/user/findByPage")
+    public IPage findByPage( ){
+        Page<User> page = new Page<>(0, 2);
+        IPage ipage = userMapper.selectPage(page, null);
+        return ipage;
+    }
+
+
     @ApiOperation(value = "根据id查询用户", notes = "根据id查询用户", httpMethod = "GET")
     @GetMapping("/user")
     public List<User> query(){

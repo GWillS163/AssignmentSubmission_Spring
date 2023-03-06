@@ -3,17 +3,31 @@ package com.mengjq.assignmentsubmission_spring.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
-
+@Data
+@Accessors(chain = true)
 public class File {
     @TableId(type = IdType.AUTO )
-    @TableField("file_id")
+    @TableField("fileId")
     private int fileId;
     private int assignId;
     private String rawName;
     private Date uploadTime;
     private int userId;
+
+    @TableField(exist = false)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getFileId() {
         return fileId;

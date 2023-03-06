@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: 8080
 spring:
 
   #Resolve SpringBoot2.6.0 &swagger Conflict problem [ Cause change the Default Path Match Rule from AntPathMatch to PathPatternParser in springboot2.6.0, the resolution is change AntPathMatcher back.

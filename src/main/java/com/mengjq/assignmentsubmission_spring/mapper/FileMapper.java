@@ -20,15 +20,15 @@ public interface FileMapper extends BaseMapper<File> {
 //    })
     List<File> findByUserId(String user_id);
 
-//    @Select("select * from file")
-//    @Results({
-//            @Result(column = "file_id", property = "file_id"),
-//            @Result(column = "assign_id", property = "assign_id"),
-//            @Result(column = "raw_name", property = "raw_name"),
-//            @Result(column = "upload_time", property = "upload_time"),
-//            @Result(column = "user_id", property = "user", javaType = User.class,
-//                    one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.UserMapper.selectById"))
-//        }
-//    )
-//    List<File> selectAllFileWithUser();
+    @Select("select * from file")
+    @Results({
+            @Result(column = "file_id", property = "fileId"),
+            @Result(column = "assign_id", property = "assignId"),
+            @Result(column = "raw_name", property = "rawName"),
+            @Result(column = "upload_time", property = "uploadTime"),
+            @Result(column = "user_id", property = "user", javaType = User.class,
+                    one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.UserMapper.selectById"))
+        }
+    )
+    List<File> selectAllFileWithUser();
 }

@@ -65,11 +65,11 @@
 <!--            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
 <!--        </dependency>-->
 
-        <!--  mybatis-plus-->
+        <!-- Mybatis Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.3.1</version>
+            <version>3.4.3.4</version>
         </dependency>
 
         <!-- 简化POJO实体类开发 -->
@@ -88,7 +88,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.3.1</version>
+            <version>3.4.0</version>
         </dependency>
 <!--        数据库连接池 druid-->
         <dependency>
