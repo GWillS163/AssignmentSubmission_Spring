@@ -8,10 +8,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class ClazzController {
     @Autowired
     private ClazzMapper clazzMapper;
 
+    @PostMapping("/class/teacher")
+    public List<Clazz> getTeacherClazz(String teacherId){
+        System.out.println("teacherId : " + teacherId);
+        List<Clazz> clazzList = clazzMapper.selectList(null);
+//        System.out.println(clazzList);
+        return clazzList;
+    }
     @GetMapping("/clazz/allInfo")
     public List<Clazz> getClazzAllInfo(){
         List<Clazz> clazzList = clazzMapper.selectList(null);
