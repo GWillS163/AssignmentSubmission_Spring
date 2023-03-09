@@ -43,8 +43,8 @@ public class ClazzController {
 
     @DeleteMapping("/class/{id}")
     public String deleteClazz(@PathVariable String id) {
+        System.out.println("删除班级: " + id);
         int i = clazzMapper.deleteById(id);
-
         return returnString(i);
     }
 
