@@ -4,8 +4,23 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mengjq.assignmentsubmission_spring.mapper.ClazzMapper;
 import com.mengjq.assignmentsubmission_spring.model.Clazz;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sql.DataSource;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,7 +45,7 @@ public class ClazzController {
     @GetMapping("/class/allInfo")
     public List<Clazz> getClazzAllInfo(){
         List<Clazz> clazzList = clazzMapper.selectList(null);
-        System.out.println(clazzList);
+//        System.out.println("获取所有班级信息" + clazzList);
         return clazzList;
     }
 
@@ -51,6 +66,8 @@ public class ClazzController {
     @PutMapping("/class/{id}")
     public String updateClazz(@PathVariable int id, Clazz clazz) {
 
+        System.out.println("修改班级: " +clazz.getId() +
+                " " +clazz);
         clazz.setId(id);
         int i = clazzMapper.updateById(clazz);
         return returnString(i);
@@ -64,4 +81,21 @@ public class ClazzController {
         }
     }
 
+// TODO: Test   download  file
+@GetMapping(value = "/get-file", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+//        return a file with test content
+    public ResponseEntity<Resource> getFile() throws IOException {
+//        Resource resource = new ClassPathResource("static/test.jpg");
+        Resource resource = new ClassPathResource("static/conf.ini");
+        String data = "hello world";
+        resource.getInputStream().read(Objects.requireNonNull(data.getBytes()));
+//        InputStream inputStream = resource.getInputStream();
+        return ResponseEntity.ok()
+                .header("Content-Disposition",
+                        "attachment; filename=" +
+                                resource.getFilename())
+
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
 }

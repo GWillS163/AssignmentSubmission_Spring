@@ -3,6 +3,7 @@ package com.mengjq.assignmentsubmission_spring.controller;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 //import com.mengjq.assignmentsubmission_spring.model.AssignExample;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 public class AssignController {
 
+    @Autowired
     private AssignService assignService;
 
     //通过构�?�器注入service
