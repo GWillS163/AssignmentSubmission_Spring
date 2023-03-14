@@ -3,24 +3,18 @@ package com.mengjq.assignmentsubmission_spring.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mengjq.assignmentsubmission_spring.mapper.ClazzMapper;
 import com.mengjq.assignmentsubmission_spring.model.Clazz;
+import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.DataSource;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -83,19 +77,27 @@ public class ClazzController {
 
 // TODO: Test   download  file
 @GetMapping(value = "/get-file", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-//        return a file with test content
-    public ResponseEntity<Resource> getFile() throws IOException {
-//        Resource resource = new ClassPathResource("static/test.jpg");
-        Resource resource = new ClassPathResource("static/conf.ini");
-        String data = "hello world";
-        resource.getInputStream().read(Objects.requireNonNull(data.getBytes()));
-//        InputStream inputStream = resource.getInputStream();
-        return ResponseEntity.ok()
-                .header("Content-Disposition",
-                        "attachment; filename=" +
-                                resource.getFilename())
+public ResponseEntity<byte[]> getFile() throws IOException {
+    System.out.println("下载测试文件");
+        String[] header = { "Name", "Age", "City" };
+    List<String[]> rows = new ArrayList<>();
+    rows.add(new String[] { "John", "25", "New York" });
+    rows.add(new String[] { "Jane", "30", "London" });
+    rows.add(new String[] { "Bob", "40", "Paris" });
+    rows.add(new String[] { "Mary", "35", "Berlin" });
+    rows.add(new String[] { "Mike", "45", "New York" });
 
+    try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+         CSVWriter writer = new CSVWriter(new OutputStreamWriter(outputStream))) {
+        writer.writeNext(header);
+        writer.writeAll(rows);
+        writer.flush();
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment;" +
+                        " filename=example.csv")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(resource);
+                .body(outputStream.toByteArray());
     }
+}
+
 }
