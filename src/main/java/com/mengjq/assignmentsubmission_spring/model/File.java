@@ -11,7 +11,6 @@ import java.util.Date;
 @Accessors(chain = true)
 public class File {
     @TableId(type = IdType.AUTO )
-    @TableField("fileId")
     private int fileId;
     private int assignId;
     private String rawName;

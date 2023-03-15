@@ -1,5 +1,8 @@
 package com.mengjq.assignmentsubmission_spring.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,7 +11,8 @@ import java.util.Date;
  * 作业规则
  */
 public class Assign implements Serializable {
-    private Integer assiid;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
     private Integer curriid;
     private Date ddl;
     private Byte permitanymous;
@@ -20,12 +24,12 @@ public class Assign implements Serializable {
     private String filenamerule;
     private static final long serialVersionUID = 1L;
 
-    public Integer getAssiid() {
-        return assiid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAssiid(Integer assiid) {
-        this.assiid = assiid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getCurriid() {

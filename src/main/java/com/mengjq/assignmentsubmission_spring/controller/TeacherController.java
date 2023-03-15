@@ -3,9 +3,7 @@ package com.mengjq.assignmentsubmission_spring.controller;
 import com.mengjq.assignmentsubmission_spring.mapper.TeacherMapper;
 import com.mengjq.assignmentsubmission_spring.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -22,6 +20,27 @@ public class TeacherController {
         return teacherMapper.selectList(null);
     }
 
+    @PostMapping("/teacher")
+    public Teacher insertTeacher(Teacher teacher){
+        System.out.println("添加教师" + teacher);
+        teacherMapper.insert(teacher);
+        return teacher;
+    }
+
+    @PutMapping("/teacher/{id}")
+    public Teacher updateTeacher(@PathVariable String id, Teacher teacher){
+        System.out.println("修改教师" + teacher);
+        teacherMapper.updateById(teacher);
+        return teacher;
+    }
+
+    @DeleteMapping("/teacher/{id}")
+    public Integer deleteTeacher(@PathVariable String id){
+        System.out.println("删除教师" + id);
+        int i = teacherMapper.deleteById(id);
+        return i;
+    }
+
     @GetMapping("/teacher/map")
     public Dictionary<String, String> getTeacherMap(){
         System.out.println("获取教师Map");
@@ -34,6 +53,8 @@ public class TeacherController {
         System.out.println(teacherIdMap);  // {1=张三, 2=李四, 3=王五}
         return teacherIdMap;
     }
+
+
 
 
 }
