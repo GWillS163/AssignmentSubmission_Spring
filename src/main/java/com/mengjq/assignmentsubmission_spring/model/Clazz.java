@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 
 public class Clazz {
     @TableId(type = IdType.AUTO)
-    private int id;
+    private int clazzId;
     private int teacherId;
-    private String className;
+    private String clazzName;
     private String faculty;
     private String major;
     private String description;
@@ -23,9 +23,9 @@ public class Clazz {
     @Override
     public String toString() {
         return "Clazz{" +
-                "id=" + id +
+                "id=" + clazzId +
                 ", teacherId=" + teacherId +
-                ", className='" + className + '\'' +
+                ", className='" + clazzName + '\'' +
                 ", faculty='" + faculty + '\'' +
                 ", major='" + major + '\'' +
                 ", description='" + description + '\'' +
@@ -48,12 +48,12 @@ public class Clazz {
         this.major = major;
     }
 
-    public int getId() {
-        return id;
+    public int getClazzId() {
+        return clazzId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setClazzId(int clazzId) {
+        this.clazzId = clazzId;
     }
 
     public int getTeacherId() {
@@ -64,11 +64,11 @@ public class Clazz {
         this.teacherId = teacherId;
     }
 
-    public String getClassName() {
-        return className;
+    public String getClazzName() {
+        return clazzName;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setClazzName(String clazzName) {
+        this.clazzName = clazzName;
     }
 }

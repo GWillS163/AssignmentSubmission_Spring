@@ -1,9 +1,7 @@
 package com.mengjq.assignmentsubmission_spring.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mengjq.assignmentsubmission_spring.mapper.FileMapper;
 import com.mengjq.assignmentsubmission_spring.model.File;
-import com.mengjq.assignmentsubmission_spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -5,18 +5,13 @@ import com.mengjq.assignmentsubmission_spring.mapper.ClazzMapper;
 import com.mengjq.assignmentsubmission_spring.model.Clazz;
 import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @CrossOrigin
@@ -60,9 +55,9 @@ public class ClazzController {
     @PutMapping("/class/{id}")
     public String updateClazz(@PathVariable int id, Clazz clazz) {
 
-        System.out.println("修改班级: " +clazz.getId() +
+        System.out.println("修改班级: " +clazz.getClazzId() +
                 " " +clazz);
-        clazz.setId(id);
+        clazz.setClazzId(id);
         int i = clazzMapper.updateById(clazz);
         return returnString(i);
     }

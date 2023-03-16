@@ -2,7 +2,7 @@ package com.mengjq.assignmentsubmission_spring.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mengjq.assignmentsubmission_spring.model.File;
-import com.mengjq.assignmentsubmission_spring.model.User;
+import com.mengjq.assignmentsubmission_spring.model.Student;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public interface FileMapper extends BaseMapper<File> {
             @Result(column = "assign_id", property = "assignId"),
             @Result(column = "raw_name", property = "rawName"),
             @Result(column = "upload_time", property = "uploadTime"),
-            @Result(column = "user_id", property = "user", javaType = User.class,
+            @Result(column = "user_id", property = "user", javaType = Student.class,
                     one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.UserMapper.selectById"))
         }
     )
