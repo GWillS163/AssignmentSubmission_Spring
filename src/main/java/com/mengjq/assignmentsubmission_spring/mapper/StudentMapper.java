@@ -15,10 +15,10 @@ public interface StudentMapper extends BaseMapper<Student> {
 //    @Insert("insert into user (username, phone, mail) values (#{username}, #{phone}, #{mail})")
 //    public int insert(User user);
 
-    @Select("select * from student")
+    @Select("select user_id, username, clazz_id, mail, phone, qq, student_id, register_time, last_login_time, description from student")
     @Results({
-            @Result(column = "user_id", property = "user_id"),
-            @Result(column = "clazz_id", property = "clazz_info",
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "clazz_id", property = "clazzInfo",
                     javaType = Clazz.class,
                     one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.ClazzMapper.selectBaseInfoById")
             ),

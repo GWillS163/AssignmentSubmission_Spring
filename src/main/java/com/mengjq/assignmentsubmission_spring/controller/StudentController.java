@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mengjq.assignmentsubmission_spring.mapper.StudentMapper;
 import com.mengjq.assignmentsubmission_spring.model.Student;
+import com.mengjq.assignmentsubmission_spring.util.TimeFormat;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Date;
 
 @RestController
 @CrossOrigin
@@ -27,8 +29,18 @@ public class StudentController {
 //        System.out.println(students.toArray().length);
         return students;
     }
+
+    public String turnToTimestamp(){
+        Date date = new Date();
+        return String.valueOf(date.getTime());
+
+    }
+
     @PostMapping("/student")
     public String createUser(Student student) {
+        System.out.println("正在创建用户" + student.getStudentId());
+        System.out.println();
+        student.setRegisterTime(TimeFormat.getNowTime());
         int i = studentMapper.insert(student);
         System.out.println(student);
         return isSuccess(i);

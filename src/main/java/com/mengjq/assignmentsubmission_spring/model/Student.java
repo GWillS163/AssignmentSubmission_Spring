@@ -10,23 +10,44 @@ public class Student {
     // auto increment
     @TableId(type = IdType.AUTO)
     @TableField("user_id")
-    private int user_id;
-    private int clazz_id;
+    private int userId;
+    private int clazzId;
+    private String studentId;
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
 
     @TableField(exist = false)
-    private Clazz clazz_info;
+    private Clazz clazzInfo;
     private String username;
     private String password;
     private String qq;
     private String phone;
     private String mail;
+    private String registerTime;
+    private String lastLoginTime;
+    private String description;
 
-    public Clazz getClazz_info() {
-        return clazz_info;
+    public String getDescription() {
+        return description;
     }
 
-    public void setClazz_info(Clazz clazz_info) {
-        this.clazz_info = clazz_info;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Clazz getClazzInfo() {
+        return clazzInfo;
+    }
+
+    public void setClazzInfo(Clazz clazzInfo) {
+        this.clazzInfo = clazzInfo;
     }
 
     public String getPassword() {
@@ -45,33 +66,31 @@ public class Student {
         this.qq = qq;
     }
 
-    public String getRegister_time() {
-        return register_time;
+    public String getRegisterTime() {
+        return registerTime;
     }
 
-    public void setRegister_time(String register_time) {
-        this.register_time = register_time;
+    public void setRegisterTime(String registerTime) {
+        this.registerTime = registerTime;
     }
 
-    public String getLast_login_time() {
-        return last_login_time;
+    public String getLastLoginTime() {
+        return lastLoginTime;
     }
 
-    public void setLast_login_time(String last_login_time) {
-        this.last_login_time = last_login_time;
+    public void setLastLoginTime(String lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
-    private String register_time;
-    private String last_login_time;
 
     @TableField(exist = false)
     private List<File> files;
-    public int getClazz_id() {
-        return clazz_id;
+    public int getClazzId() {
+        return clazzId;
     }
 
-    public void setClazz_id(int clazz_id) {
-        this.clazz_id = clazz_id;
+    public void setClazzId(int clazzId) {
+        this.clazzId = clazzId;
     }
 
 
@@ -83,12 +102,12 @@ public class Student {
         this.files = files;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int id) {
-        this.user_id = id;
+    public void setUserId(int id) {
+        this.userId = id;
     }
 
     public String getUsername() {
@@ -118,15 +137,18 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "user_id=" + user_id +
-                ", clazz_id=" + clazz_id +
+                "userId=" + userId +
+                ", clazzId=" + clazzId +
+                ", studentId='" + studentId + '\'' +
+                ", clazzInfo=" + clazzInfo +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", qq='" + qq + '\'' +
                 ", phone='" + phone + '\'' +
                 ", mail='" + mail + '\'' +
-                ", register_time='" + register_time + '\'' +
-                ", last_login_time='" + last_login_time + '\'' +
+                ", registerTime='" + registerTime + '\'' +
+                ", lastLoginTime='" + lastLoginTime + '\'' +
+                ", description='" + description + '\'' +
                 ", files=" + files +
                 '}';
     }
