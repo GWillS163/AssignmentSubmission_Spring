@@ -1,13 +1,14 @@
 package com.mengjq.assignmentsubmission_spring.controller;
 
+import com.mengjq.assignmentsubmission_spring.mapper.AssignMapper;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 //import com.mengjq.assignmentsubmission_spring.model.AssignExample;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 //添加注解
@@ -16,38 +17,30 @@ public class AssignController {
 
     @Autowired
     private AssignService assignService;
+    @Autowired
+    private AssignMapper assignMapper;
 
-    //通过构�?�器注入service
-    public AssignController(AssignService assignService){
-        this.assignService=assignService;
-    }
+//    //通过构�?�器注入service
+//    public AssignController(AssignService assignService){
+//        this.assignService=assignService;
+//    }
 
     //查询数据 - GET
-    @GetMapping("/assign")
-    @ResponseBody
+    @GetMapping("/assign/allInfo")
     public List<Assign> selectAssign(){
-
-        return assignService.getAssigns();
+        System.out.println("查询所有数据");
+        return assignService.getAllAssignsInfo();
     }
 
-    //查询数据
-    @GetMapping("/fakeData")
-    @ResponseBody
-    public List<Assign> fakeData(){
 
-        //2 根据条件查询
-        List<Assign> assigns = new LinkedList<>();
-        assigns.add(new Assign());
-        return assigns;
-    }
     //添加数据
     @PostMapping("/assign")
-    @ResponseBody
-    public Assign insertUser(@RequestBody Assign assign){
-        //准备数据
-        //...
+    public Assign insertUser(Assign assign) throws ParseException {
+        System.out.println("添加数据"+ assign);
 
-        assignService.insert(assign);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+//        assign.setUploadTime(df.parse(assign.getUploadTime()));
+        int i = assignService.insert(assign);
 
         return assign;
     }

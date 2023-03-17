@@ -10,19 +10,18 @@ import java.util.Date;
  * @author 
  * 作业规则
  */
+
 public class Assign implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-    private Integer curriid;
-    private Date ddl;
-    private Byte permitanymous;
-    private Byte filenameverify;
-    private Date updatedtime;
-    private String userid;
-    private String brifename;
+    private Integer clazzId;
+    private String ddl;
+    private String uploadTime;
+    private String briefName;
     private String description;
-    private String filenamerule;
-    private static final long serialVersionUID = 1L;
+    private String fileNameRule;
+    private Byte permitAnonymous;
+    private Byte fileNameVerify;
 
     public Integer getId() {
         return id;
@@ -32,60 +31,52 @@ public class Assign implements Serializable {
         this.id = id;
     }
 
-    public Integer getCurriid() {
-        return curriid;
+    public Integer getClazzId() {
+        return clazzId;
     }
 
-    public void setCurriid(Integer curriid) {
-        this.curriid = curriid;
+    public void setClazzId(Integer clazzId) {
+        this.clazzId = clazzId;
     }
 
-    public Date getDdl() {
+    public String getDdl() {
         return ddl;
     }
 
-    public void setDdl(Date ddl) {
+    public void setDdl(String ddl) {
         this.ddl = ddl;
     }
 
-    public Byte getPermitanymous() {
-        return permitanymous;
+    public Byte getPermitAnonymous() {
+        return permitAnonymous;
     }
 
-    public void setPermitanymous(Byte permitanymous) {
-        this.permitanymous = permitanymous;
+    public void setPermitAnonymous(Byte permitAnonymous) {
+        this.permitAnonymous = permitAnonymous;
     }
 
-    public Byte getFilenameverify() {
-        return filenameverify;
+    public Byte getFileNameVerify() {
+        return fileNameVerify;
     }
 
-    public void setFilenameverify(Byte filenameverify) {
-        this.filenameverify = filenameverify;
+    public void setFileNameVerify(Byte fileNameVerify) {
+        this.fileNameVerify = fileNameVerify;
     }
 
-    public Date getUpdatedtime() {
-        return updatedtime;
+    public String getUploadTime() {
+        return uploadTime;
     }
 
-    public void setUpdatedtime(Date updatedtime) {
-        this.updatedtime = updatedtime;
+    public void setUploadTime(String uploadTime) {
+        this.uploadTime = uploadTime;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getBriefName() {
+        return briefName;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getBrifename() {
-        return brifename;
-    }
-
-    public void setBrifename(String brifename) {
-        this.brifename = brifename;
+    public void setBriefName(String briefName) {
+        this.briefName = briefName;
     }
 
     public String getDescription() {
@@ -96,12 +87,26 @@ public class Assign implements Serializable {
         this.description = description;
     }
 
-    public String getFilenamerule() {
-        return filenamerule;
+    public String getFileNameRule() {
+        return fileNameRule;
     }
 
-    public void setFilenamerule(String filenamerule) {
-        this.filenamerule = filenamerule;
+    public void setFileNameRule(String fileNameRule) {
+        this.fileNameRule = fileNameRule;
     }
 
+    @Override
+    public String toString() {
+        return "Assign{" +
+                "id=" + id +
+                ", clazzId=" + clazzId +
+                ", ddl=" + ddl +
+                ", uploadTime=" + uploadTime +
+                ", briefName='" + briefName + '\'' +
+                ", description='" + description + '\'' +
+                ", fileNameRule='" + fileNameRule + '\'' +
+                ", permitAnonymous=" + permitAnonymous +
+                ", fileNameVerify=" + fileNameVerify +
+                '}';
+    }
 }

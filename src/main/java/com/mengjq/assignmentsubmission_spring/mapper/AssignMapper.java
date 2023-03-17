@@ -4,11 +4,16 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 import com.mengjq.assignmentsubmission_spring.model.AssignWithBLOBs;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 @Mapper
 public interface AssignMapper extends BaseMapper<Assign> {
+
+    @Select("select * from assign")
+    List<Assign> getAllAssignsInfo();
+
     int deleteByPrimaryKey(Integer assiid);
 
     int insert(AssignWithBLOBs record);
@@ -22,4 +27,5 @@ public interface AssignMapper extends BaseMapper<Assign> {
     int updateByPrimaryKeyWithBLOBs(AssignWithBLOBs record);
 
     int updateByPrimaryKey(Assign record);
+
 }

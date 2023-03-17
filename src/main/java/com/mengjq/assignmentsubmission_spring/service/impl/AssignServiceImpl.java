@@ -1,8 +1,5 @@
 package com.mengjq.assignmentsubmission_spring.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
@@ -10,17 +7,22 @@ import com.mengjq.assignmentsubmission_spring.model.Assign;
 import java.util.List;
 import com.mengjq.assignmentsubmission_spring.mapper.AssignMapper;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
-import org.springframework.transaction.annotation.Transactional;
 
-//@Service("assignServiceImpl")
-@Service
+@Service("assignServiceImpl")
 public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> implements AssignService {
 
-    private final AssignMapper mapper;
+    private final AssignMapper assignMapper;
 
     @Override
-    public List<Assign> getAssigns() {
-        return baseMapper.selectList(null);
+    public List<Assign> getAllAssignsInfo() {
+        System.out.println("getAllAssignsInfo");
+        return assignMapper.selectList(null);
+    }
+
+
+    @Override
+    public int insert(Assign record) {
+        return assignMapper.insert(record);
     }
 
 //    @Override
@@ -30,7 +32,7 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //
     //通过构�?�器注入mapper
     public AssignServiceImpl(AssignMapper mapper) {
-        this.mapper = mapper;
+        this.assignMapper = mapper;
     }
 //
 //    @Override
@@ -45,13 +47,9 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //
     @Override
     public int deleteByPrimaryKey(Integer assignId) {
-        return mapper.deleteByPrimaryKey(assignId);
+        return assignMapper.deleteByPrimaryKey(assignId);
     }
 
-    @Override
-    public int insert(Assign record) {
-        return mapper.insert(record);
-    }
 
 //    @Override
 //    public int insertSelective(Assign record) {
@@ -80,8 +78,9 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //
     @Override
     public int updateByPrimaryKeySelective(Assign record) {
-        return mapper.updateByPrimaryKeySelective(record);
+        return assignMapper.updateByPrimaryKeySelective(record);
     }
+
 
 //    @Override
 //    public int updateByPrimaryKey(Assign record) {

@@ -22,7 +22,6 @@ public class Student {
         this.studentId = studentId;
     }
 
-
     @TableField(exist = false)
     private Clazz clazzInfo;
     private String username;
