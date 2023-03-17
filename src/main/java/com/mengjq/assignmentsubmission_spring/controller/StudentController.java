@@ -47,8 +47,17 @@ public class StudentController {
     }
 
     @PutMapping("/student")
-    public String updateUser() {
-        return "update student";
+    public String updateUser(Student student) {
+        System.out.println("正在更新用户");
+        System.out.println(student);
+        // fix registerTime & lastLoginTime value is null
+        student.setRegisterTime(TimeFormat.verifyNull(student.getRegisterTime()));
+        student.setLastLoginTime(TimeFormat.verifyNull(student.getLastLoginTime()));
+        student.setDescription(TimeFormat.verifyNull(student.getDescription()));
+
+        int i = studentMapper.updateById(student);
+        return isSuccess(i);
+
     }
 
     @DeleteMapping("/student/{id}")
