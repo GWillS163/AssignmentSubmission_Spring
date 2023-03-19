@@ -83,7 +83,7 @@ public class Student {
 
 
     @TableField(exist = false)
-    private List<File> files;
+    private List<MyFile> myFiles;
     public int getClazzId() {
         return clazzId;
     }
@@ -93,12 +93,12 @@ public class Student {
     }
 
 
-    public List<File> getFiles() {
-        return files;
+    public List<MyFile> getFiles() {
+        return myFiles;
     }
 
-    public void setFiles(List<File> files) {
-        this.files = files;
+    public void setFiles(List<MyFile> myFiles) {
+        this.myFiles = myFiles;
     }
 
     public int getUserId() {
@@ -148,7 +148,7 @@ public class Student {
                 ", registerTime='" + registerTime + '\'' +
                 ", lastLoginTime='" + lastLoginTime + '\'' +
                 ", description='" + description + '\'' +
-                ", files=" + files +
+                ", files=" + myFiles +
                 '}';
     }
 

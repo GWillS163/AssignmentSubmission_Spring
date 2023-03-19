@@ -1,13 +1,13 @@
 package com.mengjq.assignmentsubmission_spring.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mengjq.assignmentsubmission_spring.model.File;
+import com.mengjq.assignmentsubmission_spring.model.MyFile;
 import com.mengjq.assignmentsubmission_spring.model.Student;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-public interface FileMapper extends BaseMapper<File> {
+public interface FileMapper extends BaseMapper<MyFile> {
 
 
     @Select("select * from file where user_id = #{user_id}")
@@ -18,7 +18,7 @@ public interface FileMapper extends BaseMapper<File> {
 //            @Result(column = "upload_time", property = "upload_time"),
 //            @Result(column = "user_id", property = "user_id")
 //    })
-    List<File> findByUserId(String user_id);
+    List<MyFile> findByUserId(String user_id);
 
     @Select("select * from file")
     @Results({
@@ -30,5 +30,5 @@ public interface FileMapper extends BaseMapper<File> {
                     one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.UserMapper.selectById"))
         }
     )
-    List<File> selectAllFileWithUser();
+    List<MyFile> selectAllFileWithUser();
 }

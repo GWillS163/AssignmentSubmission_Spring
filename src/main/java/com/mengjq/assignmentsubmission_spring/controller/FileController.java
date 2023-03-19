@@ -1,7 +1,7 @@
 package com.mengjq.assignmentsubmission_spring.controller;
 
 import com.mengjq.assignmentsubmission_spring.mapper.FileMapper;
-import com.mengjq.assignmentsubmission_spring.model.File;
+import com.mengjq.assignmentsubmission_spring.model.MyFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,22 +18,22 @@ public class FileController {
     private FileMapper fileMapper;
 
     @GetMapping("/file/allInfo")
-    public List<File> getFileWithUser(){
-        List<File> files = fileMapper.selectAllFileWithUser();
-        System.out.println(files);
-        return files;
+    public List<MyFile> getFileWithUser(){
+        List<MyFile> myFiles = fileMapper.selectAllFileWithUser();
+        System.out.println(myFiles);
+        return myFiles;
     }
 
 
     @GetMapping("/file/{user_id}") // Test OK
-    public List<File> getFileById(@PathVariable String user_id) {
+    public List<MyFile> getFileById(@PathVariable String user_id) {
         System.out.println("user_id: " + user_id);
-        List<File> files = fileMapper.findByUserId("1");
-        System.out.println(files);
-        if (files == null) {
+        List<MyFile> myFiles = fileMapper.findByUserId("1");
+        System.out.println(myFiles);
+        if (myFiles == null) {
             System.out.println("null");
             return null;
         }
-        return files;
+        return myFiles;
     }
 }

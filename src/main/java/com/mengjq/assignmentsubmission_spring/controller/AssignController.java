@@ -5,6 +5,7 @@ import com.mengjq.assignmentsubmission_spring.model.Assign;
 //import com.mengjq.assignmentsubmission_spring.model.AssignExample;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -12,7 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 //添加注解
+
 @RestController
+@RequestMapping("/assign")
 public class AssignController {
 
     @Autowired
@@ -26,40 +29,44 @@ public class AssignController {
 //    }
 
     //查询数据 - GET
-    @GetMapping("/assign/allInfo")
+    @GetMapping("")
     public List<Assign> selectAssign(){
         System.out.println("查询所有数据");
         return assignService.getAllAssignsInfo();
     }
 
+    //查询数据 指定 - GET d 
+    @GetMapping("/{id}")
+    public List<Assign> selectAssignById(@PathVariable("id") String assignId){
+        System.out.println("查询指定数据" + assignId);
+        Integer id = Integer.parseInt(assignId);
+        return assignService.selectByPrimaryKey(id);
+    }
+
 
     //添加数据
-    @PostMapping("/assign")
+    @PostMapping("")
     public Assign insertUser(Assign assign) throws ParseException {
         System.out.println("添加数据"+ assign);
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 //        assign.setUploadTime(df.parse(assign.getUploadTime()));
         int i = assignService.insert(assign);
-
         return assign;
     }
+
     //修改数据
-    @PutMapping("/assign")
-    @ResponseBody
-    public Assign updateUser(@RequestBody Assign assign){
-        //准备数据
-        //...
-
-        assignService.updateByPrimaryKeySelective(assign);
-        //只返回修改的字段数据
-        return assign;
-        //或通过主键,从数据库查询完整的数然后返回
-        //return assignService.selectByPrimaryKey(assign.getAssignId);
-
+//    @PutMapping(value = "/{id}", consumes = "multipart/form-data")
+    @PutMapping("/{id}")
+    public ResponseEntity<Assign> updateAssign(@PathVariable int id, Assign assign) {
+//    public ResponseEntity<Assign> updateAssign(@PathVariable int id, @ModelAttribute Assign assign) {
+        System.out.println("修改数据"+ assign);
+        Assign updatedAssign = assignService.updateAssign(id, assign);
+        return ResponseEntity.ok(updatedAssign);
     }
+
+
     //删除数据
-    @DeleteMapping("/assign/{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
     public String delUser(@PathVariable("id") String assignId){
         System.out.println("删除数据"+ assignId);

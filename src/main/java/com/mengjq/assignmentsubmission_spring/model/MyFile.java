@@ -3,13 +3,19 @@ package com.mengjq.assignmentsubmission_spring.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
-@Data
-@Accessors(chain = true)
-public class File {
+
+//@Data
+//@Accessors(chain = true)
+@TableName("file")
+public class MyFile {
     @TableId(type = IdType.AUTO )
     private int fileId;
     private int assignId;
@@ -68,13 +74,14 @@ public class File {
         this.uploadTime = uploadTime;
     }
 
-    @Override
-    public String toString() {
-        return "File{" +
-                "file_id=" + fileId +
-                ", assign_id='" + assignId + '\'' +
-                ", file_name='" + rawName + '\'' +
-                ", submit_time='" + uploadTime + '\'' +
-                '}';
+    public String getFileName() {
+        return String.valueOf(fileId);
     }
+
+    public String getFilePath() {
+        return "D:\\upload\\" + getFileName();
+    }
+
 }
+
+

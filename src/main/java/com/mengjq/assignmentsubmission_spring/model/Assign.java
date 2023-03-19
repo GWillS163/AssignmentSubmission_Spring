@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author 
@@ -15,8 +14,18 @@ public class Assign implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     private Integer clazzId;
+
+    public Integer getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    private Integer teacherId;
     private String ddl;
-    private String uploadTime;
+    private String createTime;
     private String briefName;
     private String description;
     private String fileNameRule;
@@ -63,12 +72,12 @@ public class Assign implements Serializable {
         this.fileNameVerify = fileNameVerify;
     }
 
-    public String getUploadTime() {
-        return uploadTime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setUploadTime(String uploadTime) {
-        this.uploadTime = uploadTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public String getBriefName() {
@@ -100,8 +109,9 @@ public class Assign implements Serializable {
         return "Assign{" +
                 "id=" + id +
                 ", clazzId=" + clazzId +
+                ", teacherId=" + teacherId +
                 ", ddl=" + ddl +
-                ", uploadTime=" + uploadTime +
+                ", createTime=" + createTime +
                 ", briefName='" + briefName + '\'' +
                 ", description='" + description + '\'' +
                 ", fileNameRule='" + fileNameRule + '\'' +

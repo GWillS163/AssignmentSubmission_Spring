@@ -51,6 +51,7 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
     }
 
 
+
 //    @Override
 //    public int insertSelective(Assign record) {
 //        return mapper.insertSelective(record);
@@ -61,12 +62,17 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //        return mapper.selectByExample(example);
 //    }
 
-//    @Override
-//    public List<Assign> selectByPrimaryKey(int assignId) {
-//        return mapper.selectByPrimaryKey(assignId);
-//    }
+    @Override
+    public List<Assign> selectByPrimaryKey(int id) {
+        return assignMapper.selectByPrimaryKey(id);
+    }
 
-//    @Override
+    @Override
+    public Integer updateByPrimaryKeySelective(Assign record) {
+        return assignMapper.updateByPrimaryKeySelective(record);
+    }
+
+    //    @Override
 //    public int updateByExampleSelective(Assign record,AssignExample example) {
 //        return mapper.updateByExampleSelective(record,example);
 //    }
@@ -77,8 +83,10 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //    }
 //
     @Override
-    public int updateByPrimaryKeySelective(Assign record) {
-        return assignMapper.updateByPrimaryKeySelective(record);
+    public Assign updateAssign(int id, Assign assign) {
+        assign.setId(id);
+        assignMapper.updateByPrimaryKeySelective(assign);
+        return assignMapper.selectByPrimaryKey(id).get(0);
     }
 
 
@@ -86,5 +94,4 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //    public int updateByPrimaryKey(Assign record) {
 //        return mapper.updateByPrimaryKey(record);
 //    }
-
 }
