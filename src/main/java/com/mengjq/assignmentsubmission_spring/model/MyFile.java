@@ -1,61 +1,85 @@
 package com.mengjq.assignmentsubmission_spring.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import lombok.experimental.Accessors;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.Serializable;
 import java.util.Date;
 
-//@Data
-//@Accessors(chain = true)
 @TableName("file")
-public class MyFile {
+public class MyFile implements Serializable {
     @TableId(type = IdType.AUTO )
-    private int fileId;
-    private int assignId;
+    private Integer fileId;
+
+    private String hash;
+
+    private Integer fileSize;
+
+    private Integer userId;
+
+    private Integer assignId;
+
     private String rawName;
-    private Date uploadTime;
-    private int userId;
 
-    @TableField(exist = false)
-    private Student student;
+    private String formatName;
 
-    public Student getStudent() {
-        return student;
+    private String uploadTime;
+
+    private static final long serialVersionUID = 1L;
+
+    public String getFormatName() {
+        return formatName;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setFormatName(String formatName) {
+        this.formatName = formatName;
     }
 
-    public int getFileId() {
+    public Integer getFileId() {
         return fileId;
     }
 
-    public void setFileId(int fileId) {
+    public void setFileId(Integer fileId) {
         this.fileId = fileId;
     }
 
-    public int getAssignId() {
-        return assignId;
+    public Integer getFileSize() {
+        return fileSize;
     }
 
-    public void setAssignId(int assignId) {
-        this.assignId = assignId;
+    public void setFileSize(Integer fileSize) {
+        this.fileSize = fileSize;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getAssignId() {
+        return assignId;
+    }
+
+    public void setAssignId(Integer assignId) {
+        this.assignId = assignId;
+    }
+
+    @Override
+    public String toString() {
+        return "MyFile{" +
+                "fileId=" + fileId +
+                ", hash='" + hash + '\'' +
+                ", fileSize=" + fileSize +
+                ", userId=" + userId +
+                ", assignId=" + assignId +
+                ", rawName='" + rawName + '\'' +
+                ", formatName='" + formatName + '\'' +
+                ", uploadTime='" + uploadTime + '\'' +
+                '}';
     }
 
     public String getRawName() {
@@ -66,22 +90,19 @@ public class MyFile {
         this.rawName = rawName;
     }
 
-    public Date getUploadTime() {
+    public String getUploadTime() {
         return uploadTime;
     }
 
-    public void setUploadTime(Date uploadTime) {
+    public void setUploadTime(String uploadTime) {
         this.uploadTime = uploadTime;
     }
 
-    public String getFileName() {
-        return String.valueOf(fileId);
+    public String getHash() {
+        return hash;
     }
 
-    public String getFilePath() {
-        return "D:\\upload\\" + getFileName();
+    public void setHash(String hash) {
+        this.hash = hash;
     }
-
 }
-
-

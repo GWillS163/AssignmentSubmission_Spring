@@ -1,19 +1,19 @@
 package com.mengjq.assignmentsubmission_spring.service.impl;
 
 import org.springframework.stereotype.Service;
-import com.mengjq.assignmentsubmission.model.MyFile;
-import com.mengjq.assignmentsubmission.model.MyFileExample;
+import com.mengjq.assignmentsubmission_spring.model.MyFile;
+import com.mengjq.assignmentsubmission_spring.model.MyFileExample;
 import java.lang.String;
 import java.util.List;
-import com.mengjq.assignmentsubmission.mapper.FileMapper;
-import com.mengjq.assignmentsubmission.service.MyFileService;
+import com.mengjq.assignmentsubmission_spring.mapper.FileMapper;
+import com.mengjq.assignmentsubmission_spring.service.MyFileService;
 
 @Service
 public class MyFileServiceImpl implements MyFileService{
 
     private FileMapper mapper;
 
-    //通过构�?�器注入mapper
+    //通过构 器注入mapper
     public MyFileServiceImpl(FileMapper mapper) {
         this.mapper = mapper;
     }
@@ -29,18 +29,18 @@ public class MyFileServiceImpl implements MyFileService{
     }
 
     @Override
-    public int deleteByPrimaryKey(String myFileId) {
+    public int deleteByPrimaryKey(Integer myFileId) {
         return mapper.deleteByPrimaryKey(myFileId);
     }
 
     @Override
     public int insert(MyFile record) {
-        return mapper.insert(record);
+        return mapper.insertOne(record);
     }
 
     @Override
     public int insertSelective(MyFile record) {
-        return mapper.insertSelective(record);
+        return mapper.insert(record);
     }
 
     @Override
@@ -71,6 +71,11 @@ public class MyFileServiceImpl implements MyFileService{
     @Override
     public int updateByPrimaryKey(MyFile record) {
         return mapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<MyFile> selectAll() {
+        return mapper.selectByExample(null);
     }
 
 }
