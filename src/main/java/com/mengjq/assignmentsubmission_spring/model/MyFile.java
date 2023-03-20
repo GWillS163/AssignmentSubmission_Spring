@@ -32,15 +32,15 @@ public class MyFile implements Serializable {
     public String toString() {
         return "MyFile{" +
                 "fileId=" + fileId +
-                ", hash='" + hash + '\'' +
-                ", fileSize=" + fileSize +
-                ", userId=" + userId +
-                ", assignId=" + assignId +
                 ", rawName='" + rawName + '\'' +
                 ", formatName='" + formatName + '\'' +
                 ", uploadTime='" + uploadTime + '\'' +
                 ", rawPath='" + rawPath + '\'' +
                 ", savePath='" + savePath + '\'' +
+                ", fileSize=" + fileSize +
+                ", userId=" + userId +
+                ", assignId=" + assignId +
+                ", hash='" + hash + '\'' +
                 '}';
     }
 
@@ -126,7 +126,5 @@ public class MyFile implements Serializable {
         this.hash = hash;
     }
 
-    public String  getFileRawName() {
-        return rawName;
-    }
+
 }

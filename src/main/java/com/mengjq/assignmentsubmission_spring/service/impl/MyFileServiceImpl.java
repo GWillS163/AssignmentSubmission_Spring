@@ -5,16 +5,16 @@ import com.mengjq.assignmentsubmission_spring.model.MyFile;
 import com.mengjq.assignmentsubmission_spring.model.MyFileExample;
 import java.lang.String;
 import java.util.List;
-import com.mengjq.assignmentsubmission_spring.mapper.FileMapper;
+import com.mengjq.assignmentsubmission_spring.mapper.MyFileMapper;
 import com.mengjq.assignmentsubmission_spring.service.MyFileService;
 
 @Service
 public class MyFileServiceImpl implements MyFileService{
 
-    private FileMapper mapper;
+    private MyFileMapper mapper;
 
     //通过构 器注入mapper
-    public MyFileServiceImpl(FileMapper mapper) {
+    public MyFileServiceImpl(MyFileMapper mapper) {
         this.mapper = mapper;
     }
 

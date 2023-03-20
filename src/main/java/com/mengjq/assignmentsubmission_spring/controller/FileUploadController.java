@@ -24,7 +24,7 @@ public class FileUploadController {
         System.out.println("path: " + path);
 
 
-        FileIO.saveFile(photo);
+        FileIO.saveFile(photo, photo.getOriginalFilename());
 
         return "upload success";
     }

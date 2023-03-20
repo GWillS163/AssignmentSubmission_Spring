@@ -1,6 +1,6 @@
 package com.mengjq.assignmentsubmission_spring.controller;
 
-import com.mengjq.assignmentsubmission_spring.mapper.FileMapper;
+import com.mengjq.assignmentsubmission_spring.mapper.MyFileMapper;
 import com.mengjq.assignmentsubmission_spring.model.MyFile;
 import com.mengjq.assignmentsubmission_spring.model.MyFileExample;
 import com.mengjq.assignmentsubmission_spring.service.MyFileService;
@@ -10,12 +10,9 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class MyFileController {
     @Autowired
     private MyFileService myFileService;
     @Autowired
-    private FileMapper fileMapper;
+    private MyFileMapper myFileMapper;
 
 
     //查询数据
@@ -74,15 +71,23 @@ public ResponseEntity<InputStreamResource> selectMyFileById(@PathVariable String
     //添加数据
     @PostMapping("/myFile")
     public MyFile insertUser(MyFile myFile, MultipartFile fileData) throws IOException {
-        System.out.println("添加数据1" + myFile);
-        System.out.println("添加数据2" + fileData);
+        System.out.println("添加数据");
+//        System.out.println("添加数据2" + fileData);
 
+//      修订值
+        String saveName = fileData.getOriginalFilename().replace(".", "_" +System.currentTimeMillis()+ ".");
+        System.out.println("saving Name: " + saveName);
+        myFile.setRawName(fileData.getOriginalFilename());
+        myFile.setSavePath(saveName);
+        myFile.setFileSize((int) fileData.getSize());
+        System.out.println("file size: " + fileData.getSize());
+        myFile.setHash(FileIO.calculateHash(fileData));
 //        数据库插入
-        myFile.setRawName(fileData.getName());
-        fileMapper.insert(myFile);
+        System.out.println("添加数据" + myFile);
+        myFileMapper.insert(myFile);
 
-//        本地文件上传
-        FileIO.saveFile(fileData);
+//        本地文件保存
+        FileIO.saveFile(fileData, saveName);
 
         return myFile;
     }
@@ -90,20 +95,28 @@ public ResponseEntity<InputStreamResource> selectMyFileById(@PathVariable String
 
     //修改数据
     @PutMapping("/myFile/{id}")
-    public MyFile updateUser(@PathVariable String id, MyFile myFile){
+    public int updateUser(@PathVariable String id, MyFile myFile){
         System.out.println("修改数据" + id + " " + myFile);
 
-        myFileService.updateByPrimaryKeySelective(myFile);
+//        myFileService.updateByPrimaryKeySelective(myFile);
+//        fileMapper.updateByPrimaryKey(myFile);
         //只返回修改的字段数据
-        return myFile;
+        myFile.setFileId(Integer.parseInt(id));
+        return myFileService.updateByPrimaryKey(myFile);
         //或�??,通过主键,从数据库查询完整的数�?,然后返回
         //return myFileService.selectByPrimaryKey(myFile.getMyFileId);
 
     }
     //删除数据
     @DeleteMapping("/myFile/{id}")
-    @ResponseBody
-    public String delUser(@PathVariable("id") Integer myFileId){
+    public String delUser(@PathVariable("id") Integer myFileId) {
+        System.out.println("删除数据" + myFileId);
+//        查询本地文件
+        MyFile myFile = myFileService.selectByPrimaryKey(myFileId.toString());
+//        删除本地文件
+        String path = System.getProperty("user.dir") + "/upload/";
+//        delete file from local
+        FileIO.deleteFile(path + myFile.getRawName());
 
         myFileService.deleteByPrimaryKey(myFileId);
 

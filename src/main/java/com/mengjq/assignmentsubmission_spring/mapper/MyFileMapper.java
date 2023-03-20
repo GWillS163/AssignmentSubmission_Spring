@@ -9,7 +9,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.*;
 
 @Mapper
-public interface FileMapper extends BaseMapper<MyFile> {
+public interface MyFileMapper extends BaseMapper<MyFile> {
     long countByExample(MyFileExample example);
 
     int deleteByExample(MyFileExample example);
@@ -35,11 +35,33 @@ public interface FileMapper extends BaseMapper<MyFile> {
 
     int updateByExample(@Param("record") MyFile record, @Param("example") MyFileExample example);
 
-    @Update("update file set file_size = #{fileSize}, user_id = #{userId}, assign_id = #{assignId}, raw_name = #{rawName}, format_name = #{formatName}, upload_time = #{uploadTime} where file_id = #{fileId} ")
-//    也可以使用Xml配置文件， 但是总是不好使， 以后再研究
     int updateByPrimaryKeySelective(MyFile record);
 
     int updateByPrimaryKeyWithBLOBs(MyFile record);
 
+    //    也可以使用Xml配置文件， 但是总是不好使， 以后再研究
+    @Update({
+            "<script>",
+            "update file",
+            "<set>",
+            "<if test='fileSize != null'>file_size = #{fileSize},</if>",
+            "<if test='userId != null'>user_id = #{userId},</if>",
+            "<if test='assignId != null'>assign_id = #{assignId},</if>",
+            "<if test='rawName != null'>raw_name = #{rawName},</if>",
+            "<if test='formatName != null'>format_name = #{formatName},</if>",
+            "<if test='uploadTime != null'>upload_time = #{uploadTime},</if>",
+            "</set>",
+            "where file_id = #{fileId}",
+            "</script>"
+    })
+    @Results({
+            @Result(property = "fileId", column = "file_id"),
+            @Result(property = "fileSize", column = "file_size"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "assignId", column = "assign_id"),
+            @Result(property = "rawName", column = "raw_name"),
+            @Result(property = "formatName", column = "format_name"),
+            @Result(property = "uploadTime", column = "upload_time")
+    })
     int updateByPrimaryKey(MyFile record);
 }
