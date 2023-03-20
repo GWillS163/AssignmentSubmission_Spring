@@ -1,10 +1,13 @@
 package com.mengjq.assignmentsubmission_spring.controller;
 
+import com.mengjq.assignmentsubmission_spring.util.FileIO;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Objects;
 
@@ -15,27 +18,32 @@ public class FileUploadController {
     public String up(String nickname, MultipartFile photo, HttpServletRequest request) throws IOException {
         System.out.println(nickname);
 
-        System.out.println(photo.getOriginalFilename());
-        System.out.println(photo.getContentType());
-        System.out.println(photo.getSize());
-        System.out.println(photo.getName());
-        System.out.println(System.getProperty("user.dir"));;
+//        System.out.println(System.getProperty("user.dir"));;
+        String path = System.getProperty("user.dir") + "/upload/";
+//        String path = request.getServletContext().getRealPath("/upload/");
+        System.out.println("path: " + path);
 
-        String path = request.getServletContext().getRealPath("/upload/");
-        System.out.println(path);
-        saveFile(photo, path);
+
+        FileIO.saveFile(photo);
 
         return "upload success";
     }
 
-    public void saveFile(MultipartFile photo, String path) throws IOException {
-        File dir = new File(path);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        String savePath = path + photo.getOriginalFilename();
-        System.out.println("saving file to " + savePath);
-        File file = new File(savePath);
-        photo.transferTo(file);
+    @GetMapping("/download")
+    public void down(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        String path = request.getServletContext().getRealPath("/upload/");
+        String fileName = "cube.jpg";
+        response.setContentType("application/force-download");
+        response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+        OutputStream outputStream = response.getOutputStream();
+        System.out.println("downloading file " + fileName);
+        System.out.println("outputStream: " + outputStream);
+
+        String path = System.getProperty("user.dir") + "/upload/";
+        File file = new File(path + fileName);
+        FileIO.readFile(file);
+
+
     }
+
 }

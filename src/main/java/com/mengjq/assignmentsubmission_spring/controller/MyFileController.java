@@ -4,10 +4,19 @@ import com.mengjq.assignmentsubmission_spring.mapper.FileMapper;
 import com.mengjq.assignmentsubmission_spring.model.MyFile;
 import com.mengjq.assignmentsubmission_spring.model.MyFileExample;
 import com.mengjq.assignmentsubmission_spring.service.MyFileService;
+import com.mengjq.assignmentsubmission_spring.util.FileIO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 
 //添加注解
@@ -34,22 +43,46 @@ public class MyFileController {
         //...
         return myFileService.selectAll();
     }
-    //查询数据
-    @GetMapping("/myFile/{myFileId}")
-    @ResponseBody
-    public MyFile selectMyFileById(@PathVariable String myFileId){
-        System.out.println("查询数据" + myFileId);
-        MyFile list = myFileService.selectByPrimaryKey(myFileId);
-        return list;
-    }
+
+@GetMapping("/myFile/{myFileId}")
+public ResponseEntity<InputStreamResource> selectMyFileById(@PathVariable String myFileId) throws IOException {
+//        数据查询
+    MyFile myFile = myFileService.selectByPrimaryKey(myFileId);
+    String fileName = myFile.getRawName();
+    System.out.println("downloading file " + fileName);
+
+//    文件下载
+    String path = System.getProperty("user.dir") + "/upload/";
+    File file = new File(path + fileName);
+    InputStreamResource resource = FileIO.readFile(file);
+
+//    返回数据
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Content-Disposition", "attachment;filename=" + fileName);
+    headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+    headers.add("Pragma", "no-cache");
+    headers.add("Expires", "0");
+
+    return ResponseEntity.ok()
+            .headers(headers)
+            .contentLength(file.length())
+            .contentType(MediaType.parseMediaType("application/octet-stream"))
+            .body(resource);
+}
 
 
     //添加数据
     @PostMapping("/myFile")
-    public MyFile insertUser( MyFile myFile){
-        System.out.println("添加数据" + myFile);
+    public MyFile insertUser(MyFile myFile, MultipartFile fileData) throws IOException {
+        System.out.println("添加数据1" + myFile);
+        System.out.println("添加数据2" + fileData);
+
+//        数据库插入
+        myFile.setRawName(fileData.getName());
         fileMapper.insert(myFile);
-//        myFileService.insertSelective(myFile);
+
+//        本地文件上传
+        FileIO.saveFile(fileData);
 
         return myFile;
     }
