@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/assign")
+@CrossOrigin
 public class AssignController {
 
     @Autowired
