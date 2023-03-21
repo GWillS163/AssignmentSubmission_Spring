@@ -25,24 +25,35 @@ public class MyFile implements Serializable {
     private String formatName;
 
     private String uploadTime;
-    private String rawPath;
-    private String savePath;
+    private String lastEditTime;
 
     @Override
     public String toString() {
         return "MyFile{" +
                 "fileId=" + fileId +
-                ", rawName='" + rawName + '\'' +
-                ", formatName='" + formatName + '\'' +
-                ", uploadTime='" + uploadTime + '\'' +
-                ", rawPath='" + rawPath + '\'' +
-                ", savePath='" + savePath + '\'' +
+                ", hash='" + hash + '\'' +
                 ", fileSize=" + fileSize +
                 ", userId=" + userId +
                 ", assignId=" + assignId +
-                ", hash='" + hash + '\'' +
+                ", rawName='" + rawName + '\'' +
+                ", formatName='" + formatName + '\'' +
+                ", uploadTime='" + uploadTime + '\'' +
+                ", lastEditTime='" + lastEditTime + '\'' +
+                ", rawPath='" + rawPath + '\'' +
+                ", savePath='" + savePath + '\'' +
                 '}';
     }
+
+    public String getLastEditTime() {
+        return lastEditTime;
+    }
+
+    public void setLastEditTime(String lastEditTime) {
+        this.lastEditTime = lastEditTime;
+    }
+
+    private String rawPath;
+    private String savePath;
 
     public String getRawPath() {
         return rawPath;

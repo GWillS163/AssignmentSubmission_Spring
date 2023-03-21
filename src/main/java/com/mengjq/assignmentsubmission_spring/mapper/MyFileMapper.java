@@ -50,6 +50,7 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
             "<if test='rawName != null'>raw_name = #{rawName},</if>",
             "<if test='formatName != null'>format_name = #{formatName},</if>",
             "<if test='uploadTime != null'>upload_time = #{uploadTime},</if>",
+            "<if test='lastEditTime != null'>last_edit_time = #{lastEditTime},</if>",
             "</set>",
             "where file_id = #{fileId}",
             "</script>"
