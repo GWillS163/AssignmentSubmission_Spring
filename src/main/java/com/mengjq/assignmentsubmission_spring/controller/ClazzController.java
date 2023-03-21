@@ -3,6 +3,8 @@ package com.mengjq.assignmentsubmission_spring.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mengjq.assignmentsubmission_spring.mapper.ClazzMapper;
 import com.mengjq.assignmentsubmission_spring.model.Clazz;
+import com.mengjq.assignmentsubmission_spring.model.Teacher;
+import com.mengjq.assignmentsubmission_spring.service.ClazzService;
 import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,11 +13,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 @RestController
 @CrossOrigin
 public class ClazzController {
+
+//    @Autowired
+//    private ClazzService clazzService;
     @Autowired
     private ClazzMapper clazzMapper;
 
@@ -36,6 +43,23 @@ public class ClazzController {
         List<Clazz> clazzList = clazzMapper.selectList(null);
 //        System.out.println("获取所有班级信息" + clazzList);
         return clazzList;
+    }
+
+    @GetMapping("/class/map")
+    public Dictionary<Integer, String> getClazzMap(){
+        System.out.println("获取class Map");
+//        List<Clazz> clazzes =  clazzService.selectClazzIdMap();
+        List<Clazz> clazzes =  clazzMapper.selectClazzIdMap();
+        // put all key and value of clazzIdMap into a new map
+        Dictionary<Integer, String> clazzIdMap = new Hashtable<Integer, String>();
+        for (Clazz clazz : clazzes) {
+            if (clazz.getClazzName() == null) {
+                clazz.setClazzName("");
+            }
+            clazzIdMap.put(clazz.getClazzId(), clazz.getClazzName());
+        }
+        System.out.println(clazzIdMap);  // {1=张三, 2=李四, 3=王五}
+        return clazzIdMap;
     }
 
     @PostMapping("/class")

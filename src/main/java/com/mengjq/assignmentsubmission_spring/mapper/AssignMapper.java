@@ -3,6 +3,7 @@ package com.mengjq.assignmentsubmission_spring.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 import com.mengjq.assignmentsubmission_spring.model.AssignWithBLOBs;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -18,7 +19,8 @@ public interface AssignMapper extends BaseMapper<Assign> {
     @Select("select * from assign where id = #{id}")
     List<Assign> selectByPrimaryKey(int id);
 
-    int deleteByPrimaryKey(Integer assiid);
+    @Delete("delete from assign where id = #{id}")
+    int deleteByPrimaryKey(Integer id);
 
     int insert(AssignWithBLOBs record);
 
