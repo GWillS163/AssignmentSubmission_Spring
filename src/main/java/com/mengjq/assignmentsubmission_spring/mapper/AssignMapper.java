@@ -3,10 +3,7 @@ package com.mengjq.assignmentsubmission_spring.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 import com.mengjq.assignmentsubmission_spring.model.AssignWithBLOBs;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -33,6 +30,8 @@ public interface AssignMapper extends BaseMapper<Assign> {
     @Update("<script>" +
             "UPDATE assign " +
             "<set>" +
+//            clazz
+            "<if test='clazzId != null'>clazz_id = #{clazzId},</if>" +
             "<if test='teacherId != null'>teacher_id = #{teacherId},</if>" +
             "<if test='ddl != null'>ddl = #{ddl},</if>" +
             "<if test='createTime != null'>create_time = #{createTime},</if>" +
@@ -51,4 +50,10 @@ public interface AssignMapper extends BaseMapper<Assign> {
 
     int updateByPrimaryKey(Assign record);
 
+    @Select("select id, brief_name from assign")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "brief_name", property = "briefName"),
+    })
+    List<Assign> getAllAssignsMap();
 }

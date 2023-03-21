@@ -72,6 +72,9 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
         return assignMapper.updateByPrimaryKeySelective(record);
     }
 
+    @Override
+    public List<Assign> getAllAssignsMap() { return assignMapper.getAllAssignsMap();}
+
     //    @Override
 //    public int updateByExampleSelective(Assign record,AssignExample example) {
 //        return mapper.updateByExampleSelective(record,example);

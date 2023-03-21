@@ -3,6 +3,7 @@ package com.mengjq.assignmentsubmission_spring.controller;
 import com.mengjq.assignmentsubmission_spring.mapper.AssignMapper;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 //import com.mengjq.assignmentsubmission_spring.model.AssignExample;
+import com.mengjq.assignmentsubmission_spring.model.Clazz;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
 import com.mengjq.assignmentsubmission_spring.util.TimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,6 +47,22 @@ public class AssignController {
         System.out.println("查询指定数据" + assignId);
         Integer id = Integer.parseInt(assignId);
         return assignService.selectByPrimaryKey(id);
+    }
+    //查询数据 - GET
+    @GetMapping("/map")
+    public Dictionary<Integer, String> selectAssignMap(){
+        System.out.println("获取作业Map");
+        List<Assign> assigns =  assignService.getAllAssignsMap();
+
+        Dictionary<Integer, String> assignsMap = new Hashtable<Integer, String>();
+        for (Assign assign: assigns) {
+            if (assign.getBriefName() == null) {
+                assign.setBriefName("");
+            }
+            assignsMap.put(assign.getId(), assign.getBriefName());
+        }
+        System.out.println(assignsMap);  // {1=张三, 2=李四, 3=王五}
+        return assignsMap;
     }
 
 

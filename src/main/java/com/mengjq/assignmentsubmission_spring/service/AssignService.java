@@ -35,6 +35,8 @@ public interface AssignService{
     //根据主键有�?�择的更�?
     Integer updateByPrimaryKeySelective(Assign record);
 
+    List<Assign> getAllAssignsMap();
+
 
     //根据主键全字段的更新
 //    int updateByPrimaryKey(Assign record);
