@@ -29,8 +29,34 @@ public class Assign implements Serializable {
     private String briefName;
     private String description;
     private String fileNameRule;
-    private Byte permitAnonymous;
-    private Byte fileNameVerify;
+    private Boolean permitAnonymous;
+    private Boolean fileNameVerify;
+    private Boolean timeoutSubmit;
+
+    @Override
+    public String toString() {
+        return "Assign{" +
+                "id=" + id +
+                ", clazzId=" + clazzId +
+                ", teacherId=" + teacherId +
+                ", ddl='" + ddl + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", briefName='" + briefName + '\'' +
+                ", description='" + description + '\'' +
+                ", fileNameRule='" + fileNameRule + '\'' +
+                ", permitAnonymous=" + permitAnonymous +
+                ", fileNameVerify=" + fileNameVerify +
+                ", timeoutSubmit=" + timeoutSubmit +
+                '}';
+    }
+
+    public Boolean getTimeoutSubmit() {
+        return timeoutSubmit;
+    }
+
+    public void setTimeoutSubmit(Boolean timeoutSubmit) {
+        this.timeoutSubmit = timeoutSubmit;
+    }
 
     public Integer getId() {
         return id;
@@ -56,19 +82,19 @@ public class Assign implements Serializable {
         this.ddl = ddl;
     }
 
-    public Byte getPermitAnonymous() {
+    public Boolean getPermitAnonymous() {
         return permitAnonymous;
     }
 
-    public void setPermitAnonymous(Byte permitAnonymous) {
+    public void setPermitAnonymous(Boolean permitAnonymous) {
         this.permitAnonymous = permitAnonymous;
     }
 
-    public Byte getFileNameVerify() {
+    public Boolean getFileNameVerify() {
         return fileNameVerify;
     }
 
-    public void setFileNameVerify(Byte fileNameVerify) {
+    public void setFileNameVerify(Boolean fileNameVerify) {
         this.fileNameVerify = fileNameVerify;
     }
 
@@ -104,19 +130,4 @@ public class Assign implements Serializable {
         this.fileNameRule = fileNameRule;
     }
 
-    @Override
-    public String toString() {
-        return "Assign{" +
-                "id=" + id +
-                ", clazzId=" + clazzId +
-                ", teacherId=" + teacherId +
-                ", ddl=" + ddl +
-                ", createTime=" + createTime +
-                ", briefName='" + briefName + '\'' +
-                ", description='" + description + '\'' +
-                ", fileNameRule='" + fileNameRule + '\'' +
-                ", permitAnonymous=" + permitAnonymous +
-                ", fileNameVerify=" + fileNameVerify +
-                '}';
-    }
 }

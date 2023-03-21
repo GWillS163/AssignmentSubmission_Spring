@@ -4,6 +4,7 @@ import com.mengjq.assignmentsubmission_spring.mapper.AssignMapper;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 //import com.mengjq.assignmentsubmission_spring.model.AssignExample;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
+import com.mengjq.assignmentsubmission_spring.util.TimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 //添加注解
 
@@ -49,6 +51,9 @@ public class AssignController {
     @PostMapping("")
     public Assign insertUser(Assign assign) throws ParseException {
         System.out.println("添加数据"+ assign);
+        assign.setDdl(TimeFormat.verifyTimeOrDefault(assign.getDdl()));
+        assign.setCreateTime(TimeFormat.verifyTimeOrDefault(assign.getCreateTime()));
+
 //        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 //        assign.setUploadTime(df.parse(assign.getUploadTime()));
         int i = assignService.insert(assign);
