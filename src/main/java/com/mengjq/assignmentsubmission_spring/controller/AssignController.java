@@ -52,7 +52,7 @@ public class AssignController {
     public Assign insertUser(Assign assign) throws ParseException {
         System.out.println("添加数据"+ assign);
         assign.setDdl(TimeFormat.verifyTimeOrDefault(assign.getDdl()));
-        assign.setCreateTime(TimeFormat.verifyTimeOrDefault(assign.getCreateTime()));
+        assign.setCreateTime(TimeFormat.getNowTime());
 
 //        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 //        assign.setUploadTime(df.parse(assign.getUploadTime()));
@@ -64,8 +64,13 @@ public class AssignController {
 //    @PutMapping(value = "/{id}", consumes = "multipart/form-data")
     @PutMapping("/{id}")
     public ResponseEntity<Assign> updateAssign(@PathVariable int id, Assign assign) {
-//    public ResponseEntity<Assign> updateAssign(@PathVariable int id, @ModelAttribute Assign assign) {
+        System.out.println("修改数据");
+        assign.setDdl(TimeFormat.verifyTimeOrDefault(assign.getDdl())); // 验证时间格式
+        assign.setCreateTime(TimeFormat.verifyTimeOrDefault(assign.getCreateTime())); // 验证时间格式， 如果没有创建时间就用 默认事件
+
         System.out.println("修改数据"+ assign);
+        System.out.println(assign.getTimeoutSubmit());
+
         Assign updatedAssign = assignService.updateAssign(id, assign);
         return ResponseEntity.ok(updatedAssign);
     }

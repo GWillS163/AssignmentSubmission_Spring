@@ -27,7 +27,22 @@ public interface AssignMapper extends BaseMapper<Assign> {
     @Select("select * from assign where student_id = #{studentId}")
     List<Assign> selectByStudentId(int studentId);
 
-    @Update("UPDATE assign SET teacher_id = #{teacherId}, ddl = #{ddl}, create_time = #{createTime}, brief_name = #{briefName}, description = #{description}, file_name_rule = #{fileNameRule}, permit_anonymous = #{permitAnonymous}, file_name_verify = #{fileNameVerify} WHERE id = #{id}")
+    //    也可以使用Xml配置文件， 但是总是不好使， 以后再研究
+    @Update("<script>" +
+            "UPDATE assign " +
+            "<set>" +
+            "<if test='teacherId != null'>teacher_id = #{teacherId},</if>" +
+            "<if test='ddl != null'>ddl = #{ddl},</if>" +
+            "<if test='createTime != null'>create_time = #{createTime},</if>" +
+            "<if test='briefName != null'>brief_name = #{briefName},</if>" +
+            "<if test='description != null'>description = #{description},</if>" +
+            "<if test='fileNameRule != null'>file_name_rule = #{fileNameRule},</if>" +
+            "<if test='permitAnonymous != null'>permit_anonymous = #{permitAnonymous},</if>" +
+            "<if test='fileNameVerify != null'>file_name_verify = #{fileNameVerify},</if>" +
+            "<if test='timeoutSubmit != null'>timeout_submit = #{timeoutSubmit},</if>" +
+            "</set>" +
+            "WHERE id = #{id}" +
+            "</script>")
     int updateByPrimaryKeySelective(Assign assign);
 
     int updateByPrimaryKeyWithBLOBs(AssignWithBLOBs record);
