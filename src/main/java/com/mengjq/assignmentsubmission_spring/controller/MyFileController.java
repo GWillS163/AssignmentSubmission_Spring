@@ -5,6 +5,7 @@ import com.mengjq.assignmentsubmission_spring.model.MyFile;
 import com.mengjq.assignmentsubmission_spring.model.MyFileExample;
 import com.mengjq.assignmentsubmission_spring.service.MyFileService;
 import com.mengjq.assignmentsubmission_spring.util.FileIO;
+import com.mengjq.assignmentsubmission_spring.util.TimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +19,8 @@ import java.util.List;
 
 //添加注解
 @RestController
+@CrossOrigin
+@RequestMapping("/myFile")
 public class MyFileController {
 
     @Autowired
@@ -27,9 +30,9 @@ public class MyFileController {
 
 
     //查询数据
-    @GetMapping("/myFile")
+    @GetMapping("")
     @ResponseBody
-    public List<MyFile> selectMyFile(){
+    public List<MyFile> selectMyFile() {
         System.out.println("查询数据all");
         //1 构�?�查询条�?
         //1.1 创建查询条件�?
@@ -41,79 +44,138 @@ public class MyFileController {
         return myFileService.selectAll();
     }
 
-@GetMapping("/myFile/{myFileId}")
-public ResponseEntity<InputStreamResource> selectMyFileById(@PathVariable String myFileId) throws IOException {
+    @GetMapping("/{myFileId}")
+    public ResponseEntity<InputStreamResource> selectMyFileById(@PathVariable String myFileId) throws IOException {
 //        数据查询
-    MyFile myFile = myFileService.selectByPrimaryKey(myFileId);
-    String fileName = myFile.getRawName();
-    System.out.println("downloading file " + fileName);
+        MyFile myFile = myFileService.selectByPrimaryKey(myFileId);
+        String fileName = myFile.getRawName();
+        System.out.println("downloading file " + fileName);
 
 //    文件下载
-    String path = System.getProperty("user.dir") + "/upload/";
-    File file = new File(path + fileName);
-    InputStreamResource resource = FileIO.readFile(file);
+        String path = System.getProperty("user.dir") + "/upload/";
+        File file = new File(path + fileName);
+        InputStreamResource resource = FileIO.readFile(file);
 
 //    返回数据
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("Content-Disposition", "attachment;filename=" + fileName);
-    headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-    headers.add("Pragma", "no-cache");
-    headers.add("Expires", "0");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment;filename=" + fileName);
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
 
-    return ResponseEntity.ok()
-            .headers(headers)
-            .contentLength(file.length())
-            .contentType(MediaType.parseMediaType("application/octet-stream"))
-            .body(resource);
-}
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(resource);
+    }
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<InputStreamResource> selectMyFileByStudentId(@PathVariable String studentId) throws IOException {
+//        数据查询
+        List<MyFile> myFile = myFileService.selectByStudentId(studentId);
+        System.out.println(myFile);
+//        TODO: 查询出来之后，返回给前端
+//        String fileName = myFile[0].getRawName();
+        String fileName = "";
+        System.out.println("downloading file " + fileName);
+
+//    文件下载
+        String path = System.getProperty("user.dir") + "/upload/";
+        File file = new File(path + fileName);
+        InputStreamResource resource = FileIO.readFile(file);
+
+//    返回数据
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment;filename=" + fileName);
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(resource);
+    }
 
 
     //添加数据
-    @PostMapping("/myFile")
-    public MyFile insertUser(MyFile myFile, MultipartFile fileData) throws IOException {
-        System.out.println("添加数据");
-//        System.out.println("添加数据2" + fileData);
+    @PostMapping("")
+    public MyFile insertUser(MyFile myFile, @RequestParam("fileData") MultipartFile fileData) throws IOException {
+        System.out.println("添加数据1" + myFile);
+        System.out.println("添加数据2" + fileData);
+//      修订值
+        MyFile myFileRevised = reviseValues(myFile, fileData);
+
+//        数据库插入
+        System.out.println("添加数据" + myFileRevised);
+        myFileMapper.insert(myFileRevised);
+
+//        本地文件保存
+        FileIO.saveFile(fileData, myFileRevised.getSavePath());
+
+        return myFileRevised;
+    }
+
+    //添加数据
+    @PostMapping("/student")
+    public MyFile insertFileByStudent(MyFile myFile, Integer userId, @RequestParam("fileData") MultipartFile fileData) throws IOException {
+        System.out.println("添加数据1" + myFile);
+        System.out.println("添加数据2" + fileData);
 
 //      修订值
-        String saveName = fileData.getOriginalFilename().replace(".", "_" +System.currentTimeMillis()+ ".");
+        MyFile myFileRevised = reviseValues(myFile, fileData);
+        myFileRevised.setUserId(userId);
+//        数据库插入
+        System.out.println("添加数据" + myFileRevised);
+        myFileMapper.insert(myFileRevised);
+
+//        本地文件保存
+        FileIO.saveFile(fileData, myFileRevised.getSavePath());
+
+        return myFileRevised;
+    }
+
+    public MyFile reviseValues(MyFile myFile, MultipartFile fileData) throws IOException {
+
+//      修订值
+        String saveName = fileData.getOriginalFilename().replace(".", "_" + System.currentTimeMillis() + ".");
         System.out.println("saving Name: " + saveName);
+        System.out.println("file size: " + fileData.getSize());
+
         myFile.setRawName(fileData.getOriginalFilename());
         myFile.setSavePath(saveName);
         myFile.setFileSize((int) fileData.getSize());
-        System.out.println("file size: " + fileData.getSize());
         myFile.setHash(FileIO.calculateHash(fileData));
-//        数据库插入
-        System.out.println("添加数据" + myFile);
-        myFileMapper.insert(myFile);
-
-//        本地文件保存
-        FileIO.saveFile(fileData, saveName);
+        myFile.setUploadTime(TimeFormat.getNowTime());
 
         return myFile;
     }
 
-
     //修改数据
-    @PutMapping("/myFile/{id}")
-    public int updateUser(@PathVariable String id, MyFile myFile){
+    @PutMapping("/{id}")
+    public int updateUser(@PathVariable String id, MyFile myFile, @RequestParam("fileData") MultipartFile fileData) throws IOException {
         System.out.println("修改数据" + id + " " + myFile);
-
+        MyFile myFileRevised = reviseValues(myFile, fileData);
 //        myFileService.updateByPrimaryKeySelective(myFile);
 //        fileMapper.updateByPrimaryKey(myFile);
+
         //只返回修改的字段数据
-        myFile.setFileId(Integer.parseInt(id));
-        return myFileService.updateByPrimaryKey(myFile);
+        myFileRevised.setFileId(Integer.parseInt(id));
+        return myFileService.updateByPrimaryKey(myFileRevised);
         //或�??,通过主键,从数据库查询完整的数�?,然后返回
         //return myFileService.selectByPrimaryKey(myFile.getMyFileId);
 
     }
+
     //删除数据
     @DeleteMapping("/myFile/{id}")
     public String delUser(@PathVariable("id") Integer myFileId) {
         System.out.println("删除数据" + myFileId);
 //        查询本地文件
         MyFile myFile = myFileService.selectByPrimaryKey(myFileId.toString());
-//        删除本地文件
+//       TODO： 删除本地文件 似乎并没有完成
         String path = System.getProperty("user.dir") + "/upload/";
 //        delete file from local
         FileIO.deleteFile(path + myFile.getRawName());

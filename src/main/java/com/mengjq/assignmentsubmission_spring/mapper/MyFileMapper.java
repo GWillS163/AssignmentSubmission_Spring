@@ -65,4 +65,7 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
             @Result(property = "uploadTime", column = "upload_time")
     })
     int updateByPrimaryKey(MyFile record);
+
+    @Select("select * from file where user_id = #{studentId}")
+    List<MyFile> selectByStudentId(String studentId);
 }

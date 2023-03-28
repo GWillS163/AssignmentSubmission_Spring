@@ -31,4 +31,6 @@ public interface MyFileService{
     int updateByPrimaryKey(MyFile record);
 
     List<MyFile> selectAll();
+
+    List<MyFile> selectByStudentId(String studentId);
 }
