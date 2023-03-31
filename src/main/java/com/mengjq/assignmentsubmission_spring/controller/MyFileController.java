@@ -44,8 +44,31 @@ public class MyFileController {
         return myFileService.selectAll();
     }
 
+//    根据作业查询作业
+    @GetMapping("/assign/{assignId}")
+    @ResponseBody
+    public List<MyFile> selectMyFileByAssignId(@PathVariable String assignId) {
+        System.out.println("查询数据" + assignId);
+        return myFileService.findByAssignId(assignId);
+    }
+//    根据班级查询作业
+    @GetMapping("/class/{classId}")
+    @ResponseBody
+    public List<MyFile> selectMyFileByClassId(@PathVariable String classId) {
+        System.out.println("班级id 查询数据" + classId);
+        return myFileService.findByClassId(classId);
+    }
+
+//    获取单个文件信息
     @GetMapping("/{myFileId}")
-    public ResponseEntity<InputStreamResource> selectMyFileById(@PathVariable String myFileId) throws IOException {
+    public MyFile selectMyFileById(@PathVariable String myFileId) {
+        System.out.println("查询数据" + myFileId);
+        return myFileService.selectByPrimaryKey(myFileId);
+    }
+
+
+    @GetMapping("/{myFileId}/download")
+    public ResponseEntity<InputStreamResource> downloadMyFileById(@PathVariable String myFileId) throws IOException {
 //        数据查询
         MyFile myFile = myFileService.selectByPrimaryKey(myFileId);
         String fileName = myFile.getRawName();

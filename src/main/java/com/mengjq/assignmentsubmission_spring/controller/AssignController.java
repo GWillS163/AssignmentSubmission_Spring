@@ -34,7 +34,7 @@ public class AssignController {
 //        this.assignService=assignService;
 //    }
 
-    //查询数据 - GET
+    //查询所有数据 - GET
     @GetMapping("")
     public List<Assign> selectAssign(){
         System.out.println("查询所有数据");
@@ -48,6 +48,25 @@ public class AssignController {
         Integer id = Integer.parseInt(assignId);
         return assignService.selectByPrimaryKey(id);
     }
+
+//    根据班级ID获取所有作业信息
+    @GetMapping("/class/{id}")
+    public List<Assign> getAssignByClassId(@PathVariable("id") String classId){
+        System.out.println("获取班级作业信息 classId : " + classId);
+        Integer id = Integer.parseInt(classId);
+        return assignService.getAssignByClassId(id);
+    }
+
+    // 根据教师Id 获取所有作业信息（班级内的）
+    @GetMapping("/teacher/{id}")
+    public List<Assign> getAssignByTeacherId(@PathVariable("id") String teacherId){
+        System.out.println("获取教师作业信息 teacherId : " + teacherId);
+        Integer id = Integer.parseInt(teacherId);
+        return assignService.getAssignByTeacherId(id);
+    }
+
+
+
     //查询数据 - GET
     @GetMapping("/map")
     public Dictionary<Integer, String> selectAssignMap(){
@@ -64,6 +83,22 @@ public class AssignController {
         System.out.println(assignsMap);  // {1=张三, 2=李四, 3=王五}
         return assignsMap;
     }
+    //查询数据 - GET 根据班级
+//    @GetMapping("/class/{id}")
+//    public Dictionary<Integer, String> selectAssignByClass(){
+//        System.out.println("获取作业Map");
+//        List<Assign> assigns =  assignService.getAllAssignsByClass();
+//
+//        Dictionary<Integer, String> assignsMap = new Hashtable<Integer, String>();
+//        for (Assign assign: assigns) {
+//            if (assign.getBriefName() == null) {
+//                assign.setBriefName("");
+//            }
+//            assignsMap.put(assign.getId(), assign.getBriefName());
+//        }
+//        System.out.println(assignsMap);  // {1=张三, 2=李四, 3=王五}
+//        return assignsMap;
+//    }
 
 
     //添加数据

@@ -75,12 +75,22 @@ public class MyFileServiceImpl implements MyFileService{
 
     @Override
     public List<MyFile> selectAll() {
-        return mapper.selectByExample(null);
+        return mapper.selectList(null);
     }
 
     @Override
     public List<MyFile> selectByStudentId(String studentId) {
         return mapper.selectByStudentId(studentId);
+    }
+
+    @Override
+    public List<MyFile> findByAssignId(String assignId) {
+        return mapper.findByAssignId(assignId);
+    }
+
+    @Override
+    public List<MyFile> findByClassId(String classId) {
+        return mapper.findByClassId(classId);
     }
 
 }

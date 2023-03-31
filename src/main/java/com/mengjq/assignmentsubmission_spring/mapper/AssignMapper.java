@@ -11,7 +11,15 @@ import java.util.List;
 public interface AssignMapper extends BaseMapper<Assign> {
 
     @Select("select * from assign")
-    List<Assign> getAllAssignsInfo();
+    List<Assign> getAllAssigns();
+
+    // 根据班级Id 查询作业
+    @Select("select * from assign where clazz_id = #{clazzId}")
+    List<Assign> selectByClazzId(int clazzId);
+
+    // 根据教师id查询所有的班级的所有作业
+    @Select("select * from assign where ( clazz_id in (select clazz_id from clazz where teacher_id = #{teacherId}) )")
+    List<Assign> selectByTeacherId(int teacherId);
 
     @Select("select * from assign where id = #{id}")
     List<Assign> selectByPrimaryKey(int id);
@@ -56,4 +64,20 @@ public interface AssignMapper extends BaseMapper<Assign> {
             @Result(column = "brief_name", property = "briefName"),
     })
     List<Assign> getAllAssignsMap();
+
+    @Select("select * from assign where clazz_id = #{id} order by create_time desc")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "brief_name", property = "briefName"),
+            @Result(column = "teacher_id", property = "teacherId"),
+            @Result(column = "create_time", property = "createTime"),
+            @Result(column = "ddl", property = "ddl"),
+            @Result(column = "description", property = "description"),
+            @Result(column = "file_name_rule", property = "fileNameRule"),
+            @Result(column = "permit_anonymous", property = "permitAnonymous"),
+            @Result(column = "file_name_verify", property = "fileNameVerify"),
+            @Result(column = "timeout_submit", property = "timeoutSubmit"), // 0: 不允许， 1：允许
+    })
+    List<Assign> getAssignByClassId(Integer id);
+
 }

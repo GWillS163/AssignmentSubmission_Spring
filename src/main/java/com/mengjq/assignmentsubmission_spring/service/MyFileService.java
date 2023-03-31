@@ -33,4 +33,8 @@ public interface MyFileService{
     List<MyFile> selectAll();
 
     List<MyFile> selectByStudentId(String studentId);
+
+    List<MyFile> findByAssignId(String assignId);
+
+    List<MyFile> findByClassId(String classId);
 }

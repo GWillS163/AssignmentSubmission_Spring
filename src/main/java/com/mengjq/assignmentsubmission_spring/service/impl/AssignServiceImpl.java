@@ -75,6 +75,15 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
     @Override
     public List<Assign> getAllAssignsMap() { return assignMapper.getAllAssignsMap();}
 
+//    根据班级Id查询作业
+    @Override
+    public List<Assign> getAssignByClassId(Integer id) {
+        return assignMapper.getAssignByClassId(id);
+    }
+// selectByTeacherId
+    public List<Assign> getAssignByTeacherId(Integer id) {
+        return assignMapper.selectByTeacherId(id);
+    }
     //    @Override
 //    public int updateByExampleSelective(Assign record,AssignExample example) {
 //        return mapper.updateByExampleSelective(record,example);
@@ -92,9 +101,8 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
         return assignMapper.selectByPrimaryKey(id).get(0);
     }
 
-
 //    @Override
 //    public int updateByPrimaryKey(Assign record) {
-//        return mapper.updateByPrimaryKey(record);
+//        return assignMapper.updateByPrimaryKey(record);
 //    }
 }

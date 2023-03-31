@@ -24,20 +24,46 @@ public class StudentController {
     @Autowired
     private StudentMapper studentMapper;
 
-
-    @ApiOperation(value = "根据id查询用户及文件", notes = "根据id查询用户及文件", httpMethod = "GET")
+//    查询所有用户，无文件
     @GetMapping("")
+    public List<Student> getAllStudents(){
+        System.out.println("获取所有学生");
+        List<Student> students = studentMapper.selectList(null);
+        return students;
+    }
+
+// 查询所有用户及文件
+    @ApiOperation(value = "根据id查询用户及文件", notes = "根据id查询用户及文件", httpMethod = "GET")
+    @GetMapping("/allInfo")
     public List<Student> queryAllUserWithFiles(){
         System.out.println("查询所有用户及文件");
         List<Student> students = studentMapper.selectAllUserWithFiles();
-//        System.out.println(students.toArray().length);
         return students;
     }
+
+//    根据班级查询学生
+    @GetMapping("/class/{classId}")
+    public List<Student> queryStudentByClassId(@PathVariable String classId){
+        System.out.println("查询班级学生 classId : " + classId);
+        // make a queryWrapper
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("clazz_id", classId);
+        List<Student> students = studentMapper.selectList(queryWrapper);
+        return students;
+    }
+
+//    根据教师ID查询所有学生
+    @GetMapping("/teacher/{teacherId}")
+    public List<Student> queryStudentByTeacherId(@PathVariable String teacherId){
+        System.out.println("查询教师学生 teacherId : " + teacherId);
+        List<Student> students = studentMapper.selectListByTeacherId(teacherId);
+        return students;
+    }
+
 
     public String turnToTimestamp(){
         Date date = new Date();
         return String.valueOf(date.getTime());
-
     }
 
 //    @GetMapping("/map")

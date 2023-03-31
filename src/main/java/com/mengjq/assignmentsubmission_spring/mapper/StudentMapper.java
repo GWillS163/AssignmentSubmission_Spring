@@ -1,5 +1,6 @@
 package com.mengjq.assignmentsubmission_spring.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mengjq.assignmentsubmission_spring.model.Clazz;
 import com.mengjq.assignmentsubmission_spring.model.Student;
@@ -26,8 +27,13 @@ public interface StudentMapper extends BaseMapper<Student> {
             @Result(column = "phone", property = "phone"),
             @Result(column = "mail", property = "mail"),
             @Result(column = "user_id", property = "files", javaType = List.class,
-                    many = @Many(select = "com.mengjq.assignmentsubmission_spring.mapper.FileMapper.findByUserId"))
-     }
-    )
+                    many = @Many(select = "com.mengjq.assignmentsubmission_spring.mapper.MyFileMapper.findByUserId"))
+     })
     List<Student> selectAllUserWithFiles();
+
+    // 查询教师所教的班级的所有学生
+    @Select("select user_id, username, clazz_id, mail, phone, qq, student_id, register_time, last_login_time, description " +
+            "from student where clazz_id in " +
+            "(select clazz_id from clazz where teacher_id = #{teacher_id})")
+    List<Student> selectListByTeacherId(String teacherId);
 }

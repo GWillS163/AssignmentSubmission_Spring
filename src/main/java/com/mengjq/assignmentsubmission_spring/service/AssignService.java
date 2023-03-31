@@ -37,7 +37,9 @@ public interface AssignService{
 
     List<Assign> getAllAssignsMap();
 
+    List<Assign> getAssignByClassId(Integer id);
 
+    List<Assign> getAssignByTeacherId(Integer id);
     //根据主键全字段的更新
 //    int updateByPrimaryKey(Assign record);
 

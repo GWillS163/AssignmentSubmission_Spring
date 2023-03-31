@@ -21,6 +21,10 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
     @Insert("insert into file(file_id, file_size, user_id, assign_id, raw_name, format_name, upload_time) values(#{fileId}, #{fileSize}, #{userId}, #{assignId}, #{rawName}, #{formatName}, #{uploadTime})")
     int insertOne(MyFile record);
 
+    // findByUserId
+    @Select("select * from file where user_id = #{userId}")
+    List<MyFile> findByUserId(String userId);
+
     List<MyFileWithBLOBs> selectByExampleWithBLOBs(MyFileExample example);
 
     @Select("select * from file")
@@ -68,4 +72,11 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
 
     @Select("select * from file where user_id = #{studentId}")
     List<MyFile> selectByStudentId(String studentId);
+
+    @Select("select * from file where assign_id = #{assignId}")
+    List<MyFile> findByAssignId(String assignId);
+
+//    查询 班级下的所有作业的文件
+    @Select("select * from file where assign_id in (select assign_id from assign where clazz_id = #{classId})")
+    List<MyFile> findByClassId(String classId);
 }

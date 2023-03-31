@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/class")
 public class ClazzController {
 
 //    @Autowired
@@ -26,9 +27,18 @@ public class ClazzController {
     @Autowired
     private ClazzMapper clazzMapper;
 
+
+    //    TODO: 仅管理员可访问
+    @GetMapping("")
+    public List<Clazz> getClazzAllInfo(){
+        List<Clazz> clazzList = clazzMapper.selectList(null);
+//        System.out.println("获取所有班级信息" + clazzList);
+        return clazzList;
+    }
+
 //    TODO: 仅指定教师ID可访问
-    @PostMapping("/class/teacher")
-    public List<Clazz> getTeacherClazz(String teacherId){
+    @GetMapping("/teacher/{teacherId}")
+    public List<Clazz> getTeacherClazz(@PathVariable String teacherId){
         System.out.println("获取教师班级 teacherId : " + teacherId);
         // make a queryWrapper
         QueryWrapper<Clazz> queryWrapper = new QueryWrapper<>();
@@ -37,15 +47,21 @@ public class ClazzController {
 //        System.out.println(clazzList);
         return clazzList;
     }
-//    TODO: 仅管理员可访问
-    @GetMapping("/class/allInfo")
-    public List<Clazz> getClazzAllInfo(){
-        List<Clazz> clazzList = clazzMapper.selectList(null);
-//        System.out.println("获取所有班级信息" + clazzList);
-        return clazzList;
+
+//    根据班级ID获取班级信息
+    @GetMapping("/{id}")
+    public Clazz getClazzById(@PathVariable String id){
+        System.out.println("获取班级信息 id : " + id);
+        // make a queryWrapper
+        QueryWrapper<Clazz> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("clazz_id", id);
+        Clazz clazz = clazzMapper.selectOne(queryWrapper);
+//        System.out.println(clazz);
+        return clazz;
     }
 
-    @GetMapping("/class/map")
+
+    @GetMapping("/map")
     public Dictionary<Integer, String> getClazzMap(){
         System.out.println("获取class Map");
 //        List<Clazz> clazzes =  clazzService.selectClazzIdMap();
@@ -62,21 +78,21 @@ public class ClazzController {
         return clazzIdMap;
     }
 
-    @PostMapping("/class")
+    @PostMapping("")
     public String createClazz(Clazz clazz) {
         System.out.println("新增班级: " + clazz);
         int i = clazzMapper.insert(clazz);
         return returnString(i);
     }
 
-    @DeleteMapping("/class/{id}")
+    @DeleteMapping("/{id}")
     public String deleteClazz(@PathVariable String id) {
         System.out.println("删除班级: " + id);
         int i = clazzMapper.deleteById(id);
         return returnString(i);
     }
 
-    @PutMapping("/class/{id}")
+    @PutMapping("/{id}")
     public String updateClazz(@PathVariable int id, Clazz clazz) {
 
         System.out.println("修改班级: " +clazz.getClazzId() +

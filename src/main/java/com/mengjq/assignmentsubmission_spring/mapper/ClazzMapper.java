@@ -20,6 +20,19 @@ public interface ClazzMapper extends BaseMapper<Clazz> {
         )
     List<Clazz> selectById(int id);
 
+//     根据教师id查询拥有的班级信息
+    @Select("select * from clazz where teacher_id = #{teacher_id}")
+    @Results(
+            {
+                    @Result(column = "clazz_id", property = "clazz_id"),
+                    @Result(column = "clazz_name", property = "clazz_name"),
+                    @Result(column = "clazz_id", property = "students", javaType = List.class,
+                            many = @Many(select = "com.mengjq.assignmentsubmission_spring.mapper.StudentMapper.findByClazzId")),
+            }
+    )
+    List<Clazz> selectByTeacherId(int id);
+
+
      // selectBaseInfo By Id
 //        @Results(
 //                {
@@ -28,7 +41,7 @@ public interface ClazzMapper extends BaseMapper<Clazz> {
 //                }
 //        )
 
-    @Select("select * from clazz where  clazz_id = #{clazz_id}")
+    @Select("select * from clazz where clazz_id = #{clazz_id}")
     Clazz selectBaseInfoById(String clazz_id);
 
     @Select("select clazz_id, clazz_name from clazz")
