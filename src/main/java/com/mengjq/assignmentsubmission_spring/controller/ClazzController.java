@@ -94,7 +94,6 @@ public class ClazzController {
 
     @PutMapping("/{id}")
     public String updateClazz(@PathVariable int id, Clazz clazz) {
-
         System.out.println("修改班级: " +clazz.getClazzId() +
                 " " +clazz);
         clazz.setClazzId(id);

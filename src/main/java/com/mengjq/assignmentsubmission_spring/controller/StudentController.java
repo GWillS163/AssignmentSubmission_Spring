@@ -41,6 +41,14 @@ public class StudentController {
         return students;
     }
 
+//    根据学生ID 查询用户
+    @GetMapping("/{id}")
+    public Student queryStudentById(@PathVariable int id){
+        System.out.println("查询学生 id : " + id);
+        Student student = studentMapper.selectById(id);
+        return student;
+    }
+
 //    根据班级查询学生
     @GetMapping("/class/{classId}")
     public List<Student> queryStudentByClassId(@PathVariable String classId){
@@ -100,7 +108,7 @@ public class StudentController {
 
     @PostMapping("")
     public String createUser(Student student) {
-        System.out.println("正在创建用户" + student.getStudentId());
+        System.out.println("正在创建用户" + student.getUsername());
         System.out.println();
         student.setRegisterTime(TimeFormat.getNowTime());
         int i = studentMapper.insert(student);
@@ -108,15 +116,16 @@ public class StudentController {
         return isSuccess(i);
     }
 
-    @PutMapping("/student")
-    public String updateUser(Student student) {
-        System.out.println("正在更新用户");
-        System.out.println(student);
+    @PutMapping("/{id}")
+    public String updateUser(@PathVariable int id, Student student) {
+        System.out.println("正在更新用户" + id);
         // fix registerTime & lastLoginTime value is null
+        student.setUserId(id);
         student.setRegisterTime(TimeFormat.verifyNull(student.getRegisterTime()));
         student.setLastLoginTime(TimeFormat.verifyNull(student.getLastLoginTime()));
         student.setDescription(TimeFormat.verifyNull(student.getDescription()));
 
+        System.out.println(student);
         int i = studentMapper.updateById(student);
         return isSuccess(i);
 
@@ -137,6 +146,7 @@ public class StudentController {
         List<Student> files = studentMapper.selectList(queryWrapper);
         return files;
     }
+
     @GetMapping("/findByPage")
     public IPage findByPage(){
         Page<Student> page = new Page<>(0, 2);

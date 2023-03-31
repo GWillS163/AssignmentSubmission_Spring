@@ -17,7 +17,9 @@ public class TimeFormat {
 
     public static String verifyNull(String time) {
         // if registerTime === "null" then return null
-        if (time.equals("null") || Objects.equals(time, "")) return null;
+        System.out.println("time: " + time);
+        // if time is null or is False or other value similar with false then return null
+        if (time == null || time.equals("null") || Objects.equals(time, "")) return null;
         else {
             return time;
         }
