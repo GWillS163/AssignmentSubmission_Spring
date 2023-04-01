@@ -37,4 +37,6 @@ public interface MyFileService{
     List<MyFile> findByAssignId(String assignId);
 
     List<MyFile> findByClassId(String classId);
+
+    List<MyFile> selectMyFileWithInfo();
 }

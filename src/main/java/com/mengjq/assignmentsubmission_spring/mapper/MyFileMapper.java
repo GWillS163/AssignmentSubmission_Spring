@@ -75,6 +75,20 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
 //    a:  因为没有在application.yml中配置mapper的位置
 
     @Select("select * from file where user_id = #{studentId}")
+    @Results({
+            @Result(property = "fileId", column = "file_id"),
+            @Result(property = "fileSize", column = "file_size"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "assignId", column = "assign_id"),
+//            use assignId to turn to assignName by select
+            @Result(property = "assignName", column = "assign_id",
+                    one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.AssignMapper.selectAssignNameByAssignId")
+            ),
+            @Result(property = "savePath", column = "save_path"),
+            @Result(property = "rawName", column = "raw_name"),
+            @Result(property = "formatName", column = "format_name"),
+            @Result(property = "uploadTime", column = "upload_time")
+    })
     List<MyFile> selectByStudentId(String studentId);
 
     @Select("select * from file where assign_id = #{assignId}")
@@ -83,4 +97,20 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
 //    查询 班级下的所有作业的文件
     @Select("select * from file where assign_id in (select assign_id from assign where clazz_id = #{classId})")
     List<MyFile> findByClassId(String classId);
+
+    @Select("select * from file where assign_id in (select assign_id from assign where clazz_id = #{classId}) and user_id = #{studentId}")
+    @Results({
+            @Result(property = "fileId", column = "file_id"),
+            @Result(property = "fileSize", column = "file_size"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "assignId", column = "assign_id"),
+            @Result(property = "assignName", column = "assign_id",
+                    one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.AssignMapper.selectByPrimaryKey")
+            ),
+            @Result(property = "savePath", column = "save_path"),
+            @Result(property = "rawName", column = "raw_name"),
+            @Result(property = "formatName", column = "format_name"),
+            @Result(property = "uploadTime", column = "upload_time")
+    })
+    List<MyFile> selectMyFileWithInfo();
 }

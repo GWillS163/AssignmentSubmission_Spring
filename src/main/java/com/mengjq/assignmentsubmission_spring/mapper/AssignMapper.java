@@ -58,6 +58,9 @@ public interface AssignMapper extends BaseMapper<Assign> {
 
     int updateByPrimaryKey(Assign record);
 
+    @Select("select brief_name from assign where id = #{assignId}")
+    String selectAssignNameByAssignId(int assignId);
+
     @Select("select id, brief_name from assign")
     @Results({
             @Result(column = "id", property = "id"),

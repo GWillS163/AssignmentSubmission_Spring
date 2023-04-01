@@ -97,4 +97,9 @@ public class MyFileServiceImpl implements MyFileService{
         return mapper.findByClassId(classId);
     }
 
+    @Override
+    public List<MyFile> selectMyFileWithInfo() {
+        return mapper.selectMyFileWithInfo();
+    }
+
 }

@@ -43,6 +43,13 @@ public class MyFileController {
         return myFileService.selectAll();
     }
 
+    @GetMapping("/allInfo")
+    public List<MyFile> selectMyFileWithInfo() {
+        System.out.println("查询数据all");
+        return myFileService.selectMyFileWithInfo();
+    }
+
+
 //    根据作业查询作业
     @GetMapping("/assign/{assignId}")
     @ResponseBody
@@ -58,6 +65,15 @@ public class MyFileController {
         return myFileService.findByClassId(classId);
     }
 
+    @GetMapping("/student/{studentId}")
+    public List<MyFile> selectMyFileByStudentId(@PathVariable String studentId) throws IOException {
+//        数据查询
+        List<MyFile> myFile = myFileService.selectByStudentId(studentId);
+        System.out.println(myFile);
+
+        return myFile;
+    }
+
 //    获取单个文件信息
     @GetMapping("/{myFileId}")
     public MyFile selectMyFileById(@PathVariable String myFileId) {
@@ -71,35 +87,6 @@ public class MyFileController {
 //        数据查询
         MyFile myFile = myFileService.selectByPrimaryKey(myFileId);
         String fileName = myFile.getRawName();
-        System.out.println("downloading file " + fileName);
-
-//    文件下载
-        String path = System.getProperty("user.dir") + "/upload/";
-        File file = new File(path + fileName);
-        InputStreamResource resource = FileIO.readFile(file);
-
-//    返回数据
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment;filename=" + fileName);
-        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
-
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentLength(file.length())
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(resource);
-    }
-
-    @GetMapping("/student/{studentId}")
-    public ResponseEntity<InputStreamResource> selectMyFileByStudentId(@PathVariable String studentId) throws IOException {
-//        数据查询
-        List<MyFile> myFile = myFileService.selectByStudentId(studentId);
-        System.out.println(myFile);
-//        TODO: 查询出来之后，返回给前端
-//        String fileName = myFile[0].getRawName();
-        String fileName = "";
         System.out.println("downloading file " + fileName);
 
 //    文件下载
@@ -190,7 +177,6 @@ public class MyFileController {
         return myFileService.updateByPrimaryKey(myFileRevised);
         //或�??,通过主键,从数据库查询完整的数�?,然后返回
         //return myFileService.selectByPrimaryKey(myFile.getMyFileId);
-
     }
 
     //删除数据
