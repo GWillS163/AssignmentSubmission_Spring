@@ -1,6 +1,7 @@
 package com.mengjq.assignmentsubmission_spring.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,19 @@ public class MyFile implements Serializable {
 
     private Integer userId;
     private Integer assignId;
+
+    //    not in db
+    @TableField(exist = false)
+    private String assignName;
+
+    public String getAssignName() {
+        return assignName;
+    }
+
+    public void setAssignName(String assignName) {
+        this.assignName = assignName;
+    }
+
 
     private String rawName;
 
