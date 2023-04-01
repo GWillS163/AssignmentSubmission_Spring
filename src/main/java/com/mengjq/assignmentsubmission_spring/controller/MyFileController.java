@@ -11,6 +11,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,8 +26,6 @@ public class MyFileController {
 
     @Autowired
     private MyFileService myFileService;
-    @Autowired
-    private MyFileMapper myFileMapper;
 
 
     //查询数据
@@ -133,7 +132,7 @@ public class MyFileController {
 
 //        数据库插入
         System.out.println("添加数据" + myFileRevised);
-        myFileMapper.insert(myFileRevised);
+        myFileService.insert(myFileRevised);
 
 //        本地文件保存
         FileIO.saveFile(fileData, myFileRevised.getSavePath());
@@ -152,7 +151,7 @@ public class MyFileController {
         myFileRevised.setUserId(userId);
 //        数据库插入
         System.out.println("添加数据" + myFileRevised);
-        myFileMapper.insert(myFileRevised);
+        myFileService.insert(myFileRevised);
 
 //        本地文件保存
         FileIO.saveFile(fileData, myFileRevised.getSavePath());
@@ -161,7 +160,9 @@ public class MyFileController {
     }
 
     public MyFile reviseValues(MyFile myFile, MultipartFile fileData) throws IOException {
-
+        if (fileData == null) {
+            return myFile;
+        }
 //      修订值
         String saveName = fileData.getOriginalFilename().replace(".", "_" + System.currentTimeMillis() + ".");
         System.out.println("saving Name: " + saveName);
@@ -178,7 +179,7 @@ public class MyFileController {
 
     //修改数据
     @PutMapping("/{id}")
-    public int updateUser(@PathVariable String id, MyFile myFile, @RequestParam("fileData") MultipartFile fileData) throws IOException {
+    public int updateUser(@PathVariable String id, MyFile myFile, @Nullable @RequestParam("fileData") MultipartFile fileData) throws IOException {
         System.out.println("修改数据" + id + " " + myFile);
         MyFile myFileRevised = reviseValues(myFile, fileData);
 //        myFileService.updateByPrimaryKeySelective(myFile);
@@ -193,7 +194,7 @@ public class MyFileController {
     }
 
     //删除数据
-    @DeleteMapping("/myFile/{id}")
+    @DeleteMapping("/{id}")
     public String delUser(@PathVariable("id") Integer myFileId) {
         System.out.println("删除数据" + myFileId);
 //        查询本地文件

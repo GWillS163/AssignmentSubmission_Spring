@@ -52,7 +52,8 @@ public class TeacherController {
 
     @PutMapping("/{id}")
     public Teacher updateTeacher(@PathVariable String id, Teacher teacher){
-        System.out.println("修改教师" + teacher);
+        System.out.println("修改教师" + id + teacher);
+
         teacherMapper.updateById(teacher);
         return teacher;
     }

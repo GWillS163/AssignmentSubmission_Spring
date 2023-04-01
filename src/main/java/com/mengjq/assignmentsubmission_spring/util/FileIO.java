@@ -31,6 +31,7 @@ public class FileIO {
 
 //    填充输出流
     public static InputStreamResource readFile(File file) throws IOException {
+        System.out.println("reading file from :" + file.getAbsolutePath());
         InputStream inputStream = new FileInputStream(file);
         return new InputStreamResource(inputStream);
     }

@@ -51,6 +51,7 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
             "<if test='fileSize != null'>file_size = #{fileSize},</if>",
             "<if test='userId != null'>user_id = #{userId},</if>",
             "<if test='assignId != null'>assign_id = #{assignId},</if>",
+            "<if test='savePath != null'>save_path = #{savePath},</if>",
             "<if test='rawName != null'>raw_name = #{rawName},</if>",
             "<if test='formatName != null'>format_name = #{formatName},</if>",
             "<if test='uploadTime != null'>upload_time = #{uploadTime},</if>",
@@ -64,11 +65,14 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
             @Result(property = "fileSize", column = "file_size"),
             @Result(property = "userId", column = "user_id"),
             @Result(property = "assignId", column = "assign_id"),
+            @Result(property = "savePath", column = "save_path"),
             @Result(property = "rawName", column = "raw_name"),
             @Result(property = "formatName", column = "format_name"),
             @Result(property = "uploadTime", column = "upload_time")
     })
     int updateByPrimaryKey(MyFile record);
+//    q:  为什么程序运行报错，MyFileMapper 没有in configuration.
+//    a:  因为没有在application.yml中配置mapper的位置
 
     @Select("select * from file where user_id = #{studentId}")
     List<MyFile> selectByStudentId(String studentId);

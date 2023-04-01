@@ -117,16 +117,15 @@ public class AssignController {
     //修改数据
 //    @PutMapping(value = "/{id}", consumes = "multipart/form-data")
     @PutMapping("/{id}")
-    public ResponseEntity<Assign> updateAssign(@PathVariable int id, Assign assign) {
+    public Integer updateAssign(@PathVariable int id, Assign assign) {
         System.out.println("修改数据");
         assign.setDdl(TimeFormat.verifyTimeOrDefault(assign.getDdl())); // 验证时间格式
         assign.setCreateTime(TimeFormat.verifyTimeOrDefault(assign.getCreateTime())); // 验证时间格式， 如果没有创建时间就用 默认事件
 
         System.out.println("修改数据"+ assign);
         System.out.println(assign.getTimeoutSubmit());
-
-        Assign updatedAssign = assignService.updateAssign(id, assign);
-        return ResponseEntity.ok(updatedAssign);
+        return assignService.updateAssign(id, assign);
+//        return ResponseEntity.ok(assign);
     }
 
 

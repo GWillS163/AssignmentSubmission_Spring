@@ -13,7 +13,7 @@ public interface AssignService{
 
     int insert(Assign record);
 
-    Assign updateAssign(int id, Assign assign);
+    int updateAssign(int id, Assign assign);
     //根据主键删除
     int deleteByPrimaryKey(Integer assignId);
 //    //根据条件汇�?�记录数

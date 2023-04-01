@@ -95,10 +95,14 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 //    }
 //
     @Override
-    public Assign updateAssign(int id, Assign assign) {
+    public int updateAssign(int id, Assign assign) {
         assign.setId(id);
-        assignMapper.updateByPrimaryKeySelective(assign);
-        return assignMapper.selectByPrimaryKey(id).get(0);
+
+        return assignMapper.updateByPrimaryKeySelective(assign);
+        // q: 我这里的返回值使用了.get(0)， 会不会有些问题
+        // a: 不会，因为这里的返回值是一个list，而list的get方法是可以传入index的，所以这里的get(0)是可以的
+//        q: 我现在报错了，是这样的： Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IndexOutOfBoundsException: Index: 0, Size: 0] with root cause
+        // a: 这个是因为你的id在数据库中不存在，所以你的selectByPrimaryKey(id)返回的是一个空的list，所以你的get(0)就会报错
     }
 
 //    @Override
