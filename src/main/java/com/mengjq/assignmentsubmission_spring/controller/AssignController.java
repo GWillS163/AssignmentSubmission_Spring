@@ -1,21 +1,19 @@
 package com.mengjq.assignmentsubmission_spring.controller;
 
-import com.mengjq.assignmentsubmission_spring.mapper.AssignMapper;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 //import com.mengjq.assignmentsubmission_spring.model.AssignExample;
 import com.mengjq.assignmentsubmission_spring.model.Clazz;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
+import com.mengjq.assignmentsubmission_spring.util.PublicBanner;
 import com.mengjq.assignmentsubmission_spring.util.TimeFormat;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Objects;
 
 //添加注解
 
@@ -55,12 +53,57 @@ public class AssignController {
         return assignService.getAssignByClassId(id);
     }
 
+    // 查询Home页面 公开作业 ------
     // 获取公开作业
+    @ApiOperation(value = "获取公开作业", notes = "获取公开作业,应用于Tab1, Tab2")
     @GetMapping("/public")
     public List<Assign> getPublicAssign(){
         System.out.println("获取公开作业");
+//        TODO: 这里并没有具体实现，查出来都还是所有的作业
         return assignService.getPublicAssign();
     }
+
+    @ApiOperation(value = "获取公开作业 作业角度横幅", notes = "获取公开作业的统计进度,应用于Tab2")
+    @GetMapping("/public/tab2AssignBanner")
+    public List<PublicBanner> getPublicAssignTab2Banner(){
+        System.out.println("获取公开作业 作业角度横幅");
+//        q: 我需要的汇总数据是这样 的， 那么应该怎么查询？ [
+//                {
+//                  name: "已交作业",
+//                  num: "123+"
+//                },
+//                {
+//                  name: "未交作业",
+//                  num: "123+"
+//                },
+//                {
+//                  name: "提交率",
+//                  num: "45%"
+//                },
+//                {
+//                  name: "最近DDL",
+//                  num: "3"
+//                }
+//              ]
+//        q: 你举例说明一下吧， 说一下具体语句, sql 的汇总语句
+//        a: 1. select count(*) from assign where status = 1
+//        a: 2. select count(*) from assign where status = 0
+//        a: 3. select count(*) from assign where status = 1 / count(*) from assign
+//        a: 4. select min(deadline) from assign
+//        q: 那么我应该如何返回这样的数据呢？
+//        a: 你可以返回一个list， 里面放这些数据， 然后前端再处理一下
+
+//
+        return assignService.getPublicAssignTab2Banner();
+    }
+
+//    @ApiOperation(value = "获取各班级 班级度横幅", notes = "获取各班级的统计进度,应用于Tab3")
+//    @GetMapping("/public/tab3ClassBanner")
+//    public List<Clazz> getPublicAssignTab3Banner(){
+//        System.out.println("获取各班级 班级度横幅");
+//        return assignService.getPublicAssignTab3Banner();
+//    }
+
 
     // 获取班级所有作业进度
     @GetMapping("/class/{id}/progress")
@@ -72,12 +115,14 @@ public class AssignController {
 
 
     // 根据教师Id 获取所有作业信息（班级内的）
+    @ApiOperation(value = "根据教师Id 获取所有作业信息（班级内的）", notes = "根据教师Id 获取所有作业信息（班级内的）")
     @GetMapping("/teacher/{id}")
     public List<Assign> getAssignByTeacherId(@PathVariable("id") String teacherId){
         System.out.println("获取教师作业信息 teacherId : " + teacherId);
         Integer id = Integer.parseInt(teacherId);
         return assignService.getAssignByTeacherId(id);
     }
+
 
 
 
@@ -91,7 +136,7 @@ public class AssignController {
     }
 
     //    查询数据 - GET 根据班级
-    @GetMapping("map/class/{id}")
+    @GetMapping("/map/class/{id}")
     public Dictionary<Integer, String> selectAssignByClassId(@PathVariable("id") String classId){
         System.out.println("获取作业Map");
         List<Assign> assigns =  assignService.getAssignMapByClassId(classId);

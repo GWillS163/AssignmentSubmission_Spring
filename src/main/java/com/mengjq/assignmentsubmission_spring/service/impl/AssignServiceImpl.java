@@ -1,9 +1,11 @@
 package com.mengjq.assignmentsubmission_spring.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mengjq.assignmentsubmission_spring.util.PublicBanner;
 import org.springframework.stereotype.Service;
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 //import com.mengjq.assignmentsubmission_spring.model.AssignExample;
+import java.util.ArrayList;
 import java.util.List;
 import com.mengjq.assignmentsubmission_spring.mapper.AssignMapper;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
@@ -101,6 +103,29 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
         return assignMapper.getAssignProgressByClassId(id);
     }
 
+    @Override
+    public ArrayList<PublicBanner> getPublicAssignTab2Banner() {
+        ArrayList<PublicBanner> data = new ArrayList<>();
+        Float alreadySubmits = assignMapper.getPublicAssignTab2BannerAlreadySubmit();
+        Float notSubmits = assignMapper.getPublicAssignTab2BannerNotSubmit();
+        Float submitRate = alreadySubmits / (alreadySubmits + notSubmits);
+        data.add(new PublicBanner("已交作业", alreadySubmits));
+        data.add(new PublicBanner("未交作业", notSubmits));
+        data.add(new PublicBanner("提交率",  submitRate));
+        data.add(new PublicBanner("最近DDL", assignMapper.getPublicAssignTab2BannerRecentDDL()));
+        return data;
+
+        // q: show me the code you referred, please
+        // a:  return Arrays.asList(
+        //            new Dictionary("已交作业", alreadySubmits),
+        //            new Dictionary("未交作业", notSubmits),
+        //            new Dictionary("提交率", submitRate),
+        //            new Dictionary("最近DDL", recentDDL)
+        //    );
+//        q: but your answer is wrong about you code,  that is not a good idea, sophisticated
+        // a:
+
+    }
 
 
     //    @Override

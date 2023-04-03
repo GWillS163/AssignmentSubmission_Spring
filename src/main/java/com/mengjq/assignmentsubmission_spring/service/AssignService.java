@@ -1,7 +1,9 @@
 package com.mengjq.assignmentsubmission_spring.service;
 
 import com.mengjq.assignmentsubmission_spring.model.Assign;
+import com.mengjq.assignmentsubmission_spring.util.PublicBanner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -46,6 +48,8 @@ public interface AssignService{
     List<Assign> getPublicAssign();
 
     List<Assign> getAssignProgressByClassId(Integer id);
+
+    ArrayList<PublicBanner> getPublicAssignTab2Banner();
     //根据主键全字段的更新
 //    int updateByPrimaryKey(Assign record);
 
