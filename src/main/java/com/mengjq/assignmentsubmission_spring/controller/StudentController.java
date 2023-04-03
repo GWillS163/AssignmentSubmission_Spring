@@ -94,17 +94,19 @@ public class StudentController {
     public Dictionary<Integer, String > selectStudentMap() {
         System.out.println("获取学生Map");
         List<Student> students = studentMapper.selectList(null);
-        Dictionary<Integer, String> studentsMap = new Hashtable<Integer, String>();
-        for (Student student: students) {
-            if (student.getUsername() == null) {
-                student.setUsername("");
-            }
-            studentsMap.put(student.getUserId(), student.getUsername());
-        }
-        System.out.println(studentsMap);  // {1=张三, 2=李四, 3=王五}
-        return studentsMap;
+        return turnStudentMap(students);
     }
 
+    //    根据班级查询学生
+    @GetMapping("/map/class/{classId}")
+    public Dictionary<Integer, String> queryStudentMapByClassId(@PathVariable String classId){
+        System.out.println("查询班级学生Map classId : " + classId);
+        // make a queryWrapper
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("clazz_id", classId);
+        List<Student> students = studentMapper.selectList(queryWrapper);
+        return turnStudentMap(students);
+    }
 
     @PostMapping("")
     public String createUser(Student student) {
@@ -162,4 +164,17 @@ public class StudentController {
         }
     }
 
+
+    // turn student map by List<Student>
+    public Dictionary<Integer, String> turnStudentMap(List<Student> students) {
+        Dictionary<Integer, String> studentsMap = new Hashtable<Integer, String>();
+        for (Student student: students) {
+            if (student.getUsername() == null) {
+                student.setUsername("");
+            }
+            studentsMap.put(student.getUserId(), student.getUsername());
+        }
+        System.out.println(studentsMap);  // {1=张三, 2=李四, 3=王五}
+        return studentsMap;
+    }
 }

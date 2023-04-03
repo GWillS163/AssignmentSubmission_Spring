@@ -26,8 +26,6 @@ public class AssignController {
 
     @Autowired
     private AssignService assignService;
-    @Autowired
-    private AssignMapper assignMapper;
 
 //    //通过构�?�器注入service
 //    public AssignController(AssignService assignService){
@@ -57,6 +55,22 @@ public class AssignController {
         return assignService.getAssignByClassId(id);
     }
 
+    // 获取公开作业
+    @GetMapping("/public")
+    public List<Assign> getPublicAssign(){
+        System.out.println("获取公开作业");
+        return assignService.getPublicAssign();
+    }
+
+    // 获取班级所有作业进度
+    @GetMapping("/class/{id}/progress")
+    public List<Assign> getAssignProgressByClassId(@PathVariable("id") String classId){
+        System.out.println("获取班级作业进度 classId : " + classId);
+        Integer id = Integer.parseInt(classId);
+        return assignService.getAssignProgressByClassId(id);
+    }
+
+
     // 根据教师Id 获取所有作业信息（班级内的）
     @GetMapping("/teacher/{id}")
     public List<Assign> getAssignByTeacherId(@PathVariable("id") String teacherId){
@@ -73,32 +87,17 @@ public class AssignController {
         System.out.println("获取作业Map");
         List<Assign> assigns =  assignService.getAllAssignsMap();
 
-        Dictionary<Integer, String> assignsMap = new Hashtable<Integer, String>();
-        for (Assign assign: assigns) {
-            if (assign.getBriefName() == null) {
-                assign.setBriefName("");
-            }
-            assignsMap.put(assign.getId(), assign.getBriefName());
-        }
-        System.out.println(assignsMap);  // {1=张三, 2=李四, 3=王五}
-        return assignsMap;
+        return turnToMap(assigns);
     }
-    //查询数据 - GET 根据班级
-//    @GetMapping("/class/{id}")
-//    public Dictionary<Integer, String> selectAssignByClass(){
-//        System.out.println("获取作业Map");
-//        List<Assign> assigns =  assignService.getAllAssignsByClass();
-//
-//        Dictionary<Integer, String> assignsMap = new Hashtable<Integer, String>();
-//        for (Assign assign: assigns) {
-//            if (assign.getBriefName() == null) {
-//                assign.setBriefName("");
-//            }
-//            assignsMap.put(assign.getId(), assign.getBriefName());
-//        }
-//        System.out.println(assignsMap);  // {1=张三, 2=李四, 3=王五}
-//        return assignsMap;
-//    }
+
+    //    查询数据 - GET 根据班级
+    @GetMapping("map/class/{id}")
+    public Dictionary<Integer, String> selectAssignByClassId(@PathVariable("id") String classId){
+        System.out.println("获取作业Map");
+        List<Assign> assigns =  assignService.getAssignMapByClassId(classId);
+
+        return turnToMap(assigns);
+    }
 
 
     //添加数据
@@ -140,4 +139,19 @@ public class AssignController {
         //返回状码
         return "200";
     }
+
+
+    public Dictionary<Integer, String> turnToMap(List<Assign> assigns) {
+
+        Dictionary<Integer, String> assignsMap = new Hashtable<Integer, String>();
+        for (Assign assign: assigns) {
+            if (assign.getBriefName() == null) {
+                assign.setBriefName("");
+            }
+            assignsMap.put(assign.getId(), assign.getBriefName());
+        }
+        System.out.println(assignsMap);  // {1=张三, 2=李四, 3=王五}
+        return assignsMap;
+    }
+
 }

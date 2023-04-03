@@ -109,7 +109,6 @@ public class ClazzController {
         }
     }
 
-// TODO: Test   download  file
 @GetMapping(value = "/get-file", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 public ResponseEntity<byte[]> getFile() throws IOException {
     System.out.println("下载测试文件");
