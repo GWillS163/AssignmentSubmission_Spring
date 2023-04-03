@@ -2,7 +2,6 @@ package com.mengjq.assignmentsubmission_spring.controller;
 
 import com.mengjq.assignmentsubmission_spring.model.Assign;
 //import com.mengjq.assignmentsubmission_spring.model.AssignExample;
-import com.mengjq.assignmentsubmission_spring.model.Clazz;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
 import com.mengjq.assignmentsubmission_spring.util.PublicBanner;
 import com.mengjq.assignmentsubmission_spring.util.TimeFormat;
@@ -47,6 +46,7 @@ public class AssignController {
 
 //    根据班级ID获取所有作业信息
     @GetMapping("/class/{id}")
+    @ResponseBody
     public List<Assign> getAssignByClassId(@PathVariable("id") String classId){
         System.out.println("获取班级作业信息 classId : " + classId);
         Integer id = Integer.parseInt(classId);
@@ -109,8 +109,10 @@ public class AssignController {
     @GetMapping("/class/{id}/progress")
     public List<Assign> getAssignProgressByClassId(@PathVariable("id") String classId){
         System.out.println("获取班级作业进度 classId : " + classId);
+        List<Assign> list = assignService.getAssignProgressByClassId(classId);
+        System.out.println("获取班级作业进度 list : " + list);
         Integer id = Integer.parseInt(classId);
-        return assignService.getAssignProgressByClassId(id);
+        return list;
     }
 
 

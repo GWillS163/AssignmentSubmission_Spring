@@ -94,6 +94,10 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
     @Select("select * from file where assign_id = #{assignId}")
     List<MyFile> findByAssignId(String assignId);
 
+    //   查询作业下的文件数量
+    @Select("select count(*) from file where assign_id = #{assignId}")
+    int getFileCountByAssignId(String assignId);
+
 //    查询 班级下的所有作业的文件
     @Select("select * from file where assign_id in (select assign_id from assign where clazz_id = #{classId})")
     List<MyFile> findByClassId(String classId);

@@ -99,7 +99,7 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
     }
 
     @Override
-    public List<Assign> getAssignProgressByClassId(Integer id) {
+    public List<Assign> getAssignProgressByClassId(String id) {
         return assignMapper.getAssignProgressByClassId(id);
     }
 

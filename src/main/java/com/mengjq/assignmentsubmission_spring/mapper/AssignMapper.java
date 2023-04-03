@@ -86,10 +86,23 @@ public interface AssignMapper extends BaseMapper<Assign> {
     @Select("select * from assign where clazz_id = #{id} order by create_time desc")
     List<Assign> getAssignMapByClassId(String id);
 
-    //  查询班级所有的assign,
-    @Select("select id, brief_name from assign where clazz_id = #{clazz_id} order by create_time desc")
-//    @Select("select a.id, a.brief_name, a.teacher_id, a.create_time, a.ddl, a.description, a.file_name_rule, a.permit_anonymous, a.file_name_verify, a.timeout_submit, count(f.id) as file_count from assign a left join file f on a.id = f.assign_id where a.clazz_id = #{clazz_id} group by a.id order by a.create_time desc")
-    List<Assign> getAssignProgressByClassId(Integer clazz_id);
+    //  查询班级所有的assign
+    @Select("select id, brief_name, clazz_id, id from assign where clazz_id = #{clazz_id} order by create_time desc")
+    //  查询班级所有的assign, 并且查询每个assign的提交情况
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "brief_name", property = "briefName"),
+            @Result(column = "clazz_id", property = "clazzId"),
+//            @Result(column = "create_time", property = "createTime"),
+//            @Result(column = "ddl", property = "ddl"),
+//            @Result(column = "description", property = "description"),
+//            @Result(column = "file_name_rule", property = "fileNameRule"),
+//            @Result(column = "permit_anonymous", property = "permitAnonymous"),
+//            @Result(column = "file_name_verify", property = "fileNameVerify"),
+//            @Result(column = "timeout_submit", property = "timeoutSubmit"), // 0: 不允许， 1：允许
+            @Result(column = "id", property = "fileCount", one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.MyFileMapper.getFileCountByAssignId")),
+    })
+    List<Assign> getAssignProgressByClassId(String clazz_id);
 
 //   Public Tab2 Banner
     @Select("select count(*) from assign where id = #{id}")

@@ -1,13 +1,13 @@
 package com.mengjq.assignmentsubmission_spring.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serializable;
 
 /**
- * @author 
- * 作业规则
+ * @author 作业规则
  */
 
 public class Assign implements Serializable {
@@ -32,6 +32,17 @@ public class Assign implements Serializable {
     private Boolean permitAnonymous;
     private Boolean fileNameVerify;
     private Boolean timeoutSubmit;
+
+    public Integer getFileCount() {
+        return fileCount;
+    }
+
+    public void setFileCount(Integer fileCount) {
+        this.fileCount = fileCount;
+    }
+
+    @TableField(exist = false)
+    private Integer fileCount;
 
     @Override
     public String toString() {

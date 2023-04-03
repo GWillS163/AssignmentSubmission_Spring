@@ -24,5 +24,7 @@ public class PublicBanner {
     public void setValue(Float value) {
         this.value = value;
     }
+
+
 // getters and setters for name and num
 }

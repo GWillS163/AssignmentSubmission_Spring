@@ -47,7 +47,7 @@ public interface AssignService{
 
     List<Assign> getPublicAssign();
 
-    List<Assign> getAssignProgressByClassId(Integer id);
+    List<Assign> getAssignProgressByClassId(String id);
 
     ArrayList<PublicBanner> getPublicAssignTab2Banner();
     //根据主键全字段的更新
