@@ -101,6 +101,7 @@ public interface AssignMapper extends BaseMapper<Assign> {
 //            @Result(column = "file_name_verify", property = "fileNameVerify"),
 //            @Result(column = "timeout_submit", property = "timeoutSubmit"), // 0: 不允许， 1：允许
             @Result(column = "id", property = "fileCount", one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.MyFileMapper.getFileCountByAssignId")),
+            @Result(column = "clazz_id", property = "studentCount", one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.StudentMapper.getStudentCountByClassId")),
     })
     List<Assign> getAssignProgressByClassId(String clazz_id);
 

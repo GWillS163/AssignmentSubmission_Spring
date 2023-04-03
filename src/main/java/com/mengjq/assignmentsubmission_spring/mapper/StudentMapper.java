@@ -36,4 +36,8 @@ public interface StudentMapper extends BaseMapper<Student> {
             "from student where clazz_id in " +
             "(select clazz_id from clazz where teacher_id = #{teacher_id})")
     List<Student> selectListByTeacherId(String teacherId);
+
+    // getStudentCountByClassId
+    @Select("select count(*) from student where clazz_id = #{clazz_id}")
+    int getStudentCountByClassId(String clazzId);
 }

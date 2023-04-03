@@ -33,6 +33,7 @@ public class Assign implements Serializable {
     private Boolean fileNameVerify;
     private Boolean timeoutSubmit;
 
+
     public Integer getFileCount() {
         return fileCount;
     }
@@ -43,6 +44,18 @@ public class Assign implements Serializable {
 
     @TableField(exist = false)
     private Integer fileCount;
+
+    // studentCount
+    @TableField(exist = false)
+    private Integer studentCount;
+
+    public Integer getStudentCount() {
+        return studentCount;
+    }
+
+    public void setStudentCount(Integer studentCount) {
+        this.studentCount = studentCount;
+    }
 
     @Override
     public String toString() {
