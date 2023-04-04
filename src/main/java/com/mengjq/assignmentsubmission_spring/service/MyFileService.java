@@ -39,4 +39,6 @@ public interface MyFileService{
     List<MyFile> findByClassId(String classId);
 
     List<MyFile> selectMyFileWithInfo();
+
+    List<MyFile> selectMyFilePublic(String time);
 }

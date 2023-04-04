@@ -117,4 +117,19 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
             @Result(property = "uploadTime", column = "upload_time")
     })
     List<MyFile> selectMyFileWithInfo();
+
+    // return the files recently uploaded, filter by criteria
+    @Select("select * from file where upload_time > #{time}")
+    // parse the userId and assignId to userName and assignName
+    @Results({
+            @Result(property = "fileId", column = "file_id"),
+            @Result(property = "fileSize", column = "file_size"),
+            @Result(property = "userName", column = "user_id",
+                    one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.StudentMapper.selectUserNameByUserId")),
+            @Result(property = "assignName", column = "assign_id",
+                    one = @One(select = "com.mengjq.assignmentsubmission_spring.mapper.AssignMapper.selectAssignNameByAssignId")),
+            @Result(property = "rawName", column = "raw_name"),
+            @Result(property = "uploadTime", column = "upload_time")
+    })
+    List<MyFile> selectMyFilePublic(String time);
 }

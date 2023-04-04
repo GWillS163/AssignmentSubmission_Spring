@@ -40,4 +40,8 @@ public interface StudentMapper extends BaseMapper<Student> {
     // getStudentCountByClassId
     @Select("select count(*) from student where clazz_id = #{clazz_id}")
     int getStudentCountByClassId(String clazzId);
+
+    // selectUserNameByUserId
+    @Select("select username from student where user_id = #{user_id}")
+    String selectUserNameByUserId(String userId);
 }

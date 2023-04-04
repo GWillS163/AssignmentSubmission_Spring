@@ -9,8 +9,6 @@ import java.util.List;
 import com.mengjq.assignmentsubmission_spring.mapper.MyFileMapper;
 import com.mengjq.assignmentsubmission_spring.service.MyFileService;
 
-// q: 如何在Git 里忽略掉 upload下的所有文件changes
-// a: https://stackoverflow.com/questions/11451535/gitignore-all-files-in-a-folder-but-keep-the-folder
 @Service
 public class MyFileServiceImpl implements MyFileService{
 
@@ -100,6 +98,13 @@ public class MyFileServiceImpl implements MyFileService{
     @Override
     public List<MyFile> selectMyFileWithInfo() {
         return mapper.selectMyFileWithInfo();
+    }
+
+
+    @Override
+    public List<MyFile> selectMyFilePublic(String time) {
+        return mapper.selectMyFilePublic(time);
+
     }
 
 }

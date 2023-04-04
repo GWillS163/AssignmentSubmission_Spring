@@ -108,6 +108,17 @@ public class MyFileController {
                 .body(resource);
     }
 
+    // 获取公开页面 最近作业提交信息
+    @GetMapping("/public")
+    public List<MyFile> selectMyFilePublic() {
+        System.out.println("查询公开提交数据");
+        // get current Time with format
+        String currentTime = TimeFormat.getBeforeNowDays(30);
+        System.out.println("查询时间" + currentTime);
+        return myFileService.selectMyFilePublic(currentTime);
+    }
+
+
 
     //添加数据
     @PostMapping("")

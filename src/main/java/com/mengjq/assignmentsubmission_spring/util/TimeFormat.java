@@ -32,4 +32,13 @@ public class TimeFormat {
             return time;
         }
     }
+
+    public static String getBeforeNowDays(int days) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));//设置北京时间
+        Date date = new Date();
+        long time = date.getTime() - (long) days * 24 * 60 * 60 * 1000;
+        date.setTime(time);
+        return simpleDateFormat.format(date);
+    }
 }

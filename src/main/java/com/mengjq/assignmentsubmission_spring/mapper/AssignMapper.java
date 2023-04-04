@@ -116,4 +116,8 @@ public interface AssignMapper extends BaseMapper<Assign> {
     // 查询 ddl 距离当前时间不到一天的作业
     @Select("select count(*) from assign where id = #{id} and timeout_submit = 0 and ddl < date_add(now(), interval 1 day)")
     Float getPublicAssignTab2BannerRecentDDL();
+
+    // selectAssignNameByAssignId
+    @Select("select brief_name from assign where id = #{id}")
+    String getAssignNameByAssignId(int id);
 }

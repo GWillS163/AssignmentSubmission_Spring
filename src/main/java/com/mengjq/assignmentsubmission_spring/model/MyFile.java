@@ -19,6 +19,16 @@ public class MyFile implements Serializable {
     private Integer fileSize;
 
     private Integer userId;
+    @TableField(exist = false)
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
     private Integer assignId;
 
     //    not in db
