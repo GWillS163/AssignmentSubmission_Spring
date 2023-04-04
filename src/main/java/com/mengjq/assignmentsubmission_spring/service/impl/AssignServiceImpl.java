@@ -1,5 +1,6 @@
 package com.mengjq.assignmentsubmission_spring.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mengjq.assignmentsubmission_spring.util.PublicBanner;
 import org.springframework.stereotype.Service;
@@ -95,7 +96,10 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 
     @Override
     public List<Assign> getPublicAssign() {
-        return assignMapper.selectList(null);
+        // set criteria clazz_id = 0
+        QueryWrapper<Assign> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("permit_anonymous", true);
+        return assignMapper.selectList(queryWrapper);
     }
 
     @Override

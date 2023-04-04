@@ -119,7 +119,9 @@ public interface MyFileMapper extends BaseMapper<MyFile> {
     List<MyFile> selectMyFileWithInfo();
 
     // return the files recently uploaded, filter by criteria
-    @Select("select * from file where upload_time > #{time}")
+    @Select("select * from file where upload_time > #{time} order by upload_time desc")
+    // q: 如何 降序排列上面的查询语句
+    // a: 1. 在sql语句中加入 order by upload_time desc
     // parse the userId and assignId to userName and assignName
     @Results({
             @Result(property = "fileId", column = "file_id"),

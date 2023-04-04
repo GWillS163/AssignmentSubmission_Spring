@@ -48,8 +48,6 @@ public class MyFileController {
         System.out.println("查询数据all");
         return myFileService.selectMyFileWithInfo();
     }
-
-
 //    根据作业查询作业
     @GetMapping("/assign/{assignId}")
     @ResponseBody
@@ -129,8 +127,11 @@ public class MyFileController {
         MyFile myFileRevised = reviseValues(myFile, fileData);
 
 //        数据库插入
-        System.out.println("添加数据" + myFileRevised);
+        System.out.println("添加数据：" + myFileRevised);
         myFileService.insert(myFileRevised);
+        // q: 为什么这里插入数据在插入之前有hash值, 但插入数据库之后，在数据库中没有hash值了。
+        // a:
+
 
 //        本地文件保存
         FileIO.saveFile(fileData, myFileRevised.getSavePath());
@@ -162,7 +163,15 @@ public class MyFileController {
             return myFile;
         }
 //      修订值
-        String saveName = fileData.getOriginalFilename().replace(".", "_" + System.currentTimeMillis() + ".");
+        // replace last dot with time
+        // q: the answer you gived is not correct, it will replace all dots in the string
+        // a: I know, but I don't know how to replace the last dot
+        // get the last dot index
+        int lastDotIndex = fileData.getOriginalFilename().lastIndexOf(".");
+        // replace the last dot with time
+        String saveName = fileData.getOriginalFilename().substring(0, lastDotIndex)
+                + "_" + System.currentTimeMillis()
+                + fileData.getOriginalFilename().substring(lastDotIndex);
         System.out.println("saving Name: " + saveName);
         System.out.println("file size: " + fileData.getSize());
 
@@ -171,6 +180,7 @@ public class MyFileController {
         myFile.setFileSize((int) fileData.getSize());
         myFile.setHash(FileIO.calculateHash(fileData));
         myFile.setUploadTime(TimeFormat.getNowTime());
+//        System.out.println("Hash value: " + myFile.getHash());
 
         return myFile;
     }

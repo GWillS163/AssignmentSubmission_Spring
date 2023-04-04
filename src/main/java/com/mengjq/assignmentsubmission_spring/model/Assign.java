@@ -32,7 +32,15 @@ public class Assign implements Serializable {
     private Boolean permitAnonymous;
     private Boolean fileNameVerify;
     private Boolean timeoutSubmit;
+    private Boolean uploadEnable;
 
+    public Boolean getUploadEnable() {
+        return uploadEnable;
+    }
+
+    public void setUploadEnable(Boolean uploadEnable) {
+        this.uploadEnable = uploadEnable;
+    }
 
     public Integer getFileCount() {
         return fileCount;

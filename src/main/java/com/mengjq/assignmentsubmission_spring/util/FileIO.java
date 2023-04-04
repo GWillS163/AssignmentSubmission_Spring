@@ -50,6 +50,7 @@ public static String calculateHash(MultipartFile file) throws IOException {
         digest = MessageDigest.getInstance("SHA-256");
     } catch (NoSuchAlgorithmException e) {
         e.printStackTrace();
+        System.out.println("No such algorithm, Hash failed");
         return null;
     } 
 
