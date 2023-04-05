@@ -106,11 +106,14 @@ public interface AssignMapper extends BaseMapper<Assign> {
     List<Assign> getAssignProgressByClassId(String clazz_id);
 
 //   Public Tab2 Banner
-    @Select("select count(*) from assign where id = #{id}")
+    @Select("select count(*) from file")
     Float getPublicAssignTab2BannerAlreadySubmit();
 
 //    这里不准确，应该查询班级内没有提交的人数
-    @Select("select count(*) from assign where id = #{id} and timeout_submit = 0")
+//     查询所有学生  - 已经提交的学生
+    @Select("select count(*) from student")
+//    @Select("select count(*) from student")
+//    @Select("select count(*) from assign where id = #{id} and timeout_submit = 0")
     Float getPublicAssignTab2BannerNotSubmit();
 
     // 查询 ddl 距离当前时间不到一天的作业

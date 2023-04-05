@@ -136,6 +136,13 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
         return assignMapper.selectFilesCount(assignId);
     }
 
+    @Override
+    public List<PublicBanner> getAssignByTeacherIdBanner(Integer id) {
+        ArrayList<PublicBanner> data = new ArrayList<>();
+//
+        return data;
+    }
+
 
     //    @Override
 //    public int updateByExampleSelective(Assign record,AssignExample example) {

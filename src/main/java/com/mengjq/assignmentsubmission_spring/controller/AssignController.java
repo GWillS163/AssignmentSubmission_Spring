@@ -5,6 +5,7 @@ import com.mengjq.assignmentsubmission_spring.model.Assign;
 import com.mengjq.assignmentsubmission_spring.service.AssignService;
 import com.mengjq.assignmentsubmission_spring.util.PublicBanner;
 import com.mengjq.assignmentsubmission_spring.util.TimeFormat;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -132,6 +133,16 @@ public class AssignController {
         return assignService.getAssignByTeacherId(id);
     }
 
+    // /assign/teacher/assignBanner
+    @ApiOperation(value = "获取教师作业信息 作业角度横幅", notes = "获取教师作业信息的统计进度,应用于Tab2")
+    @GetMapping("/teacher/assignBanner/{id}")
+    public List<PublicBanner> getAssignByTeacherIdBanner(@PathVariable("id") String teacherId){
+        System.out.println("获取教师作业信息 作业角度横幅" + teacherId);
+//        TODO: 需要改成，根据每个教师的id，获取他的作业信息
+//        Integer id = Integer.parseInt(teacherId);
+//        return assignService.getAssignByTeacherIdBanner(id);
+        return assignService.getPublicAssignTab2Banner();
+    }
 
 
 
