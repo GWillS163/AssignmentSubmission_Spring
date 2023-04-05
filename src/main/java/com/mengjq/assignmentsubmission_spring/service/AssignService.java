@@ -50,6 +50,8 @@ public interface AssignService{
     List<Assign> getAssignProgressByClassId(String id);
 
     ArrayList<PublicBanner> getPublicAssignTab2Banner();
+
+    Integer getAssignProgress(String id);
     //根据主键全字段的更新
 //    int updateByPrimaryKey(Assign record);
 

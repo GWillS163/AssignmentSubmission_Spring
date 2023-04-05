@@ -26,6 +26,7 @@ public class MyFileController {
 
     @Autowired
     private MyFileService myFileService;
+    private String assignId;
 
 
     //查询数据

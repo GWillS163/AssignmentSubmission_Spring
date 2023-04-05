@@ -131,6 +131,11 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
 
     }
 
+    @Override
+    public Integer getAssignProgress(String assignId) {
+        return assignMapper.selectFilesCount(assignId);
+    }
+
 
     //    @Override
 //    public int updateByExampleSelective(Assign record,AssignExample example) {

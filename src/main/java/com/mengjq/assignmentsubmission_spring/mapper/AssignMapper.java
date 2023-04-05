@@ -17,8 +17,8 @@ public interface AssignMapper extends BaseMapper<Assign> {
     @Select("select * from assign where clazz_id = #{clazzId}")
     List<Assign> selectByClazzId(int clazzId);
 
-    // 根据教师id查询所有的班级的所有作业
-    @Select("select * from assign where ( clazz_id in (select clazz_id from clazz where teacher_id = #{teacherId}) )")
+    // 查询所有作业通过班级id， 每个老师会拥有多个班级
+    @Select("select * from assign where clazz_id in (select clazz_id from teacher where teacher_id = #{teacherId})")
     List<Assign> selectByTeacherId(int teacherId);
 
     @Select("select * from assign where id = #{id}")
@@ -120,4 +120,10 @@ public interface AssignMapper extends BaseMapper<Assign> {
     // selectAssignNameByAssignId
     @Select("select brief_name from assign where id = #{id}")
     String getAssignNameByAssignId(int id);
+
+    // 查询files数量， 通过assignId, 以用户ID为唯一值
+    @Select("select count(*) from file where assign_id = #{assignId}")
+    Integer selectFilesCount(String assignId);
+
+
 }

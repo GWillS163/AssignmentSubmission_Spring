@@ -104,6 +104,12 @@ public class AssignController {
 //        return assignService.getPublicAssignTab3Banner();
 //    }
 
+    @ApiOperation(value = "获取作业进度", notes = "获取作业进度,应用于Tab3")
+    @GetMapping("/{id}/progress")
+    public Integer getAssignProgress(@PathVariable("id") String assignId){
+        System.out.println("获取作业进度 assignId : " + assignId);
+        return assignService.getAssignProgress(assignId);
+    }
 
     // 获取班级所有作业进度
     @GetMapping("/class/{id}/progress")
@@ -114,6 +120,7 @@ public class AssignController {
         Integer id = Integer.parseInt(classId);
         return list;
     }
+    // 获取作业进度
 
 
     // 根据教师Id 获取所有作业信息（班级内的）
