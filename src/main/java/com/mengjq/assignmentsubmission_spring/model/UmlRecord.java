@@ -9,12 +9,15 @@ public class UmlRecord {
     private int id;
     private int user_id;
     private String user_input;
+    // q: 为什么我的数据库里面的gpt_response 是LongText，在java中无法映射成String
+    // a:
     private String gpt_response;
     private String uml_png_src;
     private String uml_intro;
     private String uml_code;
     private String create_time;
     private String last_edit_time;
+    private boolean is_hide;
 
     public int getId() {
         return id;
@@ -87,6 +90,15 @@ public class UmlRecord {
     public void setLast_edit_time(String last_edit_time) {
         this.last_edit_time = last_edit_time;
     }
+
+    public boolean isIs_hide() {
+        return is_hide;
+    }
+
+    public void setIs_hide(boolean is_hide) {
+        this.is_hide = is_hide;
+    }
+
     /**
      * Returns a string representation of the UmlRecord object.
      * @return String representation of the UmlRecord object.
@@ -103,6 +115,7 @@ public class UmlRecord {
                 ", uml_code='" + uml_code + '\'' +
                 ", create_time='" + create_time + '\'' +
                 ", last_edit_time='" + last_edit_time + '\'' +
+                ", is_hide =" + is_hide + '\'' +
                 '}';
     }
 }

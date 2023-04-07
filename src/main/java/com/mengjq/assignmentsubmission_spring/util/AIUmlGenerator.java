@@ -15,7 +15,7 @@ public class AIUmlGenerator {
     // set a property to save the uml png url
 
     String openAIUrl = "https://api.openai-proxy.com/pro/chat/completions"; // 目标URL
-    String apiKey = "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";
+    String apiKey = "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";
     private final String saveFolder =  "AIUml\\";
     private final String historyPath =  saveFolder + "history\\";
     private final String saveName = "temp";
@@ -35,7 +35,8 @@ public class AIUmlGenerator {
             e.printStackTrace();
         }
         System.out.println("响应内容：" + res);
-        if (res.isEmpty() || res.getInteger("code") != 200) {
+        assert res != null;
+        if (res.getInteger("code") != 200 || res.get("data") == null) {
             System.out.println("GPT error" + res);
             return separateResponse(null);
         }
