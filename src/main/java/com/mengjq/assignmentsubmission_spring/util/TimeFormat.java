@@ -14,6 +14,11 @@ public class TimeFormat {
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));//设置北京时间
         return simpleDateFormat.format(new Date());
     }
+    public static String getNowTimeForFileName() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));//设置北京时间
+        return simpleDateFormat.format(new Date());
+    }
 
     public static String verifyNull(String time) {
         // if registerTime === "null" then return null

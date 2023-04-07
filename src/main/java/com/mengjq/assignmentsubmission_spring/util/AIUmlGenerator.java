@@ -17,6 +17,7 @@ public class AIUmlGenerator {
     String openAIUrl = "https://api.openai-proxy.com/pro/chat/completions"; // 目标URL
     String apiKey = "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";
     private final String saveFolder =  "AIUml\\";
+    private final String historyPath =  saveFolder + "history\\";
     private final String saveName = "temp";
     private final String saveTxtPath = saveFolder + saveName + ".txt";
     private final String savePngPath = saveFolder + saveName + ".png";
@@ -45,11 +46,11 @@ public class AIUmlGenerator {
     public String getNewUmlUrl(String umlCode) {
         saveUmlCode(umlCode);
         try {
-            saveUmlPng();
+            return saveUmlPng();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        return savePngPath;
+        return null;
     }
 
 
@@ -132,7 +133,7 @@ public class AIUmlGenerator {
         }
     }
 
-    private void saveUmlPng() throws IOException, InterruptedException {
+    private String saveUmlPng() throws IOException, InterruptedException {
 //        String command = "cmd /c copy /y AIUml\\temp.txt AIUml\\temp2.txt"; // CMD命令
         String command = "cmd /c java " +
                 "-Djava.awt.headless=true " +
@@ -142,17 +143,36 @@ public class AIUmlGenerator {
                 "-jar " + plantUmlPath + " " +
                 saveTxtPath; // CMD命令
 //        System.out.println("saveUmlPng: " + command);
-        Process process = Runtime.getRuntime().exec(command); // 运行CMD命令
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream())); // 获取CMD输出流
-
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line); // 输出CMD命令结果
-        }
-        int exitCode = process.waitFor(); // CMD命令执行完成后获取退出码
-        System.out.println("saveUmlPng：命令执行完成，退出码为：" + exitCode);
+        runCommand(command);
         System.out.println("saveUmlPng: "+ savePngPath);
+        return backupUmlPng();
+
+    }
+
+    private String backupUmlPng() {
+        String currentTime = TimeFormat.getNowTimeForFileName();
+//        String backupName = savePngPath.replaceAll("\\.png", "_" + currentTime + ".png");
+        String backupName = currentTime + ".png";
+        String newSavePath = historyPath + backupName;
+        String command = "cmd /c copy /y " + savePngPath + " " +  newSavePath; // CMD命令
+        runCommand(command);
+        System.out.println("backupUmlPng: " + newSavePath);
+        return newSavePath;
+    }
+
+    private void runCommand(String command) {
+        try {
+            Process process = Runtime.getRuntime().exec(command); // 运行CMD命令
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream())); // 获取CMD输出流
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line); // 输出CMD命令结果
+            }
+            int exitCode = process.waitFor(); // CMD命令执行完成后获取退出码
+            System.out.println("命令执行完成，退出码为：" + exitCode);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void waitTime(int time) {
@@ -166,24 +186,30 @@ public class AIUmlGenerator {
         System.out.println("sleep end");
     }
 
+
+    public void echoDict(Dictionary<String, String> responseDict) {
+//        System.out.println("askGPT:" + res.toString());
+        System.out.println("--------------------------------------------");
+        System.out.println("umlCode:" + responseDict.get("umlCode"));
+        System.out.println("--------------------------------------------");
+        System.out.println("umlIntro:" + responseDict.get("umlIntro"));
+        System.out.println("--------------------------------------------");
+
+    }
+
     public static void main(String[] args) {
         AIUmlGenerator aiUmlGenerator = new AIUmlGenerator();
         String userInput = "我想要一个UML, demo";
 //        String allString = "好的，以下是一个简单的示例UML图的代码演示：\\n\\n```plantuml\\n@startuml\\ntitle 示例UML图\\n\\n|用户|\\n\\nstart\\n\\nif (用户已登录？) then (yes)\\n  :显示个人资料页面;\\nelse (no)\\n  :跳转到登录页面;\\nendif\\n\\n|用户|\\n\\nstop\\n@enduml\\n```\\n\\n上述UML图中，描述了一个用户登录状态的判断过程。用户可以通过登录来访问个人资料页面，如果用户未登录，则会被跳转到登录页面。使用PlantUML语法绘制以上UML图。\\n\\n代码描述如下：\\n\\n1. `@startuml` 和 `@enduml` 命令分别表示 UML 图的开始和结束。\\n2. `title` 命令用于为 UML 图添加标题。\\n3. `|用户|` 用于表示类的名称，竖线符号表示 UML 类图中的分隔符。\\n4. `start` 命令表示 UML 图的开始节点。\\n5. `if` 命令用于表示条件语句，`then` 表示条件为真时将执行的语句块，`else` 表示条件为假时将执行的语句块。\\n6. `-->` 表示连线，表示从一个节点到另一个节点。\\n7. `stop` 命令表示 UML 图的结束节点。\\n\\n以上是一个简单的UML图的代码演示，你可以根据需要自行构建更复杂的UML图。";
 
 //        Dictionary<String, String> res = aiUmlGenerator.separateResponse(allString);
-
-        Dictionary<String, String> res = aiUmlGenerator.askGPT(userInput);
-        System.out.println("askGPT:" + res.toString());
-        System.out.println("askGPT:" + res.get("userInput"));
-        System.out.println("--------------------------------------------");
-        System.out.println("umlCode:" + res.get("umlCode"));
-        System.out.println("--------------------------------------------");
-        System.out.println("umlIntro:" + res.get("umlIntro"));
-        System.out.println("--------------------------------------------");
-
-        String path = aiUmlGenerator.getNewUmlUrl(res.get("umlCode"));
-        System.out.println("path:" + path);
+        aiUmlGenerator.backupUmlPng();
+//        System.out.println("userInput:" + userInput);
+//        Dictionary<String, String> res = aiUmlGenerator.askGPT(userInput);
+//        aiUmlGenerator.echoDict(res);
+//
+//        String savePath = aiUmlGenerator.getNewUmlUrl(res.get("umlCode"));
+//        System.out.println("path:" + savePath);
 
 
         String umlCode = "以下是商场管理系统的UML类图的代码：\n" +
@@ -246,4 +272,5 @@ public class AIUmlGenerator {
                 "```\n";
 //        aiUmlGenerator.getNewUmlUrl(umlCode);
     }
+
 }
