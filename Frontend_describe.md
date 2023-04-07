@@ -14,15 +14,10 @@ type
 qq
 ![img.png](img.png)![img_1.png](img_1.png)
 
-| 字段名 | 数据类型 | 长度 | 是否主键 | 是否允许为空 | 说明 |
-| --- | --- | --- | --- | --- | --- |
-| id | int | 11 | 是 | 否 | 学生ID |
-| name | varchar | 20 | 否 | 是 | 姓名 |
-| work_id | varchar | 20 | 否 | 是 | 工号 |
-| password | varchar | 20 | 否 | 是 | 密码 |
-| create_time | datetime | - | 否 | 否 | 创建时间 |
-| last_login_time | datetime | - | 否 | 否 | 上次登录时间 |
-| mail | varchar | 50 | 否 | 是 | 邮箱 |
-| qq | varchar | 20 | 否 | 是 | QQ号码 |
-| phone | varchar | 20 | 否 | 是 | 电话号码 |
-| description | varchar | 255 | 否 | 是 | 描述 |
+/ |         ()         / | | |
+| (   __ _ ___ _ _ __   | || |_ _ __   ___ _ __
+___ \ / ` / | | ' \  |  _| | ' \ / _ \ '|
+) | (| _ \ | |) | | | | || |) |  / |
+|/ _,|/| .__/  ||  _| ./ _||
+| |             | |
+||             ||

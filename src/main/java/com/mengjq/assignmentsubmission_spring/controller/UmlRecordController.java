@@ -39,9 +39,14 @@ public class UmlRecordController {
         System.out.println("continueUmlRecord: " + umlRecord);
         return startRequest(umlRecord);
     }
+    // 虚拟删除
     @PutMapping("/{id}")
     public int putUmlRecord(UmlRecord umlRecord) {
         umlRecord.setIs_hide(true);
+        String onHandling = "正在处理";
+//        umlRecord.setUml_code(onHandling);
+//        umlRecord.setUml_intro(onHandling);
+//        umlRecord.setUser_input(inputFilter(umlRecord.getUser_input()));
         return umlRecordMapper.updateById(umlRecord);
     }
 
@@ -49,13 +54,15 @@ public class UmlRecordController {
     public int postUmlRecord(UmlRecord umlRecord) {
         System.out.println("postUmlRecord");
         String onHandling = "正在处理";
-        // wait long time by sleep
+        System.out.println(umlRecord);
         // 插入数据，以便能看到查询结果
         umlRecord.setGpt_response(onHandling);
         umlRecord.setUml_code(onHandling);
         umlRecord.setUml_intro(onHandling);
         umlRecord.setCreate_time(TimeFormat.getNowTime());
         umlRecordMapper.insert(umlRecord);
+        // turn the quote symbol to slash
+        umlRecord.setUser_input(inputFilter(umlRecord.getUser_input()));
 
         return startRequest(umlRecord);
     }
@@ -65,7 +72,7 @@ public class UmlRecordController {
 
         // 询问GPT并分隔， 得到三段文字
         AIUmlGenerator aiUmlGenerator = new AIUmlGenerator();
-        System.out.println("userInput: " + umlRecord.getUser_input());
+//        System.out.println("userInput: " + umlRecord.getUser_input());
         if (umlRecord.getUser_input().equals(" ") || umlRecord.getUser_input() == null) {
             return 0;
         }
@@ -82,6 +89,15 @@ public class UmlRecordController {
         umlRecord.setLast_edit_time(TimeFormat.getNowTime());
 //        System.out.println("umlRecord after draw: " + umlRecord);
         return umlRecordMapper.updateById(umlRecord);
+    }
+
+    // input filter
+    public String inputFilter(String input) {
+        System.out.println("inputFilter: " + input);
+        if (input == null) {
+            return "";
+        }
+        return input.replace("\"", "\\\"");
     }
 
 }

@@ -15,7 +15,7 @@ public class AIUmlGenerator {
     // set a property to save the uml png url
 
     String openAIUrl = "https://api.openai-proxy.com/pro/chat/completions"; // 目标URL
-    String apiKey = "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";
+    String apiKey = "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";
     private final String saveFolder =  "AIUml\\";
     private final String historyPath =  saveFolder + "history\\";
     private final String saveName = "temp";
@@ -45,7 +45,7 @@ public class AIUmlGenerator {
     }
 
     public String getNewUmlUrl(String umlCode) {
-        if (umlCode == null) {
+        if (umlCode == null || umlCode.equals("")) {
             return null;
         }
         saveUmlCode(umlCode);
@@ -62,9 +62,9 @@ public class AIUmlGenerator {
         String umlCode = resDataText;
         Dictionary<String, String> dict = new Hashtable<>();
         if (resDataText == null) {
-            dict.put("gptResponse", null);
-            dict.put("umlCode", null);
-            dict.put("umlIntro", null);
+            dict.put("gptResponse", "");
+            dict.put("umlCode", "");
+            dict.put("umlIntro", "");
             return dict;
         }
 
@@ -209,7 +209,7 @@ public class AIUmlGenerator {
         String userInput = "我想要一个UML, demo";
 //        String allString = "好的，以下是一个简单的示例UML图的代码演示：\\n\\n```plantuml\\n@startuml\\ntitle 示例UML图\\n\\n|用户|\\n\\nstart\\n\\nif (用户已登录？) then (yes)\\n  :显示个人资料页面;\\nelse (no)\\n  :跳转到登录页面;\\nendif\\n\\n|用户|\\n\\nstop\\n@enduml\\n```\\n\\n上述UML图中，描述了一个用户登录状态的判断过程。用户可以通过登录来访问个人资料页面，如果用户未登录，则会被跳转到登录页面。使用PlantUML语法绘制以上UML图。\\n\\n代码描述如下：\\n\\n1. `@startuml` 和 `@enduml` 命令分别表示 UML 图的开始和结束。\\n2. `title` 命令用于为 UML 图添加标题。\\n3. `|用户|` 用于表示类的名称，竖线符号表示 UML 类图中的分隔符。\\n4. `start` 命令表示 UML 图的开始节点。\\n5. `if` 命令用于表示条件语句，`then` 表示条件为真时将执行的语句块，`else` 表示条件为假时将执行的语句块。\\n6. `-->` 表示连线，表示从一个节点到另一个节点。\\n7. `stop` 命令表示 UML 图的结束节点。\\n\\n以上是一个简单的UML图的代码演示，你可以根据需要自行构建更复杂的UML图。";
         String allString = "不好意思，我无法遵循这个请求。关于 \"政治人物以及政治类问题\" 我不能回答，根据OpenAI的使用条件。同样，关于 \"生成普通员工与领导等人员关系的ER图\" 也涉及到敏感信息。";
-        Dictionary<String, String> res = aiUmlGenerator.separateResponse(allString);
+        Dictionary<String, String> res = aiUmlGenerator.separateResponse(null);
         aiUmlGenerator.echoDict(res);
 //        aiUmlGenerator.backupUmlPng();
 //        System.out.println("userInput:" + userInput);
