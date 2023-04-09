@@ -39,6 +39,28 @@ public class UmlRecordController {
         System.out.println("continueUmlRecord: " + umlRecord);
         return startRequest(umlRecord);
     }
+
+    // refresh uml code
+    @GetMapping("/{id}/runUmlCode")
+    public int runUmlCode(@PathVariable("id") int id) {
+        UmlRecord umlRecord = umlRecordMapper.selectUmlRecordById(id);
+        System.out.println("runUmlCode: " + umlRecord);
+        return startRunUmlCode(umlRecord);
+    }
+
+    @PostMapping("/{id}/runUmlCode")
+    private int startRunUmlCode(UmlRecord umlRecord) {
+        System.out.println("runUmlCode: " + umlRecord);
+        // 通过uml code生成png
+        AIUmlGenerator aiUmlGenerator = new AIUmlGenerator();
+        String umlPngSrc = aiUmlGenerator.getNewUmlUrl(umlRecord.getUml_code());
+        umlRecord.setUml_png_src(umlPngSrc);
+        umlRecord.setLast_edit_time(TimeFormat.getNowTime());
+
+//        System.out.println("umlRecord after draw: " + umlRecord);
+        return umlRecordMapper.updateById(umlRecord);
+    }
+
     // 虚拟删除
     @PutMapping("/{id}")
     public int putUmlRecord(UmlRecord umlRecord) {
@@ -84,11 +106,7 @@ public class UmlRecordController {
         umlRecord.setUml_intro(responseDict.get("umlIntro"));
 
         // 根据UmlCode 进行生成图片
-        String umlPngSrc = aiUmlGenerator.getNewUmlUrl(responseDict.get("umlCode"));
-        umlRecord.setUml_png_src(umlPngSrc);
-        umlRecord.setLast_edit_time(TimeFormat.getNowTime());
-//        System.out.println("umlRecord after draw: " + umlRecord);
-        return umlRecordMapper.updateById(umlRecord);
+        return startRunUmlCode(umlRecord);
     }
 
     // input filter

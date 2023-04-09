@@ -1,36 +1,27 @@
 @startuml
-entity Company {
-    * ID : int
-    - name : varchar(40)
-    - address : varchar(100)
-    - phone : varchar(20)
-}
+autonumber
 
-entity Department {
-    * ID : int
-    - name : varchar(40)
-    - manager : varchar(40)
-    - create_date : date
-    - company_id : int
-}
+participant 护工
+participant 管理员
 
-entity Employee {
-    * ID : int
-    - name : varchar(40)
-    - gender : varchar(10)
-    - age : int
-    - phone : varchar(20)
-    - email : varchar(40)
-    - department_id : int
-}
+护工 -> 管理员: 请求请病假
+activate 管理员
 
-entity Position {
-    * ID : int
-    - name : varchar(40)
-    - salary : decimal
-}
-
-Department -|> Employee
-Department -|> Position
-Employee - Position
+管理员 -> 管理员: 查询护工情况
+alt 护工情况正常
+    管理员 -> 管理员: 审核通过
+    管理员 --> 护工: 请假通过
+    deactivate 管理员
+    护工 -> 护工: 办理手续
+    护工 -> 护工: 离开工作岗位
+    护工 -> 护工: 愉快度假
+    护工 -> 护工: 工作岗位重新安排
+    护工 --> 管理员: 离开工作岗位
+    return 护工
+else 护工情况异常
+    管理员 -> 管理员: 审核未通过
+    管理员 --> 护工: 请假未通过
+    deactivate 管理员
+    return 护工
+end
 @enduml
