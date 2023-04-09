@@ -1,36 +1,12 @@
 @startuml
-entity Company {
-    * ID : int
-    - name : varchar(40)
-    - address : varchar(100)
-    - phone : varchar(20)
+left to right direction
+actor Admin #black
+rectangle 主要功能 {
+  Admin --> (管理所有教师信息)
+  Admin --> (管理班级信息)
+  Admin --> (管理学生信息)
+ (管理学生信息) --> (批量增改)
+  Admin --> (管理所有作业各式)
+  Admin --> (管理所有作业文件)
 }
-
-entity Department {
-    * ID : int
-    - name : varchar(40)
-    - manager : varchar(40)
-    - create_date : date
-    - company_id : int
-}
-
-entity Employee {
-    * ID : int
-    - name : varchar(40)
-    - gender : varchar(10)
-    - age : int
-    - phone : varchar(20)
-    - email : varchar(40)
-    - department_id : int
-}
-
-entity Position {
-    * ID : int
-    - name : varchar(40)
-    - salary : decimal
-}
-
-Department -|> Employee
-Department -|> Position
-Employee - Position
 @enduml
