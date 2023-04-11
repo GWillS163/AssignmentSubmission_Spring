@@ -128,5 +128,11 @@ public interface AssignMapper extends BaseMapper<Assign> {
     @Select("select count(*) from file where assign_id = #{assignId}")
     Integer selectFilesCount(String assignId);
 
+    @Select("select count(*) from assign")
+    int countAllAssigns();
+
+    @Select("select count(*) from assign where ddl > now()")
+    int countAssignNotFinished();
+    // 查询files数量， 通过assignId, 以用户ID为唯一值
 
 }

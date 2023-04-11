@@ -143,6 +143,16 @@ public class AssignServiceImpl extends ServiceImpl<AssignMapper, Assign> impleme
         return data;
     }
 
+    @Override
+    public int countAssignNotFinished() {
+        return assignMapper.countAssignNotFinished();
+    }
+
+    @Override
+    public int countAllAssigns() {
+        return assignMapper.selectCount(null);
+    }
+
 
     //    @Override
 //    public int updateByExampleSelective(Assign record,AssignExample example) {

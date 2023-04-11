@@ -25,6 +25,11 @@ public class MyFileServiceImpl implements MyFileService{
         return mapper.countByExample(example);
     }
 
+    // 查询所有文件 数量
+    public int countAll() {
+        return mapper.selectCount(null);
+    }
+
     @Override
     public int deleteByExample(MyFileExample example) {
         return mapper.deleteByExample(example);

@@ -30,6 +30,8 @@ public interface MyFileService{
     //根据主键全字段的更新
     int updateByPrimaryKey(MyFile record);
 
+    int countAll();
+
     List<MyFile> selectAll();
 
     List<MyFile> selectByStudentId(String studentId);

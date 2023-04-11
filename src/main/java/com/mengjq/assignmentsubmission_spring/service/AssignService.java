@@ -54,6 +54,10 @@ public interface AssignService{
     Integer getAssignProgress(String id);
 
     List<PublicBanner> getAssignByTeacherIdBanner(Integer id);
+
+    int countAssignNotFinished();
+
+    int countAllAssigns();
     //根据主键全字段的更新
 //    int updateByPrimaryKey(Assign record);
 
