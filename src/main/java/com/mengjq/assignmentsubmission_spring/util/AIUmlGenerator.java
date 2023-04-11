@@ -17,7 +17,10 @@ public class AIUmlGenerator {
     String openAIUrl = "https://api.openai-proxy.com/pro/chat/completions"; // 目标URL
 //    String apiKey = "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";
 //    String apiKey = "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"; // Your access was terminated due to violation of our policies, please check your email for more information.
-    String apiKey = "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";
+//    String apiKey = "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"; // hotmail 被清空
+//    String apiKey = "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"; // CHF- token2
+//    String apiKey = "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"; // CHF- token1
+    String apiKey = "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"; // 2023年4月10日 Hotmail
     private final String saveFolder =  "AIUml\\";
     private final String historyPath =  saveFolder + "history\\";
     private final String saveName = "temp";
@@ -40,7 +43,7 @@ public class AIUmlGenerator {
         assert res != null;
         if (res.getInteger("code") != 200 || res.get("data") == null) {
             System.out.println("GPT error" + res);
-            return putErrorResponse(res.get("message").toString());
+            return putErrorResponse(res.toString());
         }
         // 拿出 data 进行分割
         return separateResponse(res.get("data").toString());
@@ -63,8 +66,8 @@ public class AIUmlGenerator {
     private Dictionary<String, String> putErrorResponse(String message) {
         Dictionary<String, String> dict = new Hashtable<>();
         dict.put("gptResponse", message);
-        dict.put("umlCode", "");
-        dict.put("umlIntro", "");
+        dict.put("umlCode", message);
+        dict.put("umlIntro", message);
         return dict;
     }
 

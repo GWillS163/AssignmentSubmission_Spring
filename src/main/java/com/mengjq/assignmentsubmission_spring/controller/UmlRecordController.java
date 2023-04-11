@@ -34,7 +34,7 @@ public class UmlRecordController {
 
     // continue to generate uml
     @GetMapping("/{id}/refresh")
-    public int continueUmlRecord(@PathVariable("id") int id) {
+    public UmlRecord continueUmlRecord(@PathVariable("id") int id) {
         UmlRecord umlRecord = umlRecordMapper.selectUmlRecordById(id);
         System.out.println("continueUmlRecord: " + umlRecord);
         return startRequest(umlRecord);
@@ -42,15 +42,19 @@ public class UmlRecordController {
 
     // refresh uml code
     @GetMapping("/{id}/runUmlCode")
-    public int runUmlCode(@PathVariable("id") int id) {
+    public UmlRecord runUmlCode(@PathVariable("id") int id) {
         UmlRecord umlRecord = umlRecordMapper.selectUmlRecordById(id);
         System.out.println("runUmlCode: " + umlRecord);
         return startRunUmlCode(umlRecord);
     }
 
     @PostMapping("/{id}/runUmlCode")
-    private int startRunUmlCode(UmlRecord umlRecord) {
+    private UmlRecord startRunUmlCode(UmlRecord umlRecord) {
         System.out.println("runUmlCode: " + umlRecord);
+//        if ("@startuml" not in umlRecord.getUml_code()) {
+        if (!umlRecord.getUml_code().contains("@startuml")) {
+            return umlRecord;
+        }
         // 通过uml code生成png
         AIUmlGenerator aiUmlGenerator = new AIUmlGenerator();
         String umlPngSrc = aiUmlGenerator.getNewUmlUrl(umlRecord.getUml_code());
@@ -58,7 +62,8 @@ public class UmlRecordController {
         umlRecord.setLast_edit_time(TimeFormat.getNowTime());
 
 //        System.out.println("umlRecord after draw: " + umlRecord);
-        return umlRecordMapper.updateById(umlRecord);
+        int res = umlRecordMapper.updateById(umlRecord);
+        return umlRecord;
     }
 
     // 虚拟删除
@@ -73,7 +78,7 @@ public class UmlRecordController {
     }
 
     @PostMapping("")
-    public int postUmlRecord(UmlRecord umlRecord) {
+    public UmlRecord postUmlRecord(UmlRecord umlRecord) {
         System.out.println("postUmlRecord");
         String onHandling = "正在处理";
         System.out.println(umlRecord);
@@ -90,13 +95,13 @@ public class UmlRecordController {
     }
 
     // 开始请求数据
-    private int startRequest(UmlRecord umlRecord) {
+    private UmlRecord startRequest(UmlRecord umlRecord) {
 
         // 询问GPT并分隔， 得到三段文字
         AIUmlGenerator aiUmlGenerator = new AIUmlGenerator();
 //        System.out.println("userInput: " + umlRecord.getUser_input());
         if (umlRecord.getUser_input().equals(" ") || umlRecord.getUser_input() == null) {
-            return 0;
+            return umlRecord;
         }
         Dictionary<String, String> responseDict = aiUmlGenerator.askGPT(umlRecord.getUser_input());
         aiUmlGenerator.echoDict(responseDict);
