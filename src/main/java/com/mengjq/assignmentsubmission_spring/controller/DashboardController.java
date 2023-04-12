@@ -24,6 +24,7 @@ public class DashboardController {
     AssignService assignService;
     @Autowired
     MyFileService myFileService;
+    @Autowired
     StudentMapper studentMapper;
 
 
@@ -39,7 +40,7 @@ public class DashboardController {
         Integer assignNotFinishedCountInt = assignService.countAssignNotFinished();
         String assignNotFinishedCount = String.valueOf(assignNotFinishedCountInt);
         // query all student count
-        Integer studentCountInt = studentMapper.selectCounts();
+        Integer studentCountInt = studentMapper.selectCount(null);
         String studentCount = String.valueOf(studentCountInt);
         titleCards.add(new DashboardTitleCard("在库作业", String.valueOf(assignCount), "fas fa-calendar"));
         titleCards.add(new DashboardTitleCard("在库文件", fileCount, "fas fa-comments"));
