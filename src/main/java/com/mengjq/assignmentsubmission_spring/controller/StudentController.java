@@ -108,15 +108,15 @@ public class StudentController {
         return turnStudentMap(students);
     }
 
-    @PostMapping("")
-    public String createUser(Student student) {
-        System.out.println("正在创建用户" + student.getUsername());
-        System.out.println();
-        student.setRegisterTime(TimeFormat.getNowTime());
-        int i = studentMapper.insert(student);
-        System.out.println(student);
-        return isSuccess(i);
-    }
+@PostMapping("")
+public String createUser(Student student) {
+    System.out.println("正在创建用户" + student.getUsername());
+    System.out.println();
+    student.setRegisterTime(TimeFormat.getNowTime());
+    int i = studentMapper.insert(student);
+    System.out.println(student);
+    return isSuccess(i);
+}
 
     @PutMapping("/{id}")
     public String updateUser(@PathVariable int id, Student student) {
