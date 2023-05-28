@@ -112,7 +112,7 @@ public class MyFileController {
     public List<MyFile> selectMyFilePublic() {
         System.out.println("查询公开提交数据");
         // get current Time with format
-        String currentTime = TimeFormat.getBeforeNowDays(30);
+        String currentTime = TimeFormat.getBeforeNowDays(60);
         System.out.println("查询时间" + currentTime);
         return myFileService.selectMyFilePublic(currentTime);
     }

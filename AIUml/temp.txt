@@ -1,36 +1,30 @@
 @startuml
-skinparam monochrome true 
-skinparam defaultFontSize 15
+skinparam monochrome true
 skinparam defaultFontName "宋体"
+skinparam defaultFontSize 10
 scale 2
 
-actor 用户 as 管理员 
-participant UML助手 as 页面
+actor 教师2 as 管理员 
+participant 管理页面 as 页面
 participant 后端 as 服务端
-database UML图数据库 as 数据库
-participant chatGPT as gpt
+database 数据库 as 数据库
 
-管理员 -> 页面: 打开管理页面
-activate 管理员
+管理员 -> 页面: 打开管理页面 
+activate 管理员 
 activate 页面
 
-管理员 -> 页面: 请求绘制信息
-页面 -> 服务端: 发送查询请求
+管理员 -> 页面: 填写学生信息信息 
+页面 -> 服务端: 发送注册请求
 activate 服务端
 
-服务端 -> gpt: 请求UML代码与描述
-activate gpt
-gpt -> 服务端: 返回UML代码
-deactivate gpt
-
-服务端 -> 数据库: 绘制数据，并重新查询
+服务端 -> 数据库: 添加数据
 activate 数据库
 数据库 --> 服务端: 返回查询结果
 deactivate 数据库
 
-服务端 --> 页面: 返回查询结果
+服务端 --> 页面: 返回注册结果
 deactivate 服务端
-页面 --> 管理员: 显示查询结果
-deactivate 管理员
+页面 --> 管理员: 显示失败
 deactivate 页面
+deactivate 管理员 
 @enduml
